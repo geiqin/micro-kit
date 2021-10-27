@@ -15,3 +15,7 @@ func Load(tokenConf *model.TokenInfo) {
 	}
 	log.Println("load token config succeed")
 }
+
+func GetTokenCfg() *model.TokenInfo {
+	return tokenCfg
+}

@@ -36,6 +36,17 @@ func GetUserId(ctx context.Context) int64 {
 	return 0
 }
 
+
+//获得当前ClientID
+func GetClientId(ctx context.Context) string {
+	val := ctx.Value("client_id")
+	if val != nil {
+		v := val.(string)
+		return v
+	}
+	return ""
+}
+
 //获得当前店铺ID
 func GetStoreId(ctx context.Context) int64 {
 	val := ctx.Value("store_id")

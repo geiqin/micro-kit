@@ -10,6 +10,7 @@ type HeaderGrantInfo struct {
 	StoreId    string `json:"store_id"`
 	CustomerId string `json:"customer_id"`
 	SessionId  string `json:"session_id"`
+	ClientId   string `json:"client_id"`
 }
 
 func GinJWTMiddleware(ctx *gin.Context) {
@@ -19,6 +20,7 @@ func GinJWTMiddleware(ctx *gin.Context) {
 		StoreId:    ctx.GetHeader("Auth-Store-Id"),
 		CustomerId: ctx.GetHeader("Auth-Customer-Id"),
 		SessionId:  ctx.GetHeader("Session-Id"),
+		ClientId:  ctx.GetHeader("Client-Id"),
 	}
 
 	if ctx.Keys == nil {
@@ -39,6 +41,9 @@ func GinJWTMiddleware(ctx *gin.Context) {
 	}
 	if g.Mode != "" {
 		ctx.Keys["mode"] = g.Mode
+	}
+	if g.ClientId != "" {
+		ctx.Keys["client_id"] = g.ClientId
 	}
 
 	//取值方式

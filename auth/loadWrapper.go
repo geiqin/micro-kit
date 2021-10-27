@@ -23,6 +23,7 @@ func LoadWrapper(fn server.HandlerFunc) server.HandlerFunc {
 		customerId := meta["Auth-Customer-Id"]
 		sessionId := meta["Session-Id"]
 		mode := meta["Auth-Mode"]
+		clientId := meta["Client-Id"]
 
 		if userId != "" {
 			ctx = context.WithValue(ctx, "user_id", userId)
@@ -38,6 +39,9 @@ func LoadWrapper(fn server.HandlerFunc) server.HandlerFunc {
 		}
 		if mode != "" {
 			ctx = context.WithValue(ctx, "mode", mode)
+		}
+		if clientId != "" {
+			ctx = context.WithValue(ctx, "client_id", clientId)
 		}
 
 		//继续执行下一步处理
