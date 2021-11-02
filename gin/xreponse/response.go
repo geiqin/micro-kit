@@ -23,10 +23,12 @@ func Error(c *gin.Context, err error, msg ...string) {
 // 失败数据处理
 func Failed(c *gin.Context, errMsg string, errCode ...int32) {
 	var res common.Error
-	res.Message = errMsg
+	var code int32 = 400
 	if errCode != nil {
-		res.Code = errCode[0]
+		code = errCode[0]
 	}
+	res.Message = errMsg
+	res.Code = code
 	c.AbortWithStatusJSON(http.StatusOK, res)
 }
 
