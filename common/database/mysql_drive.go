@@ -74,8 +74,6 @@ func (e *Mysql) Setup(cfg *Configure) (*gorm.DB, error) {
 		return nil, err
 	}
 
-	log.Println(" connect success !")
-
 	return gormBb, nil
 }
 
