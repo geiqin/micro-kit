@@ -14,6 +14,33 @@ import (
 type Mysql struct {
 }
 
+func (e *Mysql) RemoveSqlDB(cfg *Configure) {
+	if cfg.IsPools {
+		global.Cfg.SetDbs(cfg.Database, nil)
+	} else {
+		global.Cfg.SetDb(nil)
+	}
+}
+
+func (e *Mysql) OpenSqlDB(cfg *Configure) (*sql.DB, error) {
+	db, err := sql.Open(cfg.Driver, cfg.Source)
+	if err != nil {
+		log.Fatal(cfg.Driver+" connect error :", err)
+		return nil, err
+	}
+	if cfg.IsPools {
+		global.Cfg.SetDbs(cfg.Database, &config.DBConfig{
+			Driver: cfg.Driver,
+			DB:     db,
+		})
+	} else {
+		global.Cfg.SetDb(&config.DBConfig{
+			Driver: cfg.Driver,
+			DB:     db,
+		})
+	}
+	return db, err
+}
 func (e *Mysql) GetSqlDB(cfg *Configure) (*sql.DB, error) {
 	var db *sql.DB
 	var err error
@@ -22,38 +49,24 @@ func (e *Mysql) GetSqlDB(cfg *Configure) (*sql.DB, error) {
 	if cfg.IsPools {
 		dbCfg := global.Cfg.GetDbByKey(cfg.Database)
 		if dbCfg == nil {
-			db, err = sql.Open(cfg.Driver, cfg.Source)
-			if err != nil {
-				log.Fatal(cfg.Driver+" connect error :", err)
-				return nil, err
-			}
-			global.Cfg.SetDbs(cfg.Database, &config.DBConfig{
-				Driver: cfg.Driver,
-				DB:     db,
-			})
+			db, err = e.OpenSqlDB(cfg)
 		} else {
 			db = dbCfg.DB
 		}
 	} else {
 		dbCfg := global.Cfg.GetDb()
 		if dbCfg == nil {
-			db, err = sql.Open(cfg.Driver, cfg.Source)
-			if err != nil {
-				log.Fatal(cfg.Driver+" connect error :", err)
-				return nil, err
-			}
-			global.Cfg.SetDb(&config.DBConfig{
-				Driver: cfg.Driver,
-				DB:     db,
-			})
+			db, err = e.OpenSqlDB(cfg)
 		} else {
 			db = dbCfg.DB
 		}
 	}
-	if err := db.Ping(); err != nil {
-		defer db.Close()
-		return nil, err
-	}
+	/*
+		if err := db.Ping(); err != nil {
+			defer db.Close()
+			return nil, err
+		}
+	*/
 	return db, err
 }
 
@@ -75,10 +88,12 @@ func (e *Mysql) Setup(cfg *Configure) (*gorm.DB, error) {
 		},
 	})
 	if err != nil {
+		e.RemoveSqlDB(cfg)
 		log.Fatal(" connect error :", err)
 		return nil, err
 	}
 	if gormBb.Error != nil {
+		e.RemoveSqlDB(cfg)
 		log.Println(" connect gormBb fail:", gormBb.Error)
 		return nil, err
 	}
