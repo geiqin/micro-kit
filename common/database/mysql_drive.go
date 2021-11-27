@@ -27,11 +27,13 @@ func (e *Mysql) GetSqlDB(cfg *Configure) (*sql.DB, error) {
 				log.Fatal(cfg.Driver+" connect error :", err)
 				return nil, err
 			}
+			global.Cfg.SetDbs(cfg.Database, &config.DBConfig{
+				Driver: cfg.Driver,
+				DB:     db,
+			})
+		} else {
+			db = dbCfg.DB
 		}
-		global.Cfg.SetDbs(cfg.Database, &config.DBConfig{
-			Driver: cfg.Driver,
-			DB:     db,
-		})
 	} else {
 		dbCfg := global.Cfg.GetDb()
 		if dbCfg == nil {
@@ -44,16 +46,23 @@ func (e *Mysql) GetSqlDB(cfg *Configure) (*sql.DB, error) {
 				Driver: cfg.Driver,
 				DB:     db,
 			})
+		} else {
+			db = dbCfg.DB
 		}
+	}
+	if err := db.Ping(); err != nil {
+		defer db.Close()
+		return nil, err
 	}
 	return db, err
 }
 
 // Setup 配置步骤
 func (e *Mysql) Setup(cfg *Configure) (*gorm.DB, error) {
-	db, err := sql.Open(cfg.Driver, cfg.Source)
-	//db, err := e.GetSqlDB(cfg)
+	//db, err := sql.Open(cfg.Driver, cfg.Source)
+	db, err := e.GetSqlDB(cfg)
 	if err != nil {
+		defer db.Close()
 		return nil, err
 	}
 
