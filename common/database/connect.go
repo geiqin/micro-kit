@@ -6,12 +6,13 @@ import (
 	"github.com/geiqin/micro-kit/app"
 	"github.com/geiqin/micro-kit/auth"
 	dbs "github.com/geiqin/micro-kit/database"
+	"github.com/geiqin/xconfig/model"
 	"gorm.io/gorm"
 	"log"
 )
 
-func Connect(ctx context.Context) *gorm.DB {
-	conf := GetConfigure(ctx)
+func ConnectOther(ctx context.Context, cfg *model.DatabaseInfo) *gorm.DB {
+	conf := GetConfigure(ctx, cfg)
 	db, err := Setup(conf)
 	if err != nil {
 		log.Fatal("Connect db error:", err)
@@ -19,9 +20,17 @@ func Connect(ctx context.Context) *gorm.DB {
 	return db
 }
 
-// GetConnect 获取数据库连接
-func GetConfigure(ctx context.Context) *Configure {
+func Connect(ctx context.Context) *gorm.DB {
 	cfg := dbs.GetConnectCfg(app.Flag())
+	conf := GetConfigure(ctx, cfg)
+	db, err := Setup(conf)
+	if err != nil {
+		log.Fatal("Connect db error:", err)
+	}
+	return db
+}
+
+func GetConfigure(ctx context.Context, cfg *model.DatabaseInfo) *Configure {
 	appCfg := app.GetConfig()
 	dbName := cfg.Database
 	if app.Private() {
