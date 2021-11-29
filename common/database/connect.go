@@ -38,6 +38,6 @@ func GetConfigure(ctx context.Context) *Configure {
 		Source:      source,
 		Database:    dbName,
 		TablePrefix: cfg.Prefix,
-		IsPools:     app.Private(),
+		IsPools:     true,
 	}
 }
