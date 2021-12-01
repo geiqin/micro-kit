@@ -28,6 +28,11 @@ func (e *Mysql) OpenSqlDB(cfg *Configure) (*sql.DB, error) {
 		log.Fatal(cfg.Driver+" connect error :", err)
 		return nil, err
 	}
+	if err := db.Ping(); err != nil {
+		defer db.Close()
+		log.Fatal(cfg.Driver+"OpenSqlDB connect error :", err)
+		return nil, err
+	}
 	if cfg.IsPools {
 		global.Cfg.SetDbs(cfg.Database, &config.DBConfig{
 			Driver: cfg.Driver,
