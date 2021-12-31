@@ -44,14 +44,26 @@ func StoreContextByBroker(p broker.Event) context.Context {
 
 //主要提供给 WEB模式下使用
 func StoreContextByHeader(header http.Header) context.Context {
-	storeId := header.Get("Auth-Store-Id")
+	mode := header.Get("Auth-Mode")
+	sessionId := header.Get("Auth-Session-Id")
 	userId := header.Get("Auth-User-Id")
-	customerId := header.Get("Auth-Customer-Id")
+	storeId := header.Get("Auth-Store-Id")
+	storeManagerId := header.Get("Auth-Store-Manager-Id")
+	storeSellerId := header.Get("Auth-Store-Seller-Id")
+	storeHumanId := header.Get("Auth-Store-Human-Id")
+	storeCustomerId := header.Get("Auth-Customer-Id")
+
 	ctx := context.Background()
-	if storeId != "" {
-		ctx = context.WithValue(ctx, "store_id", storeId)
+	if mode != "" {
+		ctx = context.WithValue(ctx, "mode", storeId)
 		ctx = metadata.NewContext(ctx, map[string]string{
-			"Auth-Store-Id": storeId,
+			"Auth-Mode": storeId,
+		})
+	}
+	if sessionId != "" {
+		ctx = context.WithValue(ctx, "session_id", sessionId)
+		ctx = metadata.NewContext(ctx, map[string]string{
+			"Auth-Session-Id": sessionId,
 		})
 	}
 	if userId != "" {
@@ -60,10 +72,34 @@ func StoreContextByHeader(header http.Header) context.Context {
 			"Auth-User-Id": userId,
 		})
 	}
-	if customerId != "" {
-		ctx = context.WithValue(ctx, "customer_id", customerId)
+	if storeId != "" {
+		ctx = context.WithValue(ctx, "store_id", storeId)
 		ctx = metadata.NewContext(ctx, map[string]string{
-			"Auth-Customer-Id": userId,
+			"Auth-Store-Id": storeId,
+		})
+	}
+	if storeManagerId != "" {
+		ctx = context.WithValue(ctx, "store_manager_id", storeManagerId)
+		ctx = metadata.NewContext(ctx, map[string]string{
+			"Auth-Store-Manager-Id": storeManagerId,
+		})
+	}
+	if storeSellerId != "" {
+		ctx = context.WithValue(ctx, "store_seller_id", storeSellerId)
+		ctx = metadata.NewContext(ctx, map[string]string{
+			"Auth-Store-Seller-Id": storeSellerId,
+		})
+	}
+	if storeHumanId != "" {
+		ctx = context.WithValue(ctx, "store_human_id", storeHumanId)
+		ctx = metadata.NewContext(ctx, map[string]string{
+			"Auth-Store-Human-Id": storeHumanId,
+		})
+	}
+	if storeCustomerId != "" {
+		ctx = context.WithValue(ctx, "store_customer_id", storeCustomerId)
+		ctx = metadata.NewContext(ctx, map[string]string{
+			"Auth-Store-Customer-Id": storeCustomerId,
 		})
 	}
 	return ctx
