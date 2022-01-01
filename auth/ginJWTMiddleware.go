@@ -6,11 +6,10 @@ import (
 
 type HeaderGrantInfo struct {
 	Mode            string `json:"mode"`
-	UserId          string `json:"user_id"`
+	ManagerId       string `json:"manager_id"`
 	StoreId         string `json:"store_id"`
-	StoreManagerId  string `json:"store_manager_id"`
+	StoreUserId     string `json:"store_user_id"`
 	StoreSellerId   string `json:"store_seller_id"`
-	StoreHumanId    string `json:"store_human_id"`
 	StoreCustomerId string `json:"store_customer_id"`
 	SessionId       string `json:"session_id"`
 	ClientId        string `json:"client_id"`
@@ -19,11 +18,10 @@ type HeaderGrantInfo struct {
 func GinJWTMiddleware(ctx *gin.Context) {
 	g := &HeaderGrantInfo{
 		Mode:            ctx.GetHeader("Auth-Mode"),
-		UserId:          ctx.GetHeader("Auth-User-Id"),
 		StoreId:         ctx.GetHeader("Auth-Store-Id"),
-		StoreManagerId:  ctx.GetHeader("Auth-Store-Manager-Id"),
+		ManagerId:       ctx.GetHeader("Auth-Manager-Id"),
 		StoreSellerId:   ctx.GetHeader("Auth-Store-Seller-Id"),
-		StoreHumanId:    ctx.GetHeader("Auth-Store-Human-Id"),
+		StoreUserId:     ctx.GetHeader("Auth-Store-User-Id"),
 		StoreCustomerId: ctx.GetHeader("Auth-Store-Customer-Id"),
 		SessionId:       ctx.GetHeader("Session-Id"),
 		ClientId:        ctx.GetHeader("Client-Id"),
@@ -33,20 +31,20 @@ func GinJWTMiddleware(ctx *gin.Context) {
 		ctx.Keys = make(map[string]interface{})
 	}
 
-	if g.UserId != "" {
-		ctx.Keys["user_id"] = g.UserId
+	if g.StoreUserId != "" {
+		ctx.Keys["user_id"] = g.StoreUserId
 	}
 	if g.StoreId != "" {
 		ctx.Keys["store_id"] = g.StoreId
 	}
-	if g.StoreManagerId != "" {
-		ctx.Keys["store_manager_id"] = g.StoreManagerId
+	if g.ManagerId != "" {
+		ctx.Keys["manager_id"] = g.ManagerId
 	}
 	if g.StoreSellerId != "" {
 		ctx.Keys["store_seller_id"] = g.StoreSellerId
 	}
-	if g.StoreHumanId != "" {
-		ctx.Keys["store_human_id"] = g.StoreHumanId
+	if g.StoreUserId != "" {
+		ctx.Keys["store_user_id"] = g.StoreUserId
 	}
 	if g.StoreCustomerId != "" {
 		ctx.Keys["store_customer_id"] = g.StoreCustomerId

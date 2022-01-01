@@ -46,12 +46,11 @@ func StoreContextByBroker(p broker.Event) context.Context {
 func StoreContextByHeader(header http.Header) context.Context {
 	mode := header.Get("Auth-Mode")
 	sessionId := header.Get("Auth-Session-Id")
-	userId := header.Get("Auth-User-Id")
+	managerId := header.Get("Auth-Manager-Id")
 	storeId := header.Get("Auth-Store-Id")
-	storeManagerId := header.Get("Auth-Store-Manager-Id")
 	storeSellerId := header.Get("Auth-Store-Seller-Id")
-	storeHumanId := header.Get("Auth-Store-Human-Id")
-	storeCustomerId := header.Get("Auth-Customer-Id")
+	storeUserId := header.Get("Auth-Store-User-Id")
+	storeCustomerId := header.Get("Auth-Store-Customer-Id")
 
 	ctx := context.Background()
 	if mode != "" {
@@ -66,22 +65,16 @@ func StoreContextByHeader(header http.Header) context.Context {
 			"Auth-Session-Id": sessionId,
 		})
 	}
-	if userId != "" {
-		ctx = context.WithValue(ctx, "user_id", userId)
-		ctx = metadata.NewContext(ctx, map[string]string{
-			"Auth-User-Id": userId,
-		})
-	}
 	if storeId != "" {
 		ctx = context.WithValue(ctx, "store_id", storeId)
 		ctx = metadata.NewContext(ctx, map[string]string{
 			"Auth-Store-Id": storeId,
 		})
 	}
-	if storeManagerId != "" {
-		ctx = context.WithValue(ctx, "store_manager_id", storeManagerId)
+	if managerId != "" {
+		ctx = context.WithValue(ctx, "manager_id", managerId)
 		ctx = metadata.NewContext(ctx, map[string]string{
-			"Auth-Store-Manager-Id": storeManagerId,
+			"Auth-Manager-Id": managerId,
 		})
 	}
 	if storeSellerId != "" {
@@ -90,10 +83,10 @@ func StoreContextByHeader(header http.Header) context.Context {
 			"Auth-Store-Seller-Id": storeSellerId,
 		})
 	}
-	if storeHumanId != "" {
-		ctx = context.WithValue(ctx, "store_human_id", storeHumanId)
+	if storeUserId != "" {
+		ctx = context.WithValue(ctx, "store_user_id", storeUserId)
 		ctx = metadata.NewContext(ctx, map[string]string{
-			"Auth-Store-Human-Id": storeHumanId,
+			"Auth-Store-User-Id": storeUserId,
 		})
 	}
 	if storeCustomerId != "" {

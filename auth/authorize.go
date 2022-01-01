@@ -26,16 +26,6 @@ func GetSessionId(ctx context.Context) string {
 	return ""
 }
 
-//获得当前用户ID
-func GetUserId(ctx context.Context) int64 {
-	val := ctx.Value("user_id")
-	if val != nil {
-		v := helper.StringToInt64(val.(string))
-		return v
-	}
-	return 0
-}
-
 //获得当前ClientID
 func GetClientId(ctx context.Context) string {
 	val := ctx.Value("client_id")
@@ -46,9 +36,9 @@ func GetClientId(ctx context.Context) string {
 	return ""
 }
 
-//获得当前店铺ID
-func GetStoreId(ctx context.Context) int64 {
-	val := ctx.Value("store_id")
+//获得当前管理员ID
+func GetManagerId(ctx context.Context) int64 {
+	val := ctx.Value("manager_id")
 	if val != nil {
 		v := helper.StringToInt64(val.(string))
 		return v
@@ -56,9 +46,9 @@ func GetStoreId(ctx context.Context) int64 {
 	return 0
 }
 
-//获得当前店铺管理员ID
-func GetStoreManagerId(ctx context.Context) int64 {
-	val := ctx.Value("store_manager_id")
+//获得当前店铺ID
+func GetStoreId(ctx context.Context) int64 {
+	val := ctx.Value("store_id")
 	if val != nil {
 		v := helper.StringToInt64(val.(string))
 		return v
@@ -76,9 +66,9 @@ func GetStoreSellerId(ctx context.Context) int64 {
 	return 0
 }
 
-//获得当前店铺员工ID
-func GetStoreHumanId(ctx context.Context) int64 {
-	val := ctx.Value("store_human_id")
+//获得当前店铺用户ID
+func GetStoreUserId(ctx context.Context) int64 {
+	val := ctx.Value("store_user_id")
 	if val != nil {
 		v := helper.StringToInt64(val.(string))
 		return v
