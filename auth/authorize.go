@@ -56,9 +56,9 @@ func GetStoreId(ctx context.Context) int64 {
 	return 0
 }
 
-//获得当前店铺卖家ID
-func GetStoreSellerId(ctx context.Context) int64 {
-	val := ctx.Value("store_seller_id")
+//获得当前店铺分店ID
+func GetStoreShopId(ctx context.Context) int64 {
+	val := ctx.Value("store_shop_id")
 	if val != nil {
 		v := helper.StringToInt64(val.(string))
 		return v

@@ -21,7 +21,7 @@ func LoadWrapper(fn server.HandlerFunc) server.HandlerFunc {
 		managerId := meta["Auth-Manager-Id"]
 		storeId := meta["Auth-Store-Id"]
 		storeUserId := meta["Auth-Store-User-Id"]
-		storeSellerId := meta["Auth-Store-Seller-Id"]
+		storeShopId := meta["Auth-Store-Shop-Id"]
 		storeCustomerId := meta["Auth-Store-Customer-Id"]
 		sessionId := meta["Session-Id"]
 		mode := meta["Auth-Mode"]
@@ -36,8 +36,8 @@ func LoadWrapper(fn server.HandlerFunc) server.HandlerFunc {
 		if storeUserId != "" {
 			ctx = context.WithValue(ctx, "store_user_id", storeUserId)
 		}
-		if storeSellerId != "" {
-			ctx = context.WithValue(ctx, "store_seller_id", storeSellerId)
+		if storeShopId != "" {
+			ctx = context.WithValue(ctx, "store_shop_id", storeShopId)
 		}
 		if storeCustomerId != "" {
 			ctx = context.WithValue(ctx, "store_customer_id", storeCustomerId)
