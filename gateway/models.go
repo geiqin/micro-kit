@@ -19,7 +19,6 @@ type GrantRoute struct {
 	Path               string `json:"path" gorm:"size:100"`                  //路径
 	Method             string `json:"method" gorm:"size:10"`                 //请求方式 ALL GET POST DELETE
 	HasStore           bool   `json:"has_store" gorm:"default:0"`            //是否店铺API
-	AllowAdmin         bool   `json:"allow_admin" gorm:"default:1"`          //允许平台超级管理员
 	AllowManager       bool   `json:"allow_manager" gorm:"default:0"`        //允许平台管理员
 	AllowStoreUser     bool   `json:"allow_store_user" gorm:"default:0"`     //允许店铺用户
 	AllowStoreSeller   bool   `json:"allow_store_seller" gorm:"default:0"`   //允许店铺卖家
