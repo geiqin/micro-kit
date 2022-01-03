@@ -20,8 +20,14 @@ func ConnectOther(ctx context.Context, cfg *model.DatabaseInfo) *gorm.DB {
 	return db
 }
 
-func Connect(ctx context.Context) *gorm.DB {
-	cfg := dbs.GetConnectCfg(app.Flag())
+func Connect(ctx context.Context, customAppFlag ...string) *gorm.DB {
+	var flag string
+	if customAppFlag != nil {
+		flag = customAppFlag[0]
+	} else {
+		flag = app.Flag()
+	}
+	cfg := dbs.GetConnectCfg(flag)
 	conf := GetConfigure(ctx, cfg)
 	db, err := Setup(conf)
 	if err != nil {
