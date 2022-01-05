@@ -50,6 +50,7 @@ func StoreContextByHeader(header http.Header) context.Context {
 	storeId := header.Get("Auth-Store-Id")
 	storeShopId := header.Get("Auth-Store-Shop-Id")
 	storeUserId := header.Get("Auth-Store-User-Id")
+	storeEmployeeId := header.Get("Auth-Store-Employee-Id")
 	storeCustomerId := header.Get("Auth-Store-Customer-Id")
 
 	ctx := context.Background()
@@ -81,6 +82,12 @@ func StoreContextByHeader(header http.Header) context.Context {
 		ctx = context.WithValue(ctx, "store_shop_id", storeShopId)
 		ctx = metadata.NewContext(ctx, map[string]string{
 			"Auth-Store-Shop-Id": storeShopId,
+		})
+	}
+	if storeEmployeeId != "" {
+		ctx = context.WithValue(ctx, "store_employee_id", storeEmployeeId)
+		ctx = metadata.NewContext(ctx, map[string]string{
+			"Auth-Store-Employee-Id": storeEmployeeId,
 		})
 	}
 	if storeUserId != "" {
