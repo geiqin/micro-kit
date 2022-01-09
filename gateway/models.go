@@ -4,9 +4,10 @@ import "github.com/geiqin/gotools/model"
 
 //授权频道
 type GrantChannel struct {
-	Id     int           `json:"id"`                          //id
-	Name   string        `json:"name"  gorm:"size:50;unique"` //频道名称
-	Title  string        `json:"title"  gorm:"size:50"`       //频道标题
+	Id     int           `json:"id"`                                 //id
+	Name   string        `json:"name"  gorm:"size:50;unique"`        //频道名称
+	Title  string        `json:"title"  gorm:"size:50"`              //频道标题
+	Type   string        `json:"type" gorm:"type:enum('API','WEB')"` //类型
 	Routes []*GrantRoute `json:"routes"`
 	model.Timestamps
 }
