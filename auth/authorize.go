@@ -66,16 +66,6 @@ func GetStoreShopId(ctx context.Context) int64 {
 	return 0
 }
 
-//获得当前店铺员工ID
-func GetStoreEmployeeId(ctx context.Context) int64 {
-	val := ctx.Value("store_employee_id")
-	if val != nil {
-		v := helper.StringToInt64(val.(string))
-		return v
-	}
-	return 0
-}
-
 //获得当前店铺用户ID
 func GetStoreUserId(ctx context.Context) int64 {
 	val := ctx.Value("store_user_id")

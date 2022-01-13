@@ -10,7 +10,6 @@ type HeaderGrantInfo struct {
 	StoreId         string `json:"store_id"`
 	StoreUserId     string `json:"store_user_id"`
 	StoreShopId     string `json:"store_shop_id"`
-	StoreEmployeeId string `json:"store_employee_id"`
 	StoreCustomerId string `json:"store_customer_id"`
 	SessionId       string `json:"session_id"`
 	ClientId        string `json:"client_id"`
@@ -23,7 +22,6 @@ func GinJWTMiddleware(ctx *gin.Context) {
 		ManagerId:       ctx.GetHeader("Auth-Manager-Id"),
 		StoreShopId:     ctx.GetHeader("Auth-Store-Shop-Id"),
 		StoreUserId:     ctx.GetHeader("Auth-Store-User-Id"),
-		StoreEmployeeId: ctx.GetHeader("Auth-Store-Employee-Id"),
 		StoreCustomerId: ctx.GetHeader("Auth-Store-Customer-Id"),
 		SessionId:       ctx.GetHeader("Session-Id"),
 		ClientId:        ctx.GetHeader("Client-Id"),
@@ -47,9 +45,6 @@ func GinJWTMiddleware(ctx *gin.Context) {
 	}
 	if g.StoreUserId != "" {
 		ctx.Keys["store_user_id"] = g.StoreUserId
-	}
-	if g.StoreEmployeeId != "" {
-		ctx.Keys["store_employee_id"] = g.StoreEmployeeId
 	}
 	if g.StoreCustomerId != "" {
 		ctx.Keys["store_customer_id"] = g.StoreCustomerId
