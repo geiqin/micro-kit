@@ -145,21 +145,28 @@ func GetStoreId(ctx context.Context) int64 {
 }
 
 //获得当前店铺用户ID
+func GetManagerId(ctx context.Context) int64 {
+	u := GetUser(ctx)
+	if u.HasManager() {
+		return u.UserId
+	}
+	return 0
+}
+
+//获得当前店铺用户ID
 func GetStoreUserId(ctx context.Context) int64 {
-	val := ctx.Value("store_user_id")
-	if val != nil {
-		v := helper.StringToInt64(val.(string))
-		return v
+	u := GetUser(ctx)
+	if u.HasStoreUser() {
+		return u.UserId
 	}
 	return 0
 }
 
 //获得当前店铺客户ID
 func GetStoreCustomerId(ctx context.Context) int64 {
-	val := ctx.Value("store_customer_id")
-	if val != nil {
-		v := helper.StringToInt64(val.(string))
-		return v
+	u := GetUser(ctx)
+	if u.HasStoreCustomer() {
+		return u.UserId
 	}
 	return 0
 }
