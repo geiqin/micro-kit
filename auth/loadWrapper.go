@@ -18,35 +18,27 @@ func LoadWrapper(fn server.HandlerFunc) server.HandlerFunc {
 			return errors.New("no auth meta-data found in request")
 		}
 
-		managerId := meta["Auth-Manager-Id"]
-		storeId := meta["Auth-Store-Id"]
-		storeUserId := meta["Auth-Store-User-Id"]
-		storeShopId := meta["Auth-Store-Shop-Id"]
-		storeCustomerId := meta["Auth-Store-Customer-Id"]
-		sessionId := meta["Session-Id"]
 		mode := meta["Auth-Mode"]
+		userId := meta["Auth-User-Id"]
+		sessionKey := meta["Session-Key"]
+		storeId := meta["Auth-Store-Id"]
+		storeShopId := meta["Auth-Store-Shop-Id"]
 		clientId := meta["Client-Id"]
 
-		if managerId != "" {
-			ctx = context.WithValue(ctx, "manager_id", managerId)
+		if mode != "" {
+			ctx = context.WithValue(ctx, "mode", mode)
+		}
+		if userId != "" {
+			ctx = context.WithValue(ctx, "user_id", userId)
 		}
 		if storeId != "" {
 			ctx = context.WithValue(ctx, "store_id", storeId)
 		}
-		if storeUserId != "" {
-			ctx = context.WithValue(ctx, "store_user_id", storeUserId)
-		}
 		if storeShopId != "" {
 			ctx = context.WithValue(ctx, "store_shop_id", storeShopId)
 		}
-		if storeCustomerId != "" {
-			ctx = context.WithValue(ctx, "store_customer_id", storeCustomerId)
-		}
-		if sessionId != "" {
-			ctx = context.WithValue(ctx, "session_id", sessionId)
-		}
-		if mode != "" {
-			ctx = context.WithValue(ctx, "mode", mode)
+		if sessionKey != "" {
+			ctx = context.WithValue(ctx, "session_key", sessionKey)
 		}
 		if clientId != "" {
 			ctx = context.WithValue(ctx, "client_id", clientId)

@@ -45,12 +45,11 @@ func StoreContextByBroker(p broker.Event) context.Context {
 //主要提供给 WEB模式下使用
 func StoreContextByHeader(header http.Header) context.Context {
 	mode := header.Get("Auth-Mode")
-	sessionId := header.Get("Auth-Session-Id")
-	managerId := header.Get("Auth-Manager-Id")
+	sessionKey := header.Get("Auth-Session-Key")
+	clientId := header.Get("Auth-Client-Id")
+	userId := header.Get("Auth-User-Id")
 	storeId := header.Get("Auth-Store-Id")
 	storeShopId := header.Get("Auth-Store-Shop-Id")
-	storeUserId := header.Get("Auth-Store-User-Id")
-	storeCustomerId := header.Get("Auth-Store-Customer-Id")
 
 	ctx := context.Background()
 	if mode != "" {
@@ -59,10 +58,10 @@ func StoreContextByHeader(header http.Header) context.Context {
 			"Auth-Mode": storeId,
 		})
 	}
-	if sessionId != "" {
-		ctx = context.WithValue(ctx, "session_id", sessionId)
+	if sessionKey != "" {
+		ctx = context.WithValue(ctx, "session_key", sessionKey)
 		ctx = metadata.NewContext(ctx, map[string]string{
-			"Auth-Session-Id": sessionId,
+			"Auth-Session-Key": sessionKey,
 		})
 	}
 	if storeId != "" {
@@ -71,29 +70,24 @@ func StoreContextByHeader(header http.Header) context.Context {
 			"Auth-Store-Id": storeId,
 		})
 	}
-	if managerId != "" {
-		ctx = context.WithValue(ctx, "manager_id", managerId)
-		ctx = metadata.NewContext(ctx, map[string]string{
-			"Auth-Manager-Id": managerId,
-		})
-	}
 	if storeShopId != "" {
 		ctx = context.WithValue(ctx, "store_shop_id", storeShopId)
 		ctx = metadata.NewContext(ctx, map[string]string{
 			"Auth-Store-Shop-Id": storeShopId,
 		})
 	}
-	if storeUserId != "" {
-		ctx = context.WithValue(ctx, "store_user_id", storeUserId)
+	if userId != "" {
+		ctx = context.WithValue(ctx, "user_id", userId)
 		ctx = metadata.NewContext(ctx, map[string]string{
-			"Auth-Store-User-Id": storeUserId,
+			"Auth-User-Id": userId,
 		})
 	}
-	if storeCustomerId != "" {
-		ctx = context.WithValue(ctx, "store_customer_id", storeCustomerId)
+	if clientId != "" {
+		ctx = context.WithValue(ctx, "client_id", clientId)
 		ctx = metadata.NewContext(ctx, map[string]string{
-			"Auth-Store-Customer-Id": storeCustomerId,
+			"Auth-Client-Id": clientId,
 		})
 	}
+
 	return ctx
 }
