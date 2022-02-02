@@ -2,6 +2,7 @@ package auth
 
 import (
 	"context"
+	"fmt"
 	"github.com/geiqin/gotools/helper"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -162,7 +163,6 @@ func getMetaValue(ctx context.Context, key string) string {
 	return ""
 }
 
-/*
 func GetStoreFlag(id int64, prefix ...string) string {
 	flag := fmt.Sprintf("%08d", id)
 	p := "go_store_"
@@ -172,4 +172,3 @@ func GetStoreFlag(id int64, prefix ...string) string {
 	flag = p + flag
 	return flag
 }
-*/
