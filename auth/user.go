@@ -99,8 +99,8 @@ func GetUserByHttpHeader(header http.Header) *User {
 		UserId:      helper.StringToInt64(header.Get("Auth-User-Id")),
 		StoreId:     helper.StringToInt64(header.Get("Auth-Store-Id")),
 		StoreShopId: helper.StringToInt64(header.Get("Auth-Store-Shop-Id")),
-		SessionKey:  header.Get("Session-Key"),
-		ClientId:    header.Get("Client-Id"),
+		SessionKey:  header.Get("Auth-Session-Key"),
+		ClientId:    header.Get("Auth-Client-Id"),
 	}
 	return ret
 }
@@ -113,8 +113,8 @@ func GetUserByGinHeader(ctx *gin.Context) *User {
 		UserId:      helper.StringToInt64(ctx.GetHeader("Auth-User-Id")),
 		StoreId:     helper.StringToInt64(ctx.GetHeader("Auth-Store-Id")),
 		StoreShopId: helper.StringToInt64(ctx.GetHeader("Auth-Store-Shop-Id")),
-		SessionKey:  ctx.GetHeader("Session-Key"),
-		ClientId:    ctx.GetHeader("Client-Id"),
+		SessionKey:  ctx.GetHeader("Auth-Session-Key"),
+		ClientId:    ctx.GetHeader("Auth-Client-Id"),
 	}
 	return ret
 }
