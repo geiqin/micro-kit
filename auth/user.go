@@ -11,14 +11,14 @@ import (
 
 //当前授权用户
 type User struct {
-	Mode        string `json:"mode"`
-	SessionKey  string `json:"session_key"`
-	UserId      int64  `json:"user_id"`
-	StoreId     int64  `json:"store_id"`
-	StoreShopId int64  `json:"store_shop_id"`
-	ClientId    string `json:"client_id"`
-	DisplayName string `json:"display_name"`       //显示名称
-	Username    string `json:"username,omitempty"` //登录账号
+	Mode        string `json:"mode"`                    //授权模式
+	SessionKey  string `json:"session_key,omitempty"`   //会话Key
+	UserId      int64  `json:"user_id,omitempty"`       //用户ID
+	StoreId     int64  `json:"store_id,omitempty"`      //店铺ID
+	StoreShopId int64  `json:"store_shop_id,omitempty"` //店铺分店ID
+	ClientId    string `json:"client_id,omitempty"`     //ClientID
+	DisplayName string `json:"display_name,omitempty"`  //显示名称
+	Username    string `json:"username,omitempty"`      //登录账号
 }
 
 //是否为店铺客户
@@ -45,14 +45,6 @@ func (a *User) HasStoreUser() bool {
 	return false
 }
 
-//是否为平台用户
-func (a *User) HasManager() bool {
-	if a.Mode == "admin" || a.Mode == "manager" {
-		return true
-	}
-	return false
-}
-
 //是否为店铺模式
 func (a *User) HasStoreMode() bool {
 	if strings.HasPrefix(a.Mode, "store_") {
@@ -61,32 +53,21 @@ func (a *User) HasStoreMode() bool {
 	return false
 }
 
-/*
-//用户是否已登录(mode为store_site 除外)
-func (a *User) GetDisplayName() string {
-	if a.displayName == "" {
-		return a.displayName
+//是否为平台用户
+func (a *User) HasManager() bool {
+	if a.Mode == "admin" || a.Mode == "manager" {
+		return true
 	}
-	return ""
+	return false
 }
 
-//获取用户登录账号
-func (a *User) GetUsername() string {
-	if a.username == "" {
-		return a.username
+//是否为超级用户（分平台级和店铺级）
+func (a *User) HasAdmin() bool {
+	if strings.HasSuffix(a.Mode, "admin") {
+		return true
 	}
-	return ""
+	return false
 }
-
-//从缓存获取用户信息
-func (a *User) loadUserInfo() string {
-	if a.username == "" {
-		return a.username
-	}
-	return ""
-}
-
-*/
 
 //用户是否已登录(mode为store_site 除外)
 func (a *User) HasLogin() bool {
