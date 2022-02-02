@@ -144,6 +144,26 @@ func GetStoreId(ctx context.Context) int64 {
 	return 0
 }
 
+//获得当前店铺用户ID
+func GetStoreUserId(ctx context.Context) int64 {
+	val := ctx.Value("store_user_id")
+	if val != nil {
+		v := helper.StringToInt64(val.(string))
+		return v
+	}
+	return 0
+}
+
+//获得当前店铺客户ID
+func GetStoreCustomerId(ctx context.Context) int64 {
+	val := ctx.Value("store_customer_id")
+	if val != nil {
+		v := helper.StringToInt64(val.(string))
+		return v
+	}
+	return 0
+}
+
 func getMetaValue(ctx context.Context, key string) string {
 	val := ctx.Value(key)
 	if val != nil {
