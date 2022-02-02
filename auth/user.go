@@ -6,6 +6,7 @@ import (
 	"github.com/geiqin/gotools/helper"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strings"
 )
 
 //当前授权用户
@@ -47,6 +48,14 @@ func (a *User) HasStoreUser() bool {
 //是否为平台用户
 func (a *User) HasManager() bool {
 	if a.Mode == "admin" || a.Mode == "manager" {
+		return true
+	}
+	return false
+}
+
+//是否为店铺模式
+func (a *User) HasStoreMode() bool {
+	if strings.HasPrefix(a.Mode, "store_") {
 		return true
 	}
 	return false
