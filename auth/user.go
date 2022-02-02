@@ -16,8 +16,8 @@ type User struct {
 	StoreId     int64  `json:"store_id"`
 	StoreShopId int64  `json:"store_shop_id"`
 	ClientId    string `json:"client_id"`
-	DisplayName string `json:"display_name"`       //内部使用
-	Username    string `json:"username,omitempty"` //内部使用
+	DisplayName string `json:"display_name"`       //显示名称
+	Username    string `json:"username,omitempty"` //登录账号
 }
 
 //是否为店铺客户
