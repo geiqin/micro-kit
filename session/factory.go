@@ -32,7 +32,7 @@ func newManager(cfg *model.SessionInfo) {
 }
 
 func GetSession(ctx context.Context) (session Session) {
-	session = globalSessionManager.SessionStart(GetSessionId(ctx))
+	session = globalSessionManager.SessionStart(GetSessionKey(ctx))
 	return session
 }
 
@@ -42,9 +42,10 @@ func GetSessionById(sessionId string) (session Session) {
 }
 
 func Destroy(ctx context.Context) {
-	globalSessionManager.SessionDestroy(GetSessionId(ctx))
+	globalSessionManager.SessionDestroy(GetSessionKey(ctx))
 }
 
-func GetSessionId(ctx context.Context) string {
-	return auth.GetSessionId(ctx)
+func GetSessionKey(ctx context.Context) string {
+	user := auth.GetUser(ctx)
+	return user.SessionKey
 }
