@@ -9,13 +9,14 @@ import (
 
 //当前授权用户
 type User struct {
-	Mode        string
-	DisplayName string
-	SessionKey  string
-	UserId      int64
-	StoreId     int64
-	StoreShopId int64
-	ClientId    string
+	Mode        string `json:"mode"`
+	SessionKey  string `json:"session_key"`
+	UserId      int64  `json:"user_id"`
+	StoreId     int64  `json:"store_id"`
+	StoreShopId int64  `json:"store_shop_id"`
+	ClientId    string `json:"client_id"`
+	DisplayName string `json:"display_name"`       //内部使用
+	Username    string `json:"username,omitempty"` //内部使用
 }
 
 //是否为店铺客户
@@ -49,6 +50,33 @@ func (a *User) HasManager() bool {
 	}
 	return false
 }
+
+/*
+//用户是否已登录(mode为store_site 除外)
+func (a *User) GetDisplayName() string {
+	if a.displayName == "" {
+		return a.displayName
+	}
+	return ""
+}
+
+//获取用户登录账号
+func (a *User) GetUsername() string {
+	if a.username == "" {
+		return a.username
+	}
+	return ""
+}
+
+//从缓存获取用户信息
+func (a *User) loadUserInfo() string {
+	if a.username == "" {
+		return a.username
+	}
+	return ""
+}
+
+*/
 
 //用户是否已登录(mode为store_site 除外)
 func (a *User) HasLogin() bool {
