@@ -174,7 +174,7 @@ func GetStoreCustomerId(ctx context.Context) int64 {
 func getMetaValue(ctx context.Context, key string) string {
 	val := ctx.Value(key)
 	if val != nil {
-		v := val.(string)
+		v := helper.ToString(val)
 		return v
 	}
 	return ""
