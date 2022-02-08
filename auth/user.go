@@ -138,7 +138,7 @@ func SetUser(ctx *gin.Context, user *User) {
 func GetStoreId(ctx context.Context) int64 {
 	val := ctx.Value("store_id")
 	if val != nil {
-		v := helper.StringToInt64(val.(string))
+		v := helper.StringToInt64(helper.ToString(val))
 		return v
 	}
 	return 0
