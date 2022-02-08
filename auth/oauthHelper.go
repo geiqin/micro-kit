@@ -3,13 +3,13 @@ package auth
 import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/geiqin/xconfig/model"
-	"github.com/go-redis/redis"
-	oredis "gopkg.in/go-oauth2/redis.v3"
-	"gopkg.in/oauth2.v3/generates"
-	"gopkg.in/oauth2.v3/manage"
-	"gopkg.in/oauth2.v3/models"
-	"gopkg.in/oauth2.v3/server"
-	"gopkg.in/oauth2.v3/store"
+	"github.com/go-oauth2/oauth2/v4/generates"
+	"github.com/go-oauth2/oauth2/v4/manage"
+	"github.com/go-oauth2/oauth2/v4/models"
+	"github.com/go-oauth2/oauth2/v4/server"
+	"github.com/go-oauth2/oauth2/v4/store"
+	oredis "github.com/go-oauth2/redis/v4"
+	"github.com/go-redis/redis/v8"
 	"time"
 )
 
@@ -97,13 +97,14 @@ func (b *OauthHelper) GetManager() *manage.Manager {
 
 	mgr.SetClientTokenCfg(b.GetConfig())
 	mgr.SetPasswordTokenCfg(b.GetConfig())
+
 	mgr.SetRefreshTokenCfg(&manage.RefreshingConfig{
 		AccessTokenExp:    b.accessTokenExp,
 		RefreshTokenExp:   b.refreshTokenExp,
 		IsGenerateRefresh: b.isGenerateRefresh,
 	})
 
-	mgr.MapAccessGenerate(generates.NewJWTAccessGenerate([]byte(b.PrivateKey), jwt.SigningMethodHS512))
+	mgr.MapAccessGenerate(generates.NewJWTAccessGenerate("", []byte(b.PrivateKey), jwt.SigningMethodHS512))
 	return mgr
 }
 
