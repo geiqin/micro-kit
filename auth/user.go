@@ -53,17 +53,25 @@ func (a *User) HasStoreMode() bool {
 	return false
 }
 
-//是否为平台用户
-func (a *User) HasManager() bool {
-	if a.Mode == "admin" || a.Mode == "manager" {
+//是否为系统管理员（店铺级）
+func (a *User) HasStoreAdmin() bool {
+	if a.Mode == "store_admin" {
 		return true
 	}
 	return false
 }
 
-//是否为超级用户（分平台级和店铺级）
-func (a *User) HasAdmin() bool {
-	if strings.HasSuffix(a.Mode, "admin") {
+//是否为平台管理员(平台级:admin)
+func (a *User) HasSuperAdmin() bool {
+	if a.Mode == "admin" {
+		return true
+	}
+	return false
+}
+
+//是否为平台用户(平台级:admin/manager)
+func (a *User) HasSuperManager() bool {
+	if a.Mode == "admin" || a.Mode == "manager" {
 		return true
 	}
 	return false
@@ -134,21 +142,21 @@ func SetUser(ctx *gin.Context, user *User) {
 	ctx.Next()
 }
 
+//获得当前用户ID
+func GetUserId(ctx context.Context) int64 {
+	u := GetUser(ctx)
+	if u != nil {
+		return u.UserId
+	}
+	return 0
+}
+
 //获得当前店铺ID
 func GetStoreId(ctx context.Context) int64 {
 	val := ctx.Value("store_id")
 	if val != nil {
 		v := helper.StringToInt64(helper.ToString(val))
 		return v
-	}
-	return 0
-}
-
-//获得当前店铺用户ID
-func GetManagerId(ctx context.Context) int64 {
-	u := GetUser(ctx)
-	if u.HasManager() {
-		return u.UserId
 	}
 	return 0
 }

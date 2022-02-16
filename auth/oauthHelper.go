@@ -2,7 +2,6 @@ package auth
 
 import (
 	"github.com/dgrijalva/jwt-go"
-	"github.com/geiqin/gotools/helper"
 	"github.com/geiqin/xconfig/model"
 	"github.com/go-redis/redis"
 	oredis "gopkg.in/go-oauth2/redis.v3"
@@ -11,7 +10,6 @@ import (
 	"gopkg.in/oauth2.v3/models"
 	"gopkg.in/oauth2.v3/server"
 	"gopkg.in/oauth2.v3/store"
-	"log"
 	"time"
 )
 
@@ -97,9 +95,10 @@ func (b *OauthHelper) GetManager() *manage.Manager {
 		DB:   b.RedisDB,
 	}))
 
-	log.Println("getconfig:", helper.JsonEncode(b.GetConfig()))
+	//log.Println("getconfig:", helper.JsonEncode(b.GetConfig()))
 	mgr.SetClientTokenCfg(b.GetConfig())
 	mgr.SetPasswordTokenCfg(b.GetConfig())
+
 	mgr.SetRefreshTokenCfg(&manage.RefreshingConfig{
 		AccessTokenExp:    b.accessTokenExp,
 		RefreshTokenExp:   b.refreshTokenExp,
