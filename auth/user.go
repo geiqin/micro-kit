@@ -190,6 +190,9 @@ func getMetaValue(ctx context.Context, key string) string {
 
 func GetStoreFlag(id int64, prefix ...string) string {
 	flag := fmt.Sprintf("%08d", id)
+	if id == 1 {
+		flag = "master"
+	}
 	p := "go_store_"
 	if prefix != nil {
 		p = prefix[0]
