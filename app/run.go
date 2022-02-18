@@ -3,7 +3,7 @@ package app
 import (
 	"github.com/geiqin/micro-kit/auth"
 	"github.com/geiqin/micro-kit/cache"
-	"github.com/geiqin/micro-kit/database"
+	"github.com/geiqin/micro-kit/common/database"
 	"github.com/geiqin/micro-kit/session"
 	"github.com/geiqin/xconfig/client"
 	"github.com/geiqin/xconfig/model"
