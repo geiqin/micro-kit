@@ -21,31 +21,43 @@ type User struct {
 	Username    string `json:"username,omitempty"`      //登录账号
 }
 
-//是否为店铺客户
-func (a *User) HasStoreCustomer() bool {
-	if a.Mode == "store_customer" {
+//是否为超级管理员
+func (a *User) HasAdmin() bool {
+	list := []string{"master_admin", "store_admin"}
+	if helper.InArray(list, a.Mode) {
 		return true
 	}
 	return false
 }
 
-//是否为店铺网站
-func (a *User) HasStoreSite() bool {
-	if a.Mode == "store_site" {
+//是否为管理员（内部用户）
+func (a *User) HasManager() bool {
+	list := []string{"master_admin", "master_manager", "master_user", "store_admin", "store_user"}
+	if helper.InArray(list, a.Mode) {
 		return true
 	}
 	return false
 }
 
-//是否为店铺用户
-func (a *User) HasStoreUser() bool {
-	if a.Mode == "store_admin" || a.Mode == "store_user" {
+//是否为客户/会员
+func (a *User) HasCustomer() bool {
+	list := []string{"store_customer", "master_customer", "master_member"}
+	if helper.InArray(list, a.Mode) {
 		return true
 	}
 	return false
 }
 
-//是否为店铺模式
+//是否为网站
+func (a *User) HasWebsite() bool {
+	list := []string{"store_site", "master_site"}
+	if helper.InArray(list, a.Mode) {
+		return true
+	}
+	return false
+}
+
+//是否为商铺模式
 func (a *User) HasStoreMode() bool {
 	if strings.HasPrefix(a.Mode, "store_") {
 		return true
@@ -53,25 +65,9 @@ func (a *User) HasStoreMode() bool {
 	return false
 }
 
-//是否为系统管理员（店铺级）
-func (a *User) HasStoreAdmin() bool {
-	if a.Mode == "store_admin" {
-		return true
-	}
-	return false
-}
-
-//是否为平台管理员(平台级:admin)
-func (a *User) HasSuperAdmin() bool {
-	if a.Mode == "admin" {
-		return true
-	}
-	return false
-}
-
-//是否为平台用户(平台级:admin/manager)
-func (a *User) HasSuperManager() bool {
-	if a.Mode == "admin" || a.Mode == "manager" {
+//是否为主铺模式
+func (a *User) HasMasterMode() bool {
+	if strings.HasPrefix(a.Mode, "master_") {
 		return true
 	}
 	return false
@@ -157,24 +153,6 @@ func GetStoreId(ctx context.Context) int64 {
 	if val != nil {
 		v := helper.StringToInt64(helper.ToString(val))
 		return v
-	}
-	return 0
-}
-
-//获得当前店铺用户ID
-func GetStoreUserId(ctx context.Context) int64 {
-	u := GetUser(ctx)
-	if u.HasStoreUser() {
-		return u.UserId
-	}
-	return 0
-}
-
-//获得当前店铺客户ID
-func GetStoreCustomerId(ctx context.Context) int64 {
-	u := GetUser(ctx)
-	if u.HasStoreCustomer() {
-		return u.UserId
 	}
 	return 0
 }
