@@ -5,26 +5,13 @@ import (
 	"fmt"
 	"github.com/geiqin/micro-kit/app"
 	"github.com/geiqin/micro-kit/auth"
+	"github.com/geiqin/micro-kit/common/config"
+
 	//dbs "github.com/geiqin/micro-kit/database"
 	"github.com/geiqin/xconfig/model"
 	"gorm.io/gorm"
 	"log"
 )
-
-var dbConnections map[string]*model.DatabaseInfo
-
-func Load(connections map[string]*model.DatabaseInfo) {
-	dbConnections = connections
-}
-
-//获取数据库连接配置
-func GetConnectCfg(name string, storeFlag ...string) *model.DatabaseInfo {
-	cfg := dbConnections[name]
-	if &cfg != nil && storeFlag != nil {
-		cfg.Database = storeFlag[0]
-	}
-	return cfg
-}
 
 func ConnectOther(ctx context.Context, cfg *model.DatabaseInfo) *gorm.DB {
 	conf := GetConfigure(ctx, cfg)
@@ -42,7 +29,7 @@ func Connect(ctx context.Context, customAppFlag ...string) *gorm.DB {
 	} else {
 		flag = app.Flag()
 	}
-	cfg := GetConnectCfg(flag)
+	cfg := config.GetConnectCfg(flag)
 	conf := GetConfigure(ctx, cfg)
 	db, err := Setup(conf)
 	if err != nil {

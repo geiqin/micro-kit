@@ -3,7 +3,7 @@ package app
 import (
 	"github.com/geiqin/micro-kit/auth"
 	"github.com/geiqin/micro-kit/cache"
-	"github.com/geiqin/micro-kit/common/database"
+	"github.com/geiqin/micro-kit/common/config"
 	"github.com/geiqin/micro-kit/session"
 	"github.com/geiqin/xconfig/client"
 	"github.com/geiqin/xconfig/model"
@@ -44,7 +44,7 @@ func Run(flag string, private bool, option ...Option) {
 
 	databaseCfg := client.GetDatabaseConfig()
 	connCfg := databaseCfg.Connections
-	database.Load(connCfg)
+	config.Load(connCfg)
 	sessionCnf := appConfig.Session
 	cacheCnf := databaseCfg.RedisList["cache"]
 	sessionRedisCnf := databaseCfg.RedisList["session"]
