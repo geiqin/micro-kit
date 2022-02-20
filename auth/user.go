@@ -32,7 +32,10 @@ func (a *User) HasAdmin() bool {
 
 //是否为管理员（内部用户）
 func (a *User) HasManager() bool {
-	list := []string{"master_admin", "master_manager", "master_user", "store_admin", "store_user"}
+	list := []string{
+		"master_admin", "master_manager", "master_user",
+		"store_admin", "store_manager", "store_user", "store_seller",
+	}
 	if helper.InArray(list, a.Mode) {
 		return true
 	}
@@ -41,7 +44,7 @@ func (a *User) HasManager() bool {
 
 //是否为客户/会员
 func (a *User) HasCustomer() bool {
-	list := []string{"store_customer", "master_customer", "master_member"}
+	list := []string{"master_customer", "master_member", "store_customer"}
 	if helper.InArray(list, a.Mode) {
 		return true
 	}
@@ -50,7 +53,7 @@ func (a *User) HasCustomer() bool {
 
 //是否为网站
 func (a *User) HasWebsite() bool {
-	list := []string{"store_site", "master_site"}
+	list := []string{"master_site", "store_site"}
 	if helper.InArray(list, a.Mode) {
 		return true
 	}
