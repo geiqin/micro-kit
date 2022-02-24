@@ -40,8 +40,8 @@ func NewOauthHelper(cfg *model.TokenInfo) *OauthHelper {
 		RedisAddr:         cfg.RedisAddr,
 		RedisDB:           cfg.RedisDB,
 		PrivateKey:        cfg.PrivateKey,
-		accessTokenExp:    time.Duration(cfg.AccessTokenExp) * time.Minute,
-		refreshTokenExp:   time.Duration(cfg.RefreshTokenExp) * time.Minute,
+		accessTokenExp:    time.Duration(cfg.AccessTokenExp) * time.Hour,
+		refreshTokenExp:   time.Duration(cfg.RefreshTokenExp) * time.Hour,
 		isGenerateRefresh: cfg.IsGenerateRefresh,
 	}
 
