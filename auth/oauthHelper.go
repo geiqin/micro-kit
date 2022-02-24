@@ -96,14 +96,17 @@ func (b *OauthHelper) GetManager() *manage.Manager {
 	}))
 
 	//log.Println("getconfig:", helper.JsonEncode(b.GetConfig()))
-	mgr.SetClientTokenCfg(b.GetConfig())
-	mgr.SetPasswordTokenCfg(b.GetConfig())
+	/*
+		mgr.SetClientTokenCfg(b.GetConfig())
+		mgr.SetPasswordTokenCfg(b.GetConfig())
 
-	mgr.SetRefreshTokenCfg(&manage.RefreshingConfig{
-		AccessTokenExp:    b.accessTokenExp,
-		RefreshTokenExp:   b.refreshTokenExp,
-		IsGenerateRefresh: b.isGenerateRefresh,
-	})
+		mgr.SetRefreshTokenCfg(&manage.RefreshingConfig{
+			AccessTokenExp:    b.accessTokenExp,
+			RefreshTokenExp:   b.refreshTokenExp,
+			IsGenerateRefresh: b.isGenerateRefresh,
+		})
+
+	*/
 
 	mgr.MapAccessGenerate(generates.NewJWTAccessGenerate([]byte(b.PrivateKey), jwt.SigningMethodHS512))
 	return mgr
