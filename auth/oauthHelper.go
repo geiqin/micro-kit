@@ -91,6 +91,7 @@ func (b *OauthHelper) GetManager() *manage.Manager {
 	}
 	mgr = manage.NewDefaultManager()
 	var err error
+	mgr.SetPasswordTokenCfg(manage.DefaultPasswordTokenCfg)
 	mgr.MustTokenStorage(oredis.NewRedisStore(&redis.Options{
 		Addr: b.RedisAddr,
 		DB:   b.RedisDB,
