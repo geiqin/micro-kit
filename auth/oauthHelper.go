@@ -3,8 +3,6 @@ package auth
 import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/geiqin/xconfig/model"
-	"github.com/go-redis/redis"
-	oredis "gopkg.in/go-oauth2/redis.v3"
 	"gopkg.in/oauth2.v3/generates"
 	"gopkg.in/oauth2.v3/manage"
 	"gopkg.in/oauth2.v3/models"
@@ -92,10 +90,14 @@ func (b *OauthHelper) GetManager() *manage.Manager {
 	mgr = manage.NewDefaultManager()
 	var err error
 	mgr.SetPasswordTokenCfg(manage.DefaultPasswordTokenCfg)
-	mgr.MustTokenStorage(oredis.NewRedisStore(&redis.Options{
-		Addr: b.RedisAddr,
-		DB:   b.RedisDB,
-	}, "plaza"), err) //{access_token}
+	mgr.MustTokenStorage(store.NewFileTokenStore("data.db"))
+	/*
+		mgr.MustTokenStorage(oredis.NewRedisStore(&redis.Options{
+			Addr: b.RedisAddr,
+			DB:   b.RedisDB,
+		}, "plaza"), err) //{access_token}
+
+	*/
 
 	if err != nil {
 		log.Println("MustTokenStorage err:", err.Error())
