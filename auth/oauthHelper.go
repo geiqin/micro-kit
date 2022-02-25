@@ -10,6 +10,7 @@ import (
 	"gopkg.in/oauth2.v3/models"
 	"gopkg.in/oauth2.v3/server"
 	"gopkg.in/oauth2.v3/store"
+	"log"
 	"time"
 )
 
@@ -89,11 +90,22 @@ func (b *OauthHelper) GetManager() *manage.Manager {
 		return mgr
 	}
 	mgr = manage.NewDefaultManager()
-
-	mgr.MapTokenStorage(oredis.NewRedisStore(&redis.Options{
+	var err error
+	mgr.MustTokenStorage(oredis.NewRedisStore(&redis.Options{
 		Addr: b.RedisAddr,
 		DB:   b.RedisDB,
-	}))
+	}, "plaza"), err) //{access_token}
+
+	if err != nil {
+		log.Println("MustTokenStorage err:", err.Error())
+	}
+	/*
+		mgr.MapTokenStorage(oredis.NewRedisStore(&redis.Options{
+			Addr: b.RedisAddr,
+			DB:   b.RedisDB,
+		}))
+
+	*/
 
 	//log.Println("getconfig:", helper.JsonEncode(b.GetConfig()))
 	/*
