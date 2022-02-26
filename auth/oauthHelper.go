@@ -20,9 +20,10 @@ type OauthHelper struct {
 	accessTokenExp    time.Duration
 	refreshTokenExp   time.Duration
 	isGenerateRefresh bool
+	mgr               *manage.Manager
 }
 
-var globalMgr *manage.Manager
+//var globalMgr *manage.Manager
 
 func NewOauthHelper(cfg *model.TokenInfo) *OauthHelper {
 	if cfg == nil {
@@ -84,16 +85,17 @@ func (b *OauthHelper) GetConfig() *manage.Config {
 }
 
 func (b *OauthHelper) GetManager() *manage.Manager {
-	/*
-		if mgr != nil {
-			return mgr
-		}
 
-	*/
-	mgr := manage.NewDefaultManager()
+	if b.mgr != nil {
+		return b.mgr
+	} else {
+		b.mgr = manage.NewDefaultManager()
+	}
+
+	///mgr := manage.NewDefaultManager()
 	var err error
-	mgr.SetPasswordTokenCfg(manage.DefaultPasswordTokenCfg)
-	mgr.MustTokenStorage(store.NewFileTokenStore("/data/token_data.db"))
+	b.mgr.SetPasswordTokenCfg(manage.DefaultPasswordTokenCfg)
+	b.mgr.MustTokenStorage(store.NewFileTokenStore("/data/token_data.db"))
 	/*
 		mgr.MustTokenStorage(oredis.NewRedisStore(&redis.Options{
 			Addr: b.RedisAddr,
@@ -126,8 +128,8 @@ func (b *OauthHelper) GetManager() *manage.Manager {
 
 	*/
 
-	mgr.MapAccessGenerate(generates.NewJWTAccessGenerate([]byte(b.PrivateKey), jwt.SigningMethodHS512))
-	return mgr
+	b.mgr.MapAccessGenerate(generates.NewJWTAccessGenerate([]byte(b.PrivateKey), jwt.SigningMethodHS512))
+	return b.mgr
 }
 
 func (b *OauthHelper) GetSrv() *server.Server {
