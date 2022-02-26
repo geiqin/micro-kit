@@ -20,7 +20,7 @@ type OauthHelper struct {
 	accessTokenExp    time.Duration
 	refreshTokenExp   time.Duration
 	isGenerateRefresh bool
-	mgr               *manage.Manager
+	Mgr               *manage.Manager
 }
 
 //var globalMgr *manage.Manager
@@ -85,19 +85,16 @@ func (b *OauthHelper) GetConfig() *manage.Config {
 }
 
 func (b *OauthHelper) GetManager() *manage.Manager {
-
-	if b.mgr != nil {
-		return b.mgr
-	} else {
-		b.mgr = manage.NewDefaultManager()
+	if b.Mgr == nil {
+		b.Mgr = manage.NewDefaultManager()
 	}
 
-	///mgr := manage.NewDefaultManager()
+	///Mgr := manage.NewDefaultManager()
 	var err error
-	b.mgr.SetPasswordTokenCfg(manage.DefaultPasswordTokenCfg)
-	b.mgr.MustTokenStorage(store.NewFileTokenStore("/data/token_data.db"))
+	b.Mgr.SetPasswordTokenCfg(manage.DefaultPasswordTokenCfg)
+	b.Mgr.MustTokenStorage(store.NewFileTokenStore("/data/token_data.db"))
 	/*
-		mgr.MustTokenStorage(oredis.NewRedisStore(&redis.Options{
+		Mgr.MustTokenStorage(oredis.NewRedisStore(&redis.Options{
 			Addr: b.RedisAddr,
 			DB:   b.RedisDB,
 		}, "plaza"), err) //{access_token}
@@ -108,7 +105,7 @@ func (b *OauthHelper) GetManager() *manage.Manager {
 		log.Println("MustTokenStorage err:", err.Error())
 	}
 	/*
-		mgr.MapTokenStorage(oredis.NewRedisStore(&redis.Options{
+		Mgr.MapTokenStorage(oredis.NewRedisStore(&redis.Options{
 			Addr: b.RedisAddr,
 			DB:   b.RedisDB,
 		}))
@@ -117,10 +114,10 @@ func (b *OauthHelper) GetManager() *manage.Manager {
 
 	//log.Println("getconfig:", helper.JsonEncode(b.GetConfig()))
 	/*
-		mgr.SetClientTokenCfg(b.GetConfig())
-		mgr.SetPasswordTokenCfg(b.GetConfig())
+		Mgr.SetClientTokenCfg(b.GetConfig())
+		Mgr.SetPasswordTokenCfg(b.GetConfig())
 
-		mgr.SetRefreshTokenCfg(&manage.RefreshingConfig{
+		Mgr.SetRefreshTokenCfg(&manage.RefreshingConfig{
 			AccessTokenExp:    b.accessTokenExp,
 			RefreshTokenExp:   b.refreshTokenExp,
 			IsGenerateRefresh: b.isGenerateRefresh,
@@ -128,8 +125,8 @@ func (b *OauthHelper) GetManager() *manage.Manager {
 
 	*/
 
-	b.mgr.MapAccessGenerate(generates.NewJWTAccessGenerate([]byte(b.PrivateKey), jwt.SigningMethodHS512))
-	return b.mgr
+	b.Mgr.MapAccessGenerate(generates.NewJWTAccessGenerate([]byte(b.PrivateKey), jwt.SigningMethodHS512))
+	return b.Mgr
 }
 
 func (b *OauthHelper) GetSrv() *server.Server {
