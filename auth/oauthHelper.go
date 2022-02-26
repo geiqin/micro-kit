@@ -22,7 +22,7 @@ type OauthHelper struct {
 	isGenerateRefresh bool
 }
 
-var mgr *manage.Manager
+var globalMgr *manage.Manager
 
 func NewOauthHelper(cfg *model.TokenInfo) *OauthHelper {
 	if cfg == nil {
@@ -84,10 +84,13 @@ func (b *OauthHelper) GetConfig() *manage.Config {
 }
 
 func (b *OauthHelper) GetManager() *manage.Manager {
-	if mgr != nil {
-		return mgr
-	}
-	mgr = manage.NewDefaultManager()
+	/*
+		if mgr != nil {
+			return mgr
+		}
+
+	*/
+	mgr := manage.NewDefaultManager()
 	var err error
 	mgr.SetPasswordTokenCfg(manage.DefaultPasswordTokenCfg)
 	mgr.MustTokenStorage(store.NewFileTokenStore("/data/token_data.db"))
