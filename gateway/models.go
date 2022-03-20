@@ -26,5 +26,6 @@ type GrantRoute struct {
 	AllowCustomer  bool   `json:"allow_customer" gorm:"default:0"`    //允许商铺客户
 	AllowSeller    bool   `json:"allow_seller" gorm:"default:0"`      //允许商铺卖家
 	Unlimited      bool   `json:"unlimited" gorm:"default:0"`         //无限制（任何人都可以访问）
+	Disabled       bool   `json:"disabled" gorm:"default:0"`          //禁用
 	model.Timestamps
 }
