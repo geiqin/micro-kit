@@ -8,7 +8,6 @@ import (
 	"gopkg.in/oauth2.v3/models"
 	"gopkg.in/oauth2.v3/server"
 	"gopkg.in/oauth2.v3/store"
-	"log"
 	"time"
 )
 
@@ -20,10 +19,9 @@ type OauthHelper struct {
 	accessTokenExp    time.Duration
 	refreshTokenExp   time.Duration
 	isGenerateRefresh bool
-	Mgr               *manage.Manager
 }
 
-//var globalMgr *manage.Manager
+var globalMgr *manage.Manager
 
 func NewOauthHelper(cfg *model.TokenInfo) *OauthHelper {
 	if cfg == nil {
@@ -85,14 +83,14 @@ func (b *OauthHelper) GetConfig() *manage.Config {
 }
 
 func (b *OauthHelper) GetManager() *manage.Manager {
-	if b.Mgr == nil {
-		b.Mgr = manage.NewDefaultManager()
+	if globalMgr != nil {
+		return globalMgr
 	}
-
+	globalMgr = manage.NewDefaultManager()
 	///Mgr := manage.NewDefaultManager()
-	var err error
-	b.Mgr.SetPasswordTokenCfg(manage.DefaultPasswordTokenCfg)
-	b.Mgr.MustTokenStorage(store.NewFileTokenStore("/data/token_data.db"))
+	//var err error
+	globalMgr.SetPasswordTokenCfg(manage.DefaultPasswordTokenCfg)
+	globalMgr.MustTokenStorage(store.NewFileTokenStore("/data/token_data.db"))
 	/*
 		Mgr.MustTokenStorage(oredis.NewRedisStore(&redis.Options{
 			Addr: b.RedisAddr,
@@ -101,9 +99,6 @@ func (b *OauthHelper) GetManager() *manage.Manager {
 
 	*/
 
-	if err != nil {
-		log.Println("MustTokenStorage err:", err.Error())
-	}
 	/*
 		Mgr.MapTokenStorage(oredis.NewRedisStore(&redis.Options{
 			Addr: b.RedisAddr,
@@ -125,8 +120,8 @@ func (b *OauthHelper) GetManager() *manage.Manager {
 
 	*/
 
-	b.Mgr.MapAccessGenerate(generates.NewJWTAccessGenerate([]byte(b.PrivateKey), jwt.SigningMethodHS512))
-	return b.Mgr
+	globalMgr.MapAccessGenerate(generates.NewJWTAccessGenerate([]byte(b.PrivateKey), jwt.SigningMethodHS512))
+	return globalMgr
 }
 
 func (b *OauthHelper) GetSrv() *server.Server {

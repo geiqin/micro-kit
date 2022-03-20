@@ -14,8 +14,10 @@ type User struct {
 	Mode        string `json:"mode"`                    //授权模式
 	SessionKey  string `json:"session_key,omitempty"`   //会话Key
 	UserId      int64  `json:"user_id,omitempty"`       //用户ID
+	PlatformId  int64  `json:"platform_id,omitempty"`   //平台ID
 	StoreId     int64  `json:"store_id,omitempty"`      //店铺ID
 	StoreShopId int64  `json:"store_shop_id,omitempty"` //店铺分店ID
+	StoreRegion string `json:"store_region,omitempty"`  //店铺分区
 	ClientId    string `json:"client_id,omitempty"`     //ClientID
 	DisplayName string `json:"display_name,omitempty"`  //显示名称
 	Username    string `json:"username,omitempty"`      //登录账号
@@ -90,8 +92,10 @@ func GetUser(ctx context.Context) *User {
 		Mode:        getMetaValue(ctx, "mode"),
 		DisplayName: getMetaValue(ctx, "display_name"),
 		UserId:      helper.StringToInt64(getMetaValue(ctx, "user_id")),
+		PlatformId:  helper.StringToInt64(getMetaValue(ctx, "platform_id")),
 		StoreId:     helper.StringToInt64(getMetaValue(ctx, "store_id")),
 		StoreShopId: helper.StringToInt64(getMetaValue(ctx, "store_shop_id")),
+		StoreRegion: getMetaValue(ctx, "store_region"),
 		SessionKey:  getMetaValue(ctx, "session_id"),
 		ClientId:    getMetaValue(ctx, "client_id"),
 	}
@@ -104,8 +108,10 @@ func GetUserByHttpHeader(header http.Header) *User {
 		Mode:        header.Get("Auth-Mode"),
 		DisplayName: header.Get("Auth-Display-Name"),
 		UserId:      helper.StringToInt64(header.Get("Auth-User-Id")),
+		PlatformId:  helper.StringToInt64(header.Get("Auth-Platform-Id")),
 		StoreId:     helper.StringToInt64(header.Get("Auth-Store-Id")),
 		StoreShopId: helper.StringToInt64(header.Get("Auth-Store-Shop-Id")),
+		StoreRegion: header.Get("Auth-Store-Region"),
 		SessionKey:  header.Get("Auth-Session-Key"),
 		ClientId:    header.Get("Auth-Client-Id"),
 	}
@@ -118,8 +124,10 @@ func GetUserByGinHeader(ctx *gin.Context) *User {
 		Mode:        ctx.GetHeader("Auth-Mode"),
 		DisplayName: ctx.GetHeader("Auth-Display-Name"),
 		UserId:      helper.StringToInt64(ctx.GetHeader("Auth-User-Id")),
+		PlatformId:  helper.StringToInt64(ctx.GetHeader("Auth-Platform-Id")),
 		StoreId:     helper.StringToInt64(ctx.GetHeader("Auth-Store-Id")),
 		StoreShopId: helper.StringToInt64(ctx.GetHeader("Auth-Store-Shop-Id")),
+		StoreRegion: ctx.GetHeader("Auth-Store-Region"),
 		SessionKey:  ctx.GetHeader("Auth-Session-Key"),
 		ClientId:    ctx.GetHeader("Auth-Client-Id"),
 	}
@@ -134,11 +142,26 @@ func SetUser(ctx *gin.Context, user *User) {
 	ctx.Keys["display_name"] = user.DisplayName
 	ctx.Keys["user_id"] = user.UserId
 	ctx.Keys["store_id"] = user.StoreId
+	ctx.Keys["platform_id"] = user.PlatformId
 	ctx.Keys["store_shop_id"] = user.StoreShopId
+	ctx.Keys["store_region"] = user.StoreRegion
 	ctx.Keys["session_key"] = user.SessionKey
 	ctx.Keys["client_id"] = user.ClientId
 	//Pass on
 	ctx.Next()
+}
+
+//获得当前用户类型:（customer/user）
+func GetUserType(ctx context.Context) string {
+	u := GetUser(ctx)
+	if u != nil {
+		if u.HasCustomer() {
+			return "customer"
+		} else {
+			return "user"
+		}
+	}
+	return ""
 }
 
 //获得当前用户ID
