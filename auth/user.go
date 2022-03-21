@@ -86,6 +86,18 @@ func (a *User) HasLogin() bool {
 	return false
 }
 
+//获得当前用户类型:（customer/user）
+func (a *User) GetUserType(ctx context.Context) string {
+	if a.UserId > 0 {
+		if a.HasCustomer() {
+			return "customer"
+		} else {
+			return "user"
+		}
+	}
+	return ""
+}
+
 //获得当前授权用户
 func GetUser(ctx context.Context) *User {
 	ret := &User{
@@ -149,19 +161,6 @@ func SetUser(ctx *gin.Context, user *User) {
 	ctx.Keys["client_id"] = user.ClientId
 	//Pass on
 	ctx.Next()
-}
-
-//获得当前用户类型:（customer/user）
-func GetUserType(ctx context.Context) string {
-	u := GetUser(ctx)
-	if u != nil {
-		if u.HasCustomer() {
-			return "customer"
-		} else {
-			return "user"
-		}
-	}
-	return ""
 }
 
 //获得当前用户ID
