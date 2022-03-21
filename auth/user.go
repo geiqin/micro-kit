@@ -87,7 +87,7 @@ func (a *User) HasLogin() bool {
 }
 
 //获得当前用户类型:（customer/user）
-func (a *User) GetUserType(ctx context.Context) string {
+func (a *User) GetUserType() string {
 	if a.UserId > 0 {
 		if a.HasCustomer() {
 			return "customer"
