@@ -23,7 +23,7 @@ type GrantRoute struct {
 	HasStore       bool   `json:"has_store" gorm:"default:0"`         //是否店铺API
 	OnlyMaster     bool   `json:"only_master" gorm:"default:0"`       //只允许主铺
 	AllowManager   bool   `json:"allow_manager" gorm:"default:0"`     //允许主铺管理员
-	AllowCustomer  bool   `json:"allow_customer" gorm:"default:0"`    //允许商铺客户
+	AllowMember    bool   `json:"allow_member" gorm:"default:0"`      //允许商铺客户
 	AllowSeller    bool   `json:"allow_seller" gorm:"default:0"`      //允许商铺卖家
 	AllowProxy     bool   `json:"allow_proxy" gorm:"default:0"`       //允许代理到主铺
 	Unlimited      bool   `json:"unlimited" gorm:"default:0"`         //无限制（任何人都可以访问）

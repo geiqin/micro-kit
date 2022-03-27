@@ -45,8 +45,8 @@ func (a *User) HasManager() bool {
 }
 
 //是否为客户/会员
-func (a *User) HasCustomer() bool {
-	list := []string{"master_customer", "master_member", "store_customer"}
+func (a *User) HasMember() bool {
+	list := []string{"master_member", "master_member", "store_member"}
 	if helper.InArray(list, a.Mode) {
 		return true
 	}
@@ -86,11 +86,11 @@ func (a *User) HasLogin() bool {
 	return false
 }
 
-//获得当前用户类型:（customer/user）
+//获得当前用户类型:（member/user）
 func (a *User) GetUserType() string {
 	if a.UserId > 0 {
-		if a.HasCustomer() {
-			return "customer"
+		if a.HasMember() {
+			return "member"
 		} else {
 			return "user"
 		}
@@ -173,9 +173,9 @@ func GetUserId(ctx context.Context) int64 {
 }
 
 //获得当前客户ID
-func GetCustomerId(ctx context.Context) int64 {
+func GetMemberId(ctx context.Context) int64 {
 	u := GetUser(ctx)
-	if u != nil && u.HasCustomer() {
+	if u != nil && u.HasMember() {
 		return u.UserId
 	}
 	return 0
