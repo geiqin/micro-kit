@@ -37,9 +37,9 @@ func Permission(tableName string, p *auth.DataPermission) func(db *gorm.DB) *gor
 		case "3": //本部门数据权限
 			return db.Where(tableName+".creator_id in (SELECT id from sys_authority_users where dept_id = ? )", p.DeptId)
 		case "4": //本部门及以下数据权限
-			return db.Where(tableName+".creator_id in (select sys_authority_users.id from sys_authority_roles_dept left join sys_authority_users on sys_authority_users.dept_id=sys_authority_roles_dept.dept_id where sys_authority_roles_dept.role_id = ?)", p.RoleId)
+			return db.Where(tableName+".creator_id in (SELECT id from sys_authority_users where sys_authority_users.dept_id in (select id from sys_authority_depts where path like ? ))", "%/"+helper.ToString(p.DeptId)+"/%")
 		case "5": //自定义数据权限
-			return db.Where(tableName+".creator_id in (SELECT id from sys_authority_users where sys_authority_users.dept_id in(select dept_id from sys_dept where dept_path like ? ))", "%/"+helper.ToString(p.DeptId)+"/%")
+			return db.Where(tableName+".creator_id in (select sys_authority_users.id from sys_authority_depts left join sys_authority_users on sys_authority_users.dept_id=sys_authority_depts.id where sys_authority_depts.role_id = ?)", p.RoleId)
 		default: //全部数据权限
 			return db
 		}
