@@ -8,10 +8,11 @@ import (
 )
 
 type DataPermission struct {
-	DataScope string
-	UserId    int
-	DeptId    int
-	RoleId    int
+	DataScope string `json:"data_scope"`
+	UserId    int64  `json:"user_id"`
+	DeptId    int32  `json:"dept_id"`
+	RoleId    int32  `json:"role_id"`
+	PostId    int32  `json:"post_id"`
 }
 
 func newDataPermission(tx *gorm.DB, userId interface{}) (*DataPermission, error) {
@@ -19,8 +20,8 @@ func newDataPermission(tx *gorm.DB, userId interface{}) (*DataPermission, error)
 	p := &DataPermission{}
 
 	err = tx.Table("sys_authority_users").
-		Select("sys_authority_users.id", "sys_authority_roles.role_id", "sys_authority_users.dept_id", "sys_authority_roles.data_scope").
-		Joins("left join sys_authority_roles on sys_authority_roles.role_id = sys_authority_users.role_id").
+		Select("sys_authority_users.id", "sys_authority_users.role_id", "sys_authority_users.dept_id", "sys_authority_roles.data_scope").
+		Joins("left join sys_authority_roles on sys_authority_roles.id = sys_authority_users.role_id").
 		Where("sys_authority_users.id = ?", userId).
 		Scan(p).Error
 	if err != nil {
