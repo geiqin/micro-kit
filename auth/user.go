@@ -11,20 +11,20 @@ import (
 
 //当前授权用户
 type User struct {
-	Mode        string          `json:"mode"`                    //授权模式
-	SessionKey  string          `json:"session_key,omitempty"`   //会话Key
-	UserId      int64           `json:"user_id,omitempty"`       //用户ID
-	PlatformId  int64           `json:"platform_id,omitempty"`   //平台ID
-	StoreId     int64           `json:"store_id,omitempty"`      //店铺ID
-	StoreShopId int64           `json:"store_shop_id,omitempty"` //店铺分店ID
-	StoreRegion string          `json:"store_region,omitempty"`  //店铺分区
-	ClientId    string          `json:"client_id,omitempty"`     //ClientID
-	DisplayName string          `json:"display_name,omitempty"`  //显示名称
-	Username    string          `json:"username,omitempty"`      //登录账号
-	Permission  *UserPermission `json:"permission"`              //权限数据
+	Mode           string          `json:"mode"`                    //授权模式
+	SessionKey     string          `json:"session_key,omitempty"`   //会话Key
+	UserId         int64           `json:"user_id,omitempty"`       //用户ID
+	PlatformId     int64           `json:"platform_id,omitempty"`   //平台ID
+	StoreId        int64           `json:"store_id,omitempty"`      //店铺ID
+	StoreShopId    int64           `json:"store_shop_id,omitempty"` //店铺分店ID
+	StoreRegion    string          `json:"store_region,omitempty"`  //店铺分区
+	ClientId       string          `json:"client_id,omitempty"`     //ClientID
+	DisplayName    string          `json:"display_name,omitempty"`  //显示名称
+	Username       string          `json:"username,omitempty"`      //登录账号
+	DataPermission *DataPermission `json:"data_permission"`         //数据权限
 }
 
-type UserPermission struct {
+type DataPermission struct {
 	DataScope string `json:"data_scope"`
 	UserId    int64  `json:"user_id"`
 	DeptId    int32  `json:"dept_id"`
@@ -34,17 +34,17 @@ type UserPermission struct {
 
 func (a *User) PermissionToJson() string {
 	var str string
-	if a != nil && a.Permission != nil {
-		str = helper.JsonEncode(a.Permission)
+	if a != nil && a.DataPermission != nil {
+		str = helper.JsonEncode(a.DataPermission)
 	}
 	return str
 }
 
-func (a *User) PermissionFromJson(strJson string) *UserPermission {
-	var ret *UserPermission
+func (a *User) PermissionFromJson(strJson string) *DataPermission {
+	var ret *DataPermission
 	if strJson != "" {
 		helper.JsonDecode(strJson, &ret)
-		a.Permission = ret
+		a.DataPermission = ret
 	}
 	return ret
 }

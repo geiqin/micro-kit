@@ -27,13 +27,13 @@ func LoadWrapper(fn server.HandlerFunc) server.HandlerFunc {
 		storeId := meta["Auth-Store-Id"]
 		storeShopId := meta["Auth-Store-Shop-Id"]
 		clientId := meta["Auth-Client-Id"]
-		permission := meta["Auth-Permission"]
+		permission := meta["Auth-Data-Permission"]
 
 		if mode != "" {
 			ctx = context.WithValue(ctx, "mode", mode)
 		}
 		if permission != "" {
-			ctx = context.WithValue(ctx, "permission", permission)
+			ctx = context.WithValue(ctx, "data_permission", permission)
 		}
 		if userId != "" {
 			ctx = context.WithValue(ctx, "user_id", userId)

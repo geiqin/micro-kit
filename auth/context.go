@@ -53,7 +53,7 @@ func StoreContextByHeader(header http.Header) context.Context {
 	storeShopId := header.Get("Auth-Store-Shop-Id")
 	storeRegion := header.Get("Auth-Store-Region")
 	platformId := header.Get("Auth-Platform-Id")
-	permission := header.Get("Auth-Permission")
+	permission := header.Get("Auth-Data-Permission")
 
 	ctx := context.Background()
 	if mode != "" {
@@ -111,9 +111,9 @@ func StoreContextByHeader(header http.Header) context.Context {
 		})
 	}
 	if permission != "" {
-		ctx = context.WithValue(ctx, "permission", permission)
+		ctx = context.WithValue(ctx, "data_permission", permission)
 		ctx = metadata.NewContext(ctx, map[string]string{
-			"Auth-Permission": permission,
+			"Auth-DataPermission": permission,
 		})
 	}
 

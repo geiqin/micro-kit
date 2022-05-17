@@ -8,9 +8,9 @@ import (
 	"gorm.io/gorm"
 )
 
-func newDataPermission(tx *gorm.DB, userId interface{}) (*auth.UserPermission, error) {
+func newDataPermission(tx *gorm.DB, userId interface{}) (*auth.DataPermission, error) {
 	var err error
-	p := &auth.UserPermission{}
+	p := &auth.DataPermission{}
 
 	err = tx.Table("sys_authority_users").
 		Select("sys_authority_users.id", "sys_authority_users.role_id", "sys_authority_users.dept_id", "sys_authority_roles.data_scope").
@@ -24,7 +24,7 @@ func newDataPermission(tx *gorm.DB, userId interface{}) (*auth.UserPermission, e
 	return p, nil
 }
 
-func Permission(tableName string, p *auth.UserPermission) func(db *gorm.DB) *gorm.DB {
+func Permission(tableName string, p *auth.DataPermission) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
 		/*
 			if !config.ApplicationConfig.EnableDP {
@@ -46,18 +46,18 @@ func Permission(tableName string, p *auth.UserPermission) func(db *gorm.DB) *gor
 	}
 }
 
-func getPermissionFromContext(c *gin.Context) *auth.UserPermission {
-	p := new(auth.UserPermission)
+func getPermissionFromContext(c *gin.Context) *auth.DataPermission {
+	p := new(auth.DataPermission)
 	if pm, ok := c.Get(PermissionKey); ok {
 		switch pm.(type) {
-		case *auth.UserPermission:
-			p = pm.(*auth.UserPermission)
+		case *auth.DataPermission:
+			p = pm.(*auth.DataPermission)
 		}
 	}
 	return p
 }
 
 // GetPermissionFromContext 提供非action写法数据范围约束
-func GetPermissionFromContext(c *gin.Context) *auth.UserPermission {
+func GetPermissionFromContext(c *gin.Context) *auth.DataPermission {
 	return getPermissionFromContext(c)
 }
