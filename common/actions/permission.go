@@ -32,15 +32,15 @@ func Permission(tableName string, p *auth.UserPermission) func(db *gorm.DB) *gor
 			}
 		*/
 		switch p.DataScope {
-		case "2":
-			return db.Where(tableName+".creator_id in (select sys_authority_users.id from sys_authority_roles_dept left join sys_authority_users on sys_authority_users.dept_id=sys_authority_roles_dept.dept_id where sys_authority_roles_dept.role_id = ?)", p.RoleId)
-		case "3":
-			return db.Where(tableName+".creator_id in (SELECT id from sys_authority_users where dept_id = ? )", p.DeptId)
-		case "4":
-			return db.Where(tableName+".creator_id in (SELECT id from sys_authority_users where sys_authority_users.dept_id in(select dept_id from sys_dept where dept_path like ? ))", "%/"+helper.ToString(p.DeptId)+"/%")
-		case "5":
+		case "2": //仅本人数据权限
 			return db.Where(tableName+".creator_id = ?", p.UserId)
-		default:
+		case "3": //本部门数据权限
+			return db.Where(tableName+".creator_id in (SELECT id from sys_authority_users where dept_id = ? )", p.DeptId)
+		case "4": //本部门及以下数据权限
+			return db.Where(tableName+".creator_id in (select sys_authority_users.id from sys_authority_roles_dept left join sys_authority_users on sys_authority_users.dept_id=sys_authority_roles_dept.dept_id where sys_authority_roles_dept.role_id = ?)", p.RoleId)
+		case "5": //自定义数据权限
+			return db.Where(tableName+".creator_id in (SELECT id from sys_authority_users where sys_authority_users.dept_id in(select dept_id from sys_dept where dept_path like ? ))", "%/"+helper.ToString(p.DeptId)+"/%")
+		default: //全部数据权限
 			return db
 		}
 	}
