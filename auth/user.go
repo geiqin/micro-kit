@@ -137,6 +137,10 @@ func GetUser(ctx context.Context) *User {
 		SessionKey:  getMetaValue(ctx, "session_id"),
 		ClientId:    getMetaValue(ctx, "client_id"),
 	}
+	dp := getMetaValue(ctx, "data_permission")
+	if dp != "" {
+		helper.JsonDecode(dp, &ret.DataPermission)
+	}
 	return ret
 }
 
@@ -152,6 +156,10 @@ func GetUserByHttpHeader(header http.Header) *User {
 		StoreRegion: header.Get("Auth-Store-Region"),
 		SessionKey:  header.Get("Auth-Session-Key"),
 		ClientId:    header.Get("Auth-Client-Id"),
+	}
+	dp := header.Get("Auth-Data-Permission")
+	if dp != "" {
+		helper.JsonDecode(dp, &ret.DataPermission)
 	}
 	return ret
 }
@@ -169,6 +177,11 @@ func GetUserByGinHeader(ctx *gin.Context) *User {
 		SessionKey:  ctx.GetHeader("Auth-Session-Key"),
 		ClientId:    ctx.GetHeader("Auth-Client-Id"),
 	}
+	dp := ctx.GetHeader("Auth-Data-Permission")
+	if dp != "" {
+		helper.JsonDecode(dp, &ret.DataPermission)
+	}
+	return ret
 	return ret
 }
 
@@ -185,6 +198,7 @@ func SetUser(ctx *gin.Context, user *User) {
 	ctx.Keys["store_region"] = user.StoreRegion
 	ctx.Keys["session_key"] = user.SessionKey
 	ctx.Keys["client_id"] = user.ClientId
+	ctx.Keys["data_permission"] = user.PermissionToJson()
 	//Pass on
 	ctx.Next()
 }
