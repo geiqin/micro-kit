@@ -3,21 +3,14 @@ package actions
 import (
 	"errors"
 	"github.com/geiqin/gotools/helper"
+	"github.com/geiqin/micro-kit/auth"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
-type DataPermission struct {
-	DataScope string `json:"data_scope"`
-	UserId    int64  `json:"user_id"`
-	DeptId    int32  `json:"dept_id"`
-	RoleId    int32  `json:"role_id"`
-	PostId    int32  `json:"post_id"`
-}
-
-func newDataPermission(tx *gorm.DB, userId interface{}) (*DataPermission, error) {
+func newDataPermission(tx *gorm.DB, userId interface{}) (*auth.UserPermission, error) {
 	var err error
-	p := &DataPermission{}
+	p := &auth.UserPermission{}
 
 	err = tx.Table("sys_authority_users").
 		Select("sys_authority_users.id", "sys_authority_users.role_id", "sys_authority_users.dept_id", "sys_authority_roles.data_scope").
@@ -31,7 +24,7 @@ func newDataPermission(tx *gorm.DB, userId interface{}) (*DataPermission, error)
 	return p, nil
 }
 
-func Permission(tableName string, p *DataPermission) func(db *gorm.DB) *gorm.DB {
+func Permission(tableName string, p *auth.UserPermission) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
 		/*
 			if !config.ApplicationConfig.EnableDP {
@@ -53,18 +46,18 @@ func Permission(tableName string, p *DataPermission) func(db *gorm.DB) *gorm.DB 
 	}
 }
 
-func getPermissionFromContext(c *gin.Context) *DataPermission {
-	p := new(DataPermission)
+func getPermissionFromContext(c *gin.Context) *auth.UserPermission {
+	p := new(auth.UserPermission)
 	if pm, ok := c.Get(PermissionKey); ok {
 		switch pm.(type) {
-		case *DataPermission:
-			p = pm.(*DataPermission)
+		case *auth.UserPermission:
+			p = pm.(*auth.UserPermission)
 		}
 	}
 	return p
 }
 
 // GetPermissionFromContext 提供非action写法数据范围约束
-func GetPermissionFromContext(c *gin.Context) *DataPermission {
+func GetPermissionFromContext(c *gin.Context) *auth.UserPermission {
 	return getPermissionFromContext(c)
 }

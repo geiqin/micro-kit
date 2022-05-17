@@ -1,5 +1,5 @@
 package actions
 
 const (
-	PermissionKey = "dataPermission"
+	PermissionKey = "permission"
 )
