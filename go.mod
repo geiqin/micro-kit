@@ -1,10 +1,10 @@
 module github.com/geiqin/micro-kit
 
-go 1.17
+go 1.14
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
-	github.com/geiqin/gotools v1.7.3
+	github.com/geiqin/gotools v1.6.3
 	github.com/geiqin/xconfig v1.0.8
 	github.com/gin-gonic/gin v1.7.3
 	github.com/go-redis/redis v6.15.9+incompatible
@@ -14,5 +14,5 @@ require (
 	google.golang.org/protobuf v1.23.0
 	gopkg.in/oauth2.v3 v3.12.0
 	gorm.io/driver/mysql v1.3.3
-	gorm.io/gorm v1.24.5
+	gorm.io/gorm v1.23.5
 )
