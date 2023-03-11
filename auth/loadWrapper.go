@@ -28,6 +28,8 @@ func LoadWrapper(fn server.HandlerFunc) server.HandlerFunc {
 		storeShopId := meta["Auth-Store-Shop-Id"]
 		clientId := meta["Auth-Client-Id"]
 		permission := meta["Auth-Data-Permission"]
+		application := meta["Application"]
+		applicationClientType := meta["Application-Client-Type"]
 
 		if mode != "" {
 			ctx = context.WithValue(ctx, "mode", mode)
@@ -58,6 +60,12 @@ func LoadWrapper(fn server.HandlerFunc) server.HandlerFunc {
 		}
 		if clientId != "" {
 			ctx = context.WithValue(ctx, "client_id", clientId)
+		}
+		if application != "" {
+			ctx = context.WithValue(ctx, "application", application)
+		}
+		if applicationClientType != "" {
+			ctx = context.WithValue(ctx, "application_client_type", applicationClientType)
 		}
 
 		//继续执行下一步处理
