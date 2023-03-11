@@ -10,7 +10,7 @@ func GinJWTMiddleware(ctx *gin.Context) {
 		ctx.Keys = make(map[string]interface{})
 	}
 	ctx.Keys["mode"] = user.Mode
-	ctx.Keys["display_name"] = user.Nickname
+	ctx.Keys["nickname"] = user.Nickname
 	ctx.Keys["user_id"] = user.UserId
 	ctx.Keys["platform_id"] = user.PlatformId
 	ctx.Keys["store_id"] = user.StoreId

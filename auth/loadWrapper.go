@@ -20,7 +20,7 @@ func LoadWrapper(fn server.HandlerFunc) server.HandlerFunc {
 
 		mode := meta["Auth-Mode"]
 		userId := meta["Auth-User-Id"]
-		displayName := meta["Auth-Display-Name"]
+		nickname := meta["Auth-Nickname"]
 		sessionKey := meta["Auth-Session-Key"]
 		platformId := meta["Auth-Platform-Id"]
 		storeRegion := meta["Auth-Store-Region"]
@@ -40,8 +40,8 @@ func LoadWrapper(fn server.HandlerFunc) server.HandlerFunc {
 		if userId != "" {
 			ctx = context.WithValue(ctx, "user_id", userId)
 		}
-		if displayName != "" {
-			ctx = context.WithValue(ctx, "display_name", displayName)
+		if nickname != "" {
+			ctx = context.WithValue(ctx, "nickname", nickname)
 		}
 		if storeId != "" {
 			ctx = context.WithValue(ctx, "store_id", storeId)

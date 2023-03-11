@@ -47,7 +47,7 @@ func StoreContextByHeader(header http.Header) context.Context {
 	mode := header.Get("Auth-Mode")
 	sessionKey := header.Get("Auth-Session-Key")
 	clientId := header.Get("Auth-Client-Id")
-	displayName := header.Get("Auth-Display-Name")
+	nickname := header.Get("Auth-Nickname")
 	userId := header.Get("Auth-User-Id")
 	storeId := header.Get("Auth-Store-Id")
 	storeShopId := header.Get("Auth-Store-Shop-Id")
@@ -70,10 +70,10 @@ func StoreContextByHeader(header http.Header) context.Context {
 			"Auth-Session-Key": sessionKey,
 		})
 	}
-	if displayName != "" {
-		ctx = context.WithValue(ctx, "display_name", displayName)
+	if nickname != "" {
+		ctx = context.WithValue(ctx, "nickname", nickname)
 		ctx = metadata.NewContext(ctx, map[string]string{
-			"Auth-Display-Name": sessionKey,
+			"Auth-Nickname": sessionKey,
 		})
 	}
 	if storeId != "" {
