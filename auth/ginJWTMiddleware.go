@@ -18,8 +18,8 @@ func GinJWTMiddleware(ctx *gin.Context) {
 	ctx.Keys["store_region"] = user.StoreRegion
 	ctx.Keys["session_key"] = user.SessionKey
 	ctx.Keys["client_id"] = user.ClientId
-	ctx.Keys["application"] = user.Application
-	ctx.Keys["application_client_type"] = user.ApplicationClientType
+	ctx.Keys["application"] = ctx.GetHeader("Application")
+	ctx.Keys["application_client_type"] = ctx.GetHeader("Application-Client-Type")
 	ctx.Keys["data_permission"] = user.PermissionToJson()
 	//Pass on
 	ctx.Next()

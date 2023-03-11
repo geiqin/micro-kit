@@ -11,19 +11,17 @@ import (
 
 //当前授权用户
 type User struct {
-	Mode                  string          `json:"mode"`                              //授权模式
-	SessionKey            string          `json:"session_key,omitempty"`             //会话Key
-	UserId                int64           `json:"user_id,omitempty"`                 //用户ID
-	PlatformId            int64           `json:"platform_id,omitempty"`             //平台ID
-	StoreId               int64           `json:"store_id,omitempty"`                //店铺ID
-	StoreShopId           int64           `json:"store_shop_id,omitempty"`           //店铺分店ID
-	StoreRegion           string          `json:"store_region,omitempty"`            //店铺分区
-	ClientId              string          `json:"client_id,omitempty"`               //ClientID
-	Nickname              string          `json:"nickname,omitempty"`                //用户昵称
-	Username              string          `json:"username,omitempty"`                //登录账号
-	Application           string          `json:"application,omitempty"`             //应用名称
-	ApplicationClientType string          `json:"application_client_type,omitempty"` //应用终端类型
-	DataPermission        *DataPermission `json:"data_permission"`                   //数据权限
+	Mode           string          `json:"mode"`                    //授权模式
+	SessionKey     string          `json:"session_key,omitempty"`   //会话Key
+	UserId         int64           `json:"user_id,omitempty"`       //用户ID
+	PlatformId     int64           `json:"platform_id,omitempty"`   //平台ID
+	StoreId        int64           `json:"store_id,omitempty"`      //店铺ID
+	StoreShopId    int64           `json:"store_shop_id,omitempty"` //店铺分店ID
+	StoreRegion    string          `json:"store_region,omitempty"`  //店铺分区
+	ClientId       string          `json:"client_id,omitempty"`     //ClientID
+	Nickname       string          `json:"nickname,omitempty"`      //用户昵称
+	Username       string          `json:"username,omitempty"`      //登录账号
+	DataPermission *DataPermission `json:"data_permission"`         //数据权限
 }
 
 type DataPermission struct {
@@ -129,17 +127,15 @@ func (a *User) GetUserType() string {
 //获得当前授权用户
 func GetUser(ctx context.Context) *User {
 	ret := &User{
-		Mode:                  getMetaValue(ctx, "mode"),
-		Nickname:              getMetaValue(ctx, "display_name"),
-		UserId:                helper.StringToInt64(getMetaValue(ctx, "user_id")),
-		PlatformId:            helper.StringToInt64(getMetaValue(ctx, "platform_id")),
-		StoreId:               helper.StringToInt64(getMetaValue(ctx, "store_id")),
-		StoreShopId:           helper.StringToInt64(getMetaValue(ctx, "store_shop_id")),
-		StoreRegion:           getMetaValue(ctx, "store_region"),
-		SessionKey:            getMetaValue(ctx, "session_id"),
-		ClientId:              getMetaValue(ctx, "client_id"),
-		Application:           getMetaValue(ctx, "application"),
-		ApplicationClientType: getMetaValue(ctx, "application_client_type"),
+		Mode:        getMetaValue(ctx, "mode"),
+		Nickname:    getMetaValue(ctx, "display_name"),
+		UserId:      helper.StringToInt64(getMetaValue(ctx, "user_id")),
+		PlatformId:  helper.StringToInt64(getMetaValue(ctx, "platform_id")),
+		StoreId:     helper.StringToInt64(getMetaValue(ctx, "store_id")),
+		StoreShopId: helper.StringToInt64(getMetaValue(ctx, "store_shop_id")),
+		StoreRegion: getMetaValue(ctx, "store_region"),
+		SessionKey:  getMetaValue(ctx, "session_id"),
+		ClientId:    getMetaValue(ctx, "client_id"),
 	}
 	dp := getMetaValue(ctx, "data_permission")
 	if dp != "" {
@@ -151,17 +147,15 @@ func GetUser(ctx context.Context) *User {
 //获得当前授权用户(通过HttpHeader)
 func GetUserByHttpHeader(header http.Header) *User {
 	ret := &User{
-		Mode:                  header.Get("Auth-Mode"),
-		Nickname:              header.Get("Auth-Display-Name"),
-		UserId:                helper.StringToInt64(header.Get("Auth-User-Id")),
-		PlatformId:            helper.StringToInt64(header.Get("Auth-Platform-Id")),
-		StoreId:               helper.StringToInt64(header.Get("Auth-Store-Id")),
-		StoreShopId:           helper.StringToInt64(header.Get("Auth-Store-Shop-Id")),
-		StoreRegion:           header.Get("Auth-Store-Region"),
-		SessionKey:            header.Get("Auth-Session-Key"),
-		ClientId:              header.Get("Auth-Client-Id"),
-		Application:           header.Get("Application"),
-		ApplicationClientType: header.Get("Application-Client-Type"),
+		Mode:        header.Get("Auth-Mode"),
+		Nickname:    header.Get("Auth-Display-Name"),
+		UserId:      helper.StringToInt64(header.Get("Auth-User-Id")),
+		PlatformId:  helper.StringToInt64(header.Get("Auth-Platform-Id")),
+		StoreId:     helper.StringToInt64(header.Get("Auth-Store-Id")),
+		StoreShopId: helper.StringToInt64(header.Get("Auth-Store-Shop-Id")),
+		StoreRegion: header.Get("Auth-Store-Region"),
+		SessionKey:  header.Get("Auth-Session-Key"),
+		ClientId:    header.Get("Auth-Client-Id"),
 	}
 	dp := header.Get("Auth-Data-Permission")
 	if dp != "" {
@@ -173,17 +167,15 @@ func GetUserByHttpHeader(header http.Header) *User {
 //获得当前授权用户(通过GinHeader)
 func GetUserByGinHeader(ctx *gin.Context) *User {
 	ret := &User{
-		Mode:                  ctx.GetHeader("Auth-Mode"),
-		Nickname:              ctx.GetHeader("Auth-Display-Name"),
-		UserId:                helper.StringToInt64(ctx.GetHeader("Auth-User-Id")),
-		PlatformId:            helper.StringToInt64(ctx.GetHeader("Auth-Platform-Id")),
-		StoreId:               helper.StringToInt64(ctx.GetHeader("Auth-Store-Id")),
-		StoreShopId:           helper.StringToInt64(ctx.GetHeader("Auth-Store-Shop-Id")),
-		StoreRegion:           ctx.GetHeader("Auth-Store-Region"),
-		SessionKey:            ctx.GetHeader("Auth-Session-Key"),
-		ClientId:              ctx.GetHeader("Auth-Client-Id"),
-		Application:           ctx.GetHeader("Application"),
-		ApplicationClientType: ctx.GetHeader("Application-Client-Type"),
+		Mode:        ctx.GetHeader("Auth-Mode"),
+		Nickname:    ctx.GetHeader("Auth-Display-Name"),
+		UserId:      helper.StringToInt64(ctx.GetHeader("Auth-User-Id")),
+		PlatformId:  helper.StringToInt64(ctx.GetHeader("Auth-Platform-Id")),
+		StoreId:     helper.StringToInt64(ctx.GetHeader("Auth-Store-Id")),
+		StoreShopId: helper.StringToInt64(ctx.GetHeader("Auth-Store-Shop-Id")),
+		StoreRegion: ctx.GetHeader("Auth-Store-Region"),
+		SessionKey:  ctx.GetHeader("Auth-Session-Key"),
+		ClientId:    ctx.GetHeader("Auth-Client-Id"),
 	}
 	dp := ctx.GetHeader("Auth-Data-Permission")
 	if dp != "" {
@@ -206,8 +198,6 @@ func SetUser(ctx *gin.Context, user *User) {
 	ctx.Keys["store_region"] = user.StoreRegion
 	ctx.Keys["session_key"] = user.SessionKey
 	ctx.Keys["client_id"] = user.ClientId
-	ctx.Keys["application"] = user.Application
-	ctx.Keys["application_client_type"] = user.ApplicationClientType
 	ctx.Keys["data_permission"] = user.PermissionToJson()
 	//Pass on
 	ctx.Next()
