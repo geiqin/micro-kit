@@ -186,12 +186,12 @@ type Pager struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Paged     int32 `protobuf:"varint,1,opt,name=paged,proto3" json:"paged,omitempty"`
-	Total     int32 `protobuf:"varint,2,opt,name=total,proto3" json:"total,omitempty"`
-	PageCount int32 `protobuf:"varint,3,opt,name=page_count,json=pageCount,proto3" json:"page_count,omitempty"`
-	PageSize  int32 `protobuf:"varint,4,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	PrevPage  int32 `protobuf:"varint,5,opt,name=prev_page,json=prevPage,proto3" json:"prev_page,omitempty"`
-	LastPage  int32 `protobuf:"varint,6,opt,name=last_page,json=lastPage,proto3" json:"last_page,omitempty"`
+	Paged     int32 `protobuf:"varint,1,opt,name=paged,proto3" json:"paged"`
+	Total     int32 `protobuf:"varint,2,opt,name=total,proto3" json:"total"`
+	PageCount int32 `protobuf:"varint,3,opt,name=page_count,json=pageCount,proto3" json:"page_count"`
+	PageSize  int32 `protobuf:"varint,4,opt,name=page_size,json=pageSize,proto3" json:"page_size"`
+	PrevPage  int32 `protobuf:"varint,5,opt,name=prev_page,json=prevPage,proto3" json:"prev_page"`
+	LastPage  int32 `protobuf:"varint,6,opt,name=last_page,json=lastPage,proto3" json:"last_page"`
 }
 
 func (x *Pager) Reset() {
