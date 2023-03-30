@@ -180,9 +180,10 @@ func loadConst() *ConstService {
 			{Value: "0", Name: "待确认"},
 			{Value: "1", Name: "待退货"},
 			{Value: "2", Name: "待审核"},
-			{Value: "3", Name: "已完成"},
-			{Value: "4", Name: "已拒绝"},
-			{Value: "5", Name: "已取消"},
+			{Value: "3", Name: "退款中"},
+			{Value: "4", Name: "已完成"},
+			{Value: "5", Name: "已拒绝"},
+			{Value: "6", Name: "已取消"},
 		},
 		CommonOrderAftersaleRefundmentList: []*ConstListInfo{
 			{Value: "0", Name: "原路退回"},
