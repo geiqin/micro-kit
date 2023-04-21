@@ -26,6 +26,8 @@ type ConstService struct {
 	CommonIntegralLogTypeList          []*ConstListInfo `json:"common_integral_log_type_list"`          // 用户积分 - 操作类型
 	CommonIsShelvesList                []*ConstListInfo `json:"common_is_shelves_list"`                 // 是否上架/下架
 	CommonIsTextList                   []*ConstListInfo `json:"common_is_text_list"`                    // 是否
+	CommonAppEventType                 []*ConstListInfo `json:"common_app_event_type"`                  //app事件类型
+	CommonOrderAftersaleTypeList       []*ConstListInfo `json:"common_order_aftersale_type_list"`       //订单售后类型
 	CommonOrderAftersaleStatusList     []*ConstListInfo `json:"common_order_aftersale_status_list"`     // 订单售后状态
 	CommonOrderAftersaleRefundmentList []*ConstListInfo `json:"common_order_aftersale_refundment_list"` // 订单售后退款方式
 	CommonSiteTypeList                 []*ConstListInfo `json:"common_site_type_list"`                  // 站点类型
@@ -176,6 +178,17 @@ func loadConst() *ConstService {
 			{Value: "0", Name: "否", Checked: true},
 			{Value: "1", Name: "是"},
 		},
+		CommonAppEventType: []*ConstListInfo{
+			{Value: "0", Name: "WEB页面"},
+			{Value: "1", Name: "内部页面(小程序/APP内部地址)"},
+			{Value: "2", Name: "外部小程序(同一个主体下的小程序appid)"},
+			{Value: "3", Name: "跳转原生地图查看指定位置"},
+			{Value: "4", Name: "拨打电话"},
+		},
+		CommonOrderAftersaleTypeList: []*ConstListInfo{
+			{Value: "0", Name: "仅退款", Desc: "未收到货(未签收),协商同意前提下", Icon: "am-icon-random", Class: "am-fl"},
+			{Value: "1", Name: "退款退货", Desc: "已收到货,需要退换已收到的货物", Icon: "am-icon-retweet", Class: "am-fr"},
+		},
 		CommonOrderAftersaleStatusList: []*ConstListInfo{
 			{Value: "0", Name: "待确认"},
 			{Value: "1", Name: "待退货"},
@@ -266,6 +279,9 @@ func loadConst() *ConstService {
 type ConstListInfo struct {
 	Name    string `json:"name"`
 	Value   string `json:"value"`
+	Icon    string `json:"icon"`
+	Class   string `json:"class"`
+	Desc    string `json:"desc"`
 	Checked bool   `json:"checked"`
 }
 
