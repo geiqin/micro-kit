@@ -34,6 +34,7 @@ type ConstService struct {
 	CommonOrderTypeList                []*ConstListInfo `json:"common_order_type_list"`                 // 订单类型
 	CommonAdminStatusList              []*ConstListInfo `json:"common_admin_status_list"`               // 管理员状态
 	CommonPayLogStatusList             []*ConstListInfo `json:"common_pay_log_status_list"`             // 支付日志状态
+	CommonTimezoneList                 []*ConstListInfo `json:"common_timezone_list"`                   // 时区
 	// -------------------- 正则 --------------------
 	CommonRegexUsername        string `json:"common_regex_username"`         // 用户名
 	CommonRegexPwd             string `json:"common_regex_pwd"`              // 用户名
@@ -55,8 +56,7 @@ type ConstService struct {
 	CommonRegexUrlHtmlSuffix   string `json:"common_regex_url_html_suffix"`  // url伪静态后缀
 	CommonRegexImageProportion string `json:"common_regex_image_proportion"` // 图片比例值
 	CommonRegexVersion         string `json:"common_regex_version"`          // 版本号
-	// -------------------- 后端相关 ------------------
-	SiteTimezoneList map[string]string `json:"site_timezone_list"` // 时区
+
 }
 
 //加载配置信息
@@ -226,6 +226,32 @@ func loadConst() *ConstService {
 			{Value: "1", Name: "已支付"},
 			{Value: "2", Name: "已关闭"},
 		},
+		CommonTimezoneList: []*ConstListInfo{
+			{Value: "Pacific/Pago_Pago", Name: "(标准时-11:00) 中途岛、萨摩亚群岛"},
+			{Value: "Pacific/Rarotonga", Name: "(标准时-10:00) 夏威夷"},
+			{Value: "Pacific/Gambier", Name: "(标准时-9:00) 阿拉斯加"},
+			{Value: "America/Dawson", Name: "(标准时-8:00) 太平洋时间(美国和加拿大)"},
+			{Value: "America/Creston", Name: "(标准时-7:00) 山地时间(美国和加拿大)"},
+			{Value: "America/Belize", Name: "(标准时-6:00) 中部时间(美国和加拿大)、墨西哥城"},
+			{Value: "America/Eirunepe", Name: "(标准时-5:00) 东部时间(美国和加拿大)、波哥大"},
+			{Value: "America/Antigua", Name: "(标准时-4:00) 大西洋时间(加拿大)、加拉加斯"},
+			{Value: "America/Argentina/Buenos_Aires", Name: "(标准时-3:00) 巴西、布宜诺斯艾利斯、乔治敦"},
+			{Value: "America/Noronha", Name: "(标准时-2:00) 中大西洋"},
+			{Value: "Atlantic/Cape_Verde", Name: "(标准时-1:00) 亚速尔群岛、佛得角群岛"},
+			{Value: "Africa/Ouagadougou", Name: "(格林尼治标准时) 西欧时间、伦敦、卡萨布兰卡"},
+			{Value: "Europe/Andorra", Name: "(标准时+1:00) 中欧时间、安哥拉、利比亚"},
+			{Value: "Europe/Mariehamn", Name: "(标准时+2:00) 东欧时间、开罗，雅典"},
+			{Value: "Asia/Bahrain", Name: "(标准时+3:00) 巴格达、科威特、莫斯科"},
+			{Value: "Asia/Dubai", Name: "(标准时+4:00) 阿布扎比、马斯喀特、巴库"},
+			{Value: "Asia/Kolkata", Name: "(标准时+5:00) 叶卡捷琳堡、伊斯兰堡、卡拉奇"},
+			{Value: "Asia/Dhaka", Name: "(标准时+6:00) 阿拉木图、 达卡、新亚伯利亚"},
+			{Value: "Indian/Christmas", Name: "(标准时+7:00) 曼谷、河内、雅加达"},
+			{Value: "Asia/Shanghai", Name: "(标准时+8:00)北京、重庆、香港、新加坡"},
+			{Value: "Australia/Darwin", Name: "(标准时+9:00) 东京、汉城、大阪、雅库茨克"},
+			{Value: "Australia/Adelaide", Name: "(标准时+10:00) 悉尼、关岛"},
+			{Value: "Australia/Currie", Name: "(标准时+11:00) 马加丹、索罗门群岛"},
+			{Value: "Pacific/Fiji", Name: "(标准时+12:00) 奥克兰、惠灵顿、堪察加半岛"},
+		},
 		CommonRegexUsername:        "^[A-Za-z0-9_]{2,18}$",
 		CommonRegexPwd:             "^.{6,18}$",
 		CommonRegexAlphaNumber:     "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$",
@@ -246,32 +272,6 @@ func loadConst() *ConstService {
 		CommonRegexUrlHtmlSuffix:   "^[a-z]{0,8}$",
 		CommonRegexImageProportion: "^([1-9]{1}[0-9]?|[1-9]{1}[0-9]?\\.{1}[0-9]{1,2}|100|0)?$",
 		CommonRegexVersion:         "^[0-9]{1,6}\\.[0-9]{1,6}\\.[0-9]{1,6}$",
-		SiteTimezoneList: map[string]string{
-			"Pacific/Pago_Pago":              "(标准时-11:00) 中途岛、萨摩亚群岛",
-			"Pacific/Rarotonga":              "(标准时-10:00) 夏威夷",
-			"Pacific/Gambier":                "(标准时-9:00) 阿拉斯加",
-			"America/Dawson":                 "(标准时-8:00) 太平洋时间(美国和加拿大)",
-			"America/Creston":                "(标准时-7:00) 山地时间(美国和加拿大)",
-			"America/Belize":                 "(标准时-6:00) 中部时间(美国和加拿大)、墨西哥城",
-			"America/Eirunepe":               "(标准时-5:00) 东部时间(美国和加拿大)、波哥大",
-			"America/Antigua":                "(标准时-4:00) 大西洋时间(加拿大)、加拉加斯",
-			"America/Argentina/Buenos_Aires": "(标准时-3:00) 巴西、布宜诺斯艾利斯、乔治敦",
-			"America/Noronha":                "(标准时-2:00) 中大西洋",
-			"Atlantic/Cape_Verde":            "(标准时-1:00) 亚速尔群岛、佛得角群岛",
-			"Africa/Ouagadougou":             "(格林尼治标准时) 西欧时间、伦敦、卡萨布兰卡",
-			"Europe/Andorra":                 "(标准时+1:00) 中欧时间、安哥拉、利比亚",
-			"Europe/Mariehamn":               "(标准时+2:00) 东欧时间、开罗，雅典",
-			"Asia/Bahrain":                   "(标准时+3:00) 巴格达、科威特、莫斯科",
-			"Asia/Dubai":                     "(标准时+4:00) 阿布扎比、马斯喀特、巴库",
-			"Asia/Kolkata":                   "(标准时+5:00) 叶卡捷琳堡、伊斯兰堡、卡拉奇",
-			"Asia/Dhaka":                     "(标准时+6:00) 阿拉木图、 达卡、新亚伯利亚",
-			"Indian/Christmas":               "(标准时+7:00) 曼谷、河内、雅加达",
-			"Asia/Shanghai":                  "(标准时+8:00)北京、重庆、香港、新加坡",
-			"Australia/Darwin":               "(标准时+9:00) 东京、汉城、大阪、雅库茨克",
-			"Australia/Adelaide":             "(标准时+10:00) 悉尼、关岛",
-			"Australia/Currie":               "(标准时+11:00) 马加丹、索罗门群岛",
-			"Pacific/Fiji":                   "(标准时+12:00) 奥克兰、惠灵顿、堪察加半岛",
-		},
 	}
 }
 
