@@ -217,8 +217,8 @@ func loadConst() *ConstService {
 			{Value: "3", Name: "虚拟销售"},
 		},
 		CommonAdminStatusList: []*ConstListInfo{
-			{Value: "0", Name: "正常", Checked: true},
-			{Value: "1", Name: "暂停"},
+			{Value: "0", Name: "暂停"},
+			{Value: "1", Name: "正常", Checked: true},
 			{Value: "2", Name: "已离职"},
 		},
 		CommonPayLogStatusList: []*ConstListInfo{
