@@ -31,6 +31,15 @@ func init() {
 
 //消息发布
 func Publish(eventName EventType, storeId int64, data string, headers ...map[string]string) error {
+	if headers != nil {
+		return PublishEvent(string(eventName), storeId, data, headers[0])
+	} else {
+		return PublishEvent(string(eventName), storeId, data)
+	}
+
+}
+
+func PublishEvent(eventName string, storeId int64, data string, headers ...map[string]string) error {
 	heads := make(map[string]string)
 	if storeId > 0 {
 		heads["store_id"] = helper.Int64ToString(storeId)
@@ -46,8 +55,14 @@ func Publish(eventName EventType, storeId int64, data string, headers ...map[str
 		Header: heads,
 		Body:   []byte(data),
 	}
-	err := myBroker.Publish(string(eventName), msg)
+	err := myBroker.Publish(eventName, msg)
 	return err
+}
+
+//订阅消息
+func SubscribeEvent(eventName string, handler broker.Handler) (broker.Subscriber, error) {
+	sub, err := myBroker.Subscribe(eventName, handler)
+	return sub, err
 }
 
 //订阅消息
