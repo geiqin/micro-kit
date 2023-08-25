@@ -1,10 +1,10 @@
 package auth
 
-/*
 import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/geiqin/xconfig/model"
 	"github.com/go-redis/redis"
+	oredis "gopkg.in/go-oauth2/redis.v3"
 	"gopkg.in/oauth2.v3/generates"
 	"gopkg.in/oauth2.v3/manage"
 	"gopkg.in/oauth2.v3/models"
@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-type OauthHelper struct {
+type OauthStore struct {
 	PrivateKey        string
 	RedisAddr         string
 	RedisDB           int
@@ -25,7 +25,7 @@ type OauthHelper struct {
 
 var globalMgr *manage.Manager
 
-func NewOauthHelper(cfg *model.TokenInfo) *OauthHelper {
+func NewOauthStore(cfg *model.TokenInfo) *OauthStore {
 	if cfg == nil {
 		cfg = &model.TokenInfo{}
 	}
@@ -36,7 +36,7 @@ func NewOauthHelper(cfg *model.TokenInfo) *OauthHelper {
 		cfg.RefreshTokenExp = 60 * 24 * 7
 	}
 
-	return &OauthHelper{
+	return &OauthStore{
 		RedisAddr:         cfg.RedisAddr,
 		RedisDB:           cfg.RedisDB,
 		PrivateKey:        cfg.PrivateKey,
@@ -47,7 +47,7 @@ func NewOauthHelper(cfg *model.TokenInfo) *OauthHelper {
 
 }
 
-func (b *OauthHelper) LoadClient() {
+func (b *OauthStore) LoadClient() {
 	manager := b.GetManager()
 	clientStore := store.NewClientStore()
 	for _, v := range b.clients {
@@ -61,11 +61,11 @@ func (b *OauthHelper) LoadClient() {
 	manager.MapClientStorage(clientStore)
 }
 
-func (b *OauthHelper) AddClient(client *models.Client) {
+func (b *OauthStore) AddClient(client *models.Client) {
 	b.clients = append(b.clients, client)
 }
 
-func (b *OauthHelper) AddClients(clients []*models.Client) {
+func (b *OauthStore) AddClients(clients []*models.Client) {
 	for _, v := range clients {
 		b.clients = append(b.clients, &models.Client{
 			ID:     v.ID,
@@ -76,7 +76,7 @@ func (b *OauthHelper) AddClients(clients []*models.Client) {
 	}
 }
 
-func (b *OauthHelper) GetConfig() *manage.Config {
+func (b *OauthStore) GetConfig() *manage.Config {
 	return &manage.Config{
 		AccessTokenExp:    b.accessTokenExp,
 		RefreshTokenExp:   b.refreshTokenExp,
@@ -84,31 +84,29 @@ func (b *OauthHelper) GetConfig() *manage.Config {
 	}
 }
 
-func RedisClient(host string, port string, password string) *redis.Client {
-	client := redis.NewClient(&redis.Options{
-		Addr:     host + ":" + port,
-		Password: password, // no password set
-		DB:       0,        // use default DB
-	})
-	return client
-}
-
-func (b *OauthHelper) GetManager() *manage.Manager {
+func (b *OauthStore) GetManager() *manage.Manager {
 	if globalMgr != nil {
 		return globalMgr
 	}
-	globalMgr = manage.NewDefaultManager()
-	///Mgr := manage.NewDefaultManager()
-	//var err error
-	globalMgr.SetPasswordTokenCfg(manage.DefaultPasswordTokenCfg)
-	globalMgr.MustTokenStorage(store.NewFileTokenStore("/data/token_data.db"))
 
+	globalMgr = manage.NewDefaultManager()
+
+	globalMgr.SetPasswordTokenCfg(manage.DefaultPasswordTokenCfg)
+
+	// use redis token store
+	globalMgr.MapTokenStorage(nil)
+
+	globalMgr.MapTokenStorage(oredis.NewRedisStore(&redis.Options{
+		Addr: b.RedisAddr,
+		DB:   b.RedisDB,
+	}))
 
 	globalMgr.MapAccessGenerate(generates.NewJWTAccessGenerate([]byte(b.PrivateKey), jwt.SigningMethodHS512))
+
 	return globalMgr
 }
 
-func (b *OauthHelper) GetSrv() *server.Server {
+func (b *OauthStore) GetSrv() *server.Server {
 	mgr := b.GetManager()
 	srv := server.NewDefaultServer(mgr)
 	srv.SetAllowGetAccessRequest(true)
@@ -116,4 +114,3 @@ func (b *OauthHelper) GetSrv() *server.Server {
 
 	return srv
 }
-*/
