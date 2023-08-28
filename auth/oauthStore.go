@@ -91,10 +91,13 @@ func (b *OauthStore) GetManager() *manage.Manager {
 
 	globalMgr = manage.NewDefaultManager()
 
-	globalMgr.SetPasswordTokenCfg(manage.DefaultPasswordTokenCfg)
+	globalMgr.SetPasswordTokenCfg(&manage.Config{
+		AccessTokenExp:    b.accessTokenExp,
+		RefreshTokenExp:   b.refreshTokenExp,
+		IsGenerateRefresh: true,
+	})
 
-	// use redis token store
-	globalMgr.MapTokenStorage(nil)
+	//globalMgr.SetPasswordTokenCfg(manage.DefaultPasswordTokenCfg)
 
 	globalMgr.MapTokenStorage(oredis.NewRedisStore(&redis.Options{
 		Addr: b.RedisAddr,
