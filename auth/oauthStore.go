@@ -16,6 +16,7 @@ import (
 type OauthStore struct {
 	PrivateKey        string
 	RedisAddr         string
+	RedisPwd          string
 	RedisDB           int
 	clients           []*models.Client
 	accessTokenExp    time.Duration
@@ -39,6 +40,7 @@ func NewOauthStore(cfg *model.TokenInfo) *OauthStore {
 	return &OauthStore{
 		RedisAddr:         cfg.RedisAddr,
 		RedisDB:           cfg.RedisDB,
+		RedisPwd:          cfg.RedisPwd,
 		PrivateKey:        cfg.PrivateKey,
 		accessTokenExp:    time.Duration(cfg.AccessTokenExp) * time.Hour,
 		refreshTokenExp:   time.Duration(cfg.RefreshTokenExp) * time.Hour,
@@ -100,8 +102,9 @@ func (b *OauthStore) GetManager() *manage.Manager {
 	//globalMgr.SetPasswordTokenCfg(manage.DefaultPasswordTokenCfg)
 
 	globalMgr.MapTokenStorage(oredis.NewRedisStore(&redis.Options{
-		Addr: b.RedisAddr,
-		DB:   b.RedisDB,
+		Addr:     b.RedisAddr,
+		DB:       b.RedisDB,
+		Password: b.RedisPwd,
 	}))
 
 	globalMgr.MapAccessGenerate(generates.NewJWTAccessGenerate([]byte(b.PrivateKey), jwt.SigningMethodHS512))
