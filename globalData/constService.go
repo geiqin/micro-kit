@@ -3,6 +3,9 @@ package globalData
 //公共常量数据
 type ConstService struct {
 	// -------------------- 公共 --------------------
+	CommonStoreStatusList              []*ConstListInfo `json:"common_store_status_list"`               // 店铺状态列表
+	CommonArticleMimeTypeList          []*ConstListInfo `json:"common_article_mime_type_list"`          // 文章媒体类型列表
+	CommonArticleStatusList            []*ConstListInfo `json:"common_article_status_list"`             // 文章状态列表
 	CommonUserRegTypeList              []*ConstListInfo `json:"common_user_reg_type_list"`              // 用户注册类型列表
 	CommonLoginTypeList                []*ConstListInfo `json:"common_login_type_list"`                 // 登录方式
 	CommonGenderList                   []*ConstListInfo `json:"common_gender_list"`                     // 性别
@@ -33,6 +36,7 @@ type ConstService struct {
 	CommonSiteTypeList                 []*ConstListInfo `json:"common_site_type_list"`                  // 站点类型
 	CommonOrderTypeList                []*ConstListInfo `json:"common_order_type_list"`                 // 订单类型
 	CommonAdminStatusList              []*ConstListInfo `json:"common_admin_status_list"`               // 管理员状态
+	CommonMemberStatusList             []*ConstListInfo `json:"common_member_status_list"`              // 会员用户状态
 	CommonPayLogStatusList             []*ConstListInfo `json:"common_pay_log_status_list"`             // 支付日志状态
 	CommonTimezoneList                 []*ConstListInfo `json:"common_timezone_list"`                   // 时区
 	// -------------------- 正则 --------------------
@@ -62,6 +66,25 @@ type ConstService struct {
 //加载配置信息
 func loadConst() *ConstService {
 	return &ConstService{
+		CommonStoreStatusList: []*ConstListInfo{
+			{Value: "0", Name: "已禁用"},
+			{Value: "1", Name: "运行中"},
+			{Value: "2", Name: "已打烊"},
+			{Value: "3", Name: "维护中"},
+			{Value: "4", Name: "已过期"},
+		},
+		CommonArticleMimeTypeList: []*ConstListInfo{
+			{Value: "imgtxt", Name: "图文"},
+			{Value: "video", Name: "视频"},
+			{Value: "audio", Name: "音频"},
+			{Value: "album", Name: "相册"},
+			{Value: "link", Name: "链接"},
+		},
+		CommonArticleStatusList: []*ConstListInfo{
+			{Value: "0", Name: "未发布"},
+			{Value: "1", Name: "已发布"},
+			{Value: "2", Name: "草稿中"},
+		},
 		CommonUserRegTypeList: []*ConstListInfo{
 			{Value: "username", Name: "账号"},
 			{Value: "sms", Name: "短信"},
@@ -141,6 +164,7 @@ func loadConst() *ConstService {
 		CommonAppType: []*ConstListInfo{
 			{Value: "ios", Name: "苹果APP"},
 			{Value: "android", Name: "安卓APP"},
+			{Value: "harmony", Name: "鸿蒙APP"},
 		},
 		CommonAppminiType: []*ConstListInfo{
 			{Value: "weixin", Name: "微信小程序"},
@@ -220,6 +244,11 @@ func loadConst() *ConstService {
 			{Value: "0", Name: "暂停"},
 			{Value: "1", Name: "正常", Checked: true},
 			{Value: "2", Name: "已离职"},
+		},
+		CommonMemberStatusList: []*ConstListInfo{
+			{Value: "0", Name: "禁用"},
+			{Value: "1", Name: "正常", Checked: true},
+			{Value: "2", Name: "锁定"},
 		},
 		CommonPayLogStatusList: []*ConstListInfo{
 			{Value: "0", Name: "待支付", Checked: true},

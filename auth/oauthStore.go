@@ -100,12 +100,12 @@ func (b *OauthStore) GetManager() *manage.Manager {
 	})
 
 	//globalMgr.SetPasswordTokenCfg(manage.DefaultPasswordTokenCfg)
-
-	globalMgr.MapTokenStorage(oredis.NewRedisStore(&redis.Options{
+	option := &redis.Options{
 		Addr:     b.RedisAddr,
 		DB:       b.RedisDB,
 		Password: b.RedisPwd,
-	}))
+	}
+	globalMgr.MapTokenStorage(oredis.NewRedisStore(option))
 
 	globalMgr.MapAccessGenerate(generates.NewJWTAccessGenerate([]byte(b.PrivateKey), jwt.SigningMethodHS512))
 
