@@ -148,7 +148,7 @@ func GetUser(ctx context.Context) *User {
 func GetUserByHttpHeader(header http.Header) *User {
 	ret := &User{
 		Mode:        header.Get("Auth-Mode"),
-		Nickname:    header.Get("Auth-Display-Name"),
+		Nickname:    header.Get("Auth-Display-Text"),
 		UserId:      helper.StringToInt64(header.Get("Auth-User-Id")),
 		PlatformId:  helper.StringToInt64(header.Get("Auth-Platform-Id")),
 		StoreId:     helper.StringToInt64(header.Get("Auth-Store-Id")),
@@ -168,7 +168,7 @@ func GetUserByHttpHeader(header http.Header) *User {
 func GetUserByGinHeader(ctx *gin.Context) *User {
 	ret := &User{
 		Mode:        ctx.GetHeader("Auth-Mode"),
-		Nickname:    ctx.GetHeader("Auth-Display-Name"),
+		Nickname:    ctx.GetHeader("Auth-Display-Text"),
 		UserId:      helper.StringToInt64(ctx.GetHeader("Auth-User-Id")),
 		PlatformId:  helper.StringToInt64(ctx.GetHeader("Auth-Platform-Id")),
 		StoreId:     helper.StringToInt64(ctx.GetHeader("Auth-Store-Id")),

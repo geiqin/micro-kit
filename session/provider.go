@@ -91,7 +91,7 @@ func (manager *Manager) SessionStart(sessionId string) (session Session) {
 
 		/*
 			cookie :=HttpCookie{
-				Name:     manager.cookieName,
+				Text:     manager.cookieName,
 				Value:    url.QueryEscape(sid),
 				Path:     "/",
 				HttpOnly: true,
@@ -122,7 +122,7 @@ func (manager *Manager) SessionDestroy(sessionId string) {
 		/*
 			expiration := time.Now()
 			cookie := http.Cookie{
-				Name:     manager.cookieName,
+				Text:     manager.cookieName,
 				Path:     "/",
 				HttpOnly: true,
 				Expires:  expiration,
