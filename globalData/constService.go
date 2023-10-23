@@ -36,6 +36,7 @@ type ConstService struct {
 	CommonOrderAftersaleRefundmentList []*ConstListInfo `json:"common_order_aftersale_refundment_list"` // 订单售后退款方式
 	CommonSiteTypeList                 []*ConstListInfo `json:"common_site_type_list"`                  // 站点类型
 	CommonOrderTypeList                []*ConstListInfo `json:"common_order_type_list"`                 // 订单类型
+	CommonGoodsUnitTypeList            []*ConstListInfo `json:"common_goods_unit_type_list"`            // 商品单位类型
 	CommonAdminStatusList              []*ConstListInfo `json:"common_admin_status_list"`               // 管理员状态
 	CommonMemberStatusList             []*ConstListInfo `json:"common_member_status_list"`              // 会员用户状态
 	CommonMemberTypeList               []*ConstListInfo `json:"common_member_type_list"`                // 会员用户类型
@@ -246,6 +247,11 @@ func loadConst() *ConstService {
 			{Value: "1", Text: "展示"},
 			{Value: "2", Text: "自提"},
 			{Value: "3", Text: "虚拟销售"},
+		},
+		CommonGoodsUnitTypeList: []*ConstListInfo{
+			{Value: "0", Text: "计数"},
+			{Value: "1", Text: "重量"},
+			{Value: "2", Text: "体积"},
 		},
 		CommonAdminStatusList: []*ConstListInfo{
 			{Value: "0", Text: "暂停"},
