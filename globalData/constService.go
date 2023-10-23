@@ -274,7 +274,7 @@ func loadConst() *ConstService {
 			{Value: "2", Text: "已关闭"},
 		},
 		CommonCreateSourceList: []*ConstListInfo{
-			{Value: "0", Text: "系统预算"},
+			{Value: "0", Text: "系统预设"},
 			{Value: "1", Text: "商家创建"},
 		},
 		CommonTimezoneList: []*ConstListInfo{
