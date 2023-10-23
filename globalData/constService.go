@@ -37,6 +37,7 @@ type ConstService struct {
 	CommonOrderTypeList                []*ConstListInfo `json:"common_order_type_list"`                 // 订单类型
 	CommonAdminStatusList              []*ConstListInfo `json:"common_admin_status_list"`               // 管理员状态
 	CommonMemberStatusList             []*ConstListInfo `json:"common_member_status_list"`              // 会员用户状态
+	CommonMemberTypeList               []*ConstListInfo `json:"common_member_type_list"`                // 会员用户类型
 	CommonPayLogStatusList             []*ConstListInfo `json:"common_pay_log_status_list"`             // 支付日志状态
 	CommonTimezoneList                 []*ConstListInfo `json:"common_timezone_list"`                   // 时区
 	// -------------------- 正则 --------------------
@@ -249,6 +250,11 @@ func loadConst() *ConstService {
 			{Value: "0", Text: "禁用"},
 			{Value: "1", Text: "正常", Checked: true},
 			{Value: "2", Text: "锁定"},
+			{Value: "9", Text: "已注销"},
+		},
+		CommonMemberTypeList: []*ConstListInfo{
+			{Value: "free", Text: "免费会员"},
+			{Value: "pay", Text: "付费会员"},
 		},
 		CommonPayLogStatusList: []*ConstListInfo{
 			{Value: "0", Text: "待支付", Checked: true},
