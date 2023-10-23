@@ -29,6 +29,7 @@ type ConstService struct {
 	CommonIntegralLogTypeList          []*ConstListInfo `json:"common_integral_log_type_list"`          // 用户积分 - 操作类型
 	CommonIsShelvesList                []*ConstListInfo `json:"common_is_shelves_list"`                 // 是否上架/下架
 	CommonIsTextList                   []*ConstListInfo `json:"common_is_text_list"`                    // 是否
+	CommonIncDecList                   []*ConstListInfo `json:"common_inc_dec_list"`                    // 增减
 	CommonAppEventType                 []*ConstListInfo `json:"common_app_event_type"`                  //app事件类型
 	CommonOrderAftersaleTypeList       []*ConstListInfo `json:"common_order_aftersale_type_list"`       //订单售后类型
 	CommonOrderAftersaleStatusList     []*ConstListInfo `json:"common_order_aftersale_status_list"`     // 订单售后状态
@@ -39,6 +40,7 @@ type ConstService struct {
 	CommonMemberStatusList             []*ConstListInfo `json:"common_member_status_list"`              // 会员用户状态
 	CommonMemberTypeList               []*ConstListInfo `json:"common_member_type_list"`                // 会员用户类型
 	CommonPayLogStatusList             []*ConstListInfo `json:"common_pay_log_status_list"`             // 支付日志状态
+	CommonCreateSourceList             []*ConstListInfo `json:"common_create_source_list"`              // 创建来源
 	CommonTimezoneList                 []*ConstListInfo `json:"common_timezone_list"`                   // 时区
 	// -------------------- 正则 --------------------
 	CommonRegexUsername        string `json:"common_regex_username"`         // 用户名
@@ -203,6 +205,10 @@ func loadConst() *ConstService {
 			{Value: "0", Text: "否", Checked: true},
 			{Value: "1", Text: "是"},
 		},
+		CommonIncDecList: []*ConstListInfo{
+			{Value: "0", Text: "减少"},
+			{Value: "1", Text: "增加"},
+		},
 		CommonAppEventType: []*ConstListInfo{
 			{Value: "0", Text: "WEB页面"},
 			{Value: "1", Text: "内部页面(小程序/APP内部地址)"},
@@ -260,6 +266,10 @@ func loadConst() *ConstService {
 			{Value: "0", Text: "待支付", Checked: true},
 			{Value: "1", Text: "已支付"},
 			{Value: "2", Text: "已关闭"},
+		},
+		CommonCreateSourceList: []*ConstListInfo{
+			{Value: "0", Text: "系统预算"},
+			{Value: "1", Text: "商家创建"},
 		},
 		CommonTimezoneList: []*ConstListInfo{
 			{Value: "Pacific/Pago_Pago", Text: "(标准时-11:00) 中途岛、萨摩亚群岛"},
