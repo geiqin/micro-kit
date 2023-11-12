@@ -34,6 +34,7 @@ type ConstService struct {
 	CommonOrderAftersaleTypeList       []*ConstListInfo `json:"common_order_aftersale_type_list"`       //订单售后类型
 	CommonOrderAftersaleStatusList     []*ConstListInfo `json:"common_order_aftersale_status_list"`     // 订单售后状态
 	CommonOrderAftersaleRefundmentList []*ConstListInfo `json:"common_order_aftersale_refundment_list"` // 订单售后退款方式
+	CommonOrderDeliveryMethodList      []*ConstListInfo `json:"common_order_delivery_method_list"`      // 订单配送方式
 	CommonSiteTypeList                 []*ConstListInfo `json:"common_site_type_list"`                  // 站点类型
 	CommonOrderTypeList                []*ConstListInfo `json:"common_order_type_list"`                 // 订单类型
 	CommonGoodsUnitTypeList            []*ConstListInfo `json:"common_goods_unit_type_list"`            // 商品单位类型
@@ -235,6 +236,12 @@ func loadConst() *ConstService {
 			{Value: "0", Text: "原路退回"},
 			{Value: "1", Text: "退至钱包"},
 			{Value: "2", Text: "手动处理"},
+		},
+		CommonOrderDeliveryMethodList: []*ConstListInfo{
+			{Value: "0", Text: "无需配送"},
+			{Value: "1", Text: "快递发货"},
+			{Value: "2", Text: "即时配送"},
+			{Value: "3", Text: "上门自提"},
 		},
 		CommonSiteTypeList: []*ConstListInfo{
 			{Value: "0", Text: "快递"},
