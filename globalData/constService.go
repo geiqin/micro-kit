@@ -238,10 +238,10 @@ func loadConst() *ConstService {
 			{Value: "2", Text: "手动处理"},
 		},
 		CommonOrderDeliveryMethodList: []*ConstListInfo{
-			{Value: "0", Text: "无需配送"},
-			{Value: "1", Text: "快递发货"},
-			{Value: "2", Text: "即时配送"},
-			{Value: "3", Text: "上门自提"},
+			{Value: "1", Text: "物流快递"},
+			{Value: "2", Text: "同城配送"},
+			{Value: "3", Text: "虚拟发货"},
+			{Value: "4", Text: "用户自提"},
 		},
 		CommonSiteTypeList: []*ConstListInfo{
 			{Value: "0", Text: "快递"},
