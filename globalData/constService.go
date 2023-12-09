@@ -70,8 +70,8 @@ type ConstService struct {
 
 }
 
-//加载配置信息
-func loadConst() *ConstService {
+//加载公共配置信息
+func LoadCommonConst() *ConstService {
 	return &ConstService{
 		CommonStoreStatusList: []*ConstListInfo{
 			{Value: "0", Text: "已禁用"},
@@ -360,7 +360,7 @@ type ConstListInfo struct {
 
 //获取公共常量数据
 func MyConst() *ConstService {
-	return loadConst()
+	return LoadCommonConst()
 }
 
 //获取常量值的名称
