@@ -47,13 +47,12 @@ func StoreContextByHeader(header http.Header) context.Context {
 	mode := header.Get("Auth-Mode")
 	sessionKey := header.Get("Auth-Session-Key")
 	clientId := header.Get("Auth-Client-Id")
-	nickname := header.Get("Auth-Nickname")
 	userId := header.Get("Auth-User-Id")
 	storeId := header.Get("Auth-Store-Id")
-	storeShopId := header.Get("Auth-Store-Shop-Id")
-	storeRegion := header.Get("Auth-Store-Region")
+	realstoreId := header.Get("Auth-Realstore-Id")
+	shopId := header.Get("Auth-Shop-Id")
 	platformId := header.Get("Auth-Platform-Id")
-	permission := header.Get("Auth-Data-Permission")
+	extends := header.Get("Auth-Extends")
 	application := header.Get("Application")
 	applicationClientType := header.Get("Application-Client-Type")
 
@@ -70,22 +69,16 @@ func StoreContextByHeader(header http.Header) context.Context {
 			"Auth-Session-Key": sessionKey,
 		})
 	}
-	if nickname != "" {
-		ctx = context.WithValue(ctx, "nickname", nickname)
-		ctx = metadata.NewContext(ctx, map[string]string{
-			"Auth-Nickname": sessionKey,
-		})
-	}
 	if storeId != "" {
 		ctx = context.WithValue(ctx, "store_id", storeId)
 		ctx = metadata.NewContext(ctx, map[string]string{
 			"Auth-Store-Id": storeId,
 		})
 	}
-	if storeShopId != "" {
-		ctx = context.WithValue(ctx, "store_shop_id", storeShopId)
+	if realstoreId != "" {
+		ctx = context.WithValue(ctx, "realstore_id", realstoreId)
 		ctx = metadata.NewContext(ctx, map[string]string{
-			"Auth-Store-Shop-Id": storeShopId,
+			"Auth-Realstore-Id": realstoreId,
 		})
 	}
 	if platformId != "" {
@@ -94,10 +87,10 @@ func StoreContextByHeader(header http.Header) context.Context {
 			"Auth-Platform-Id": platformId,
 		})
 	}
-	if storeRegion != "" {
-		ctx = context.WithValue(ctx, "store_region", storeRegion)
+	if extends != "" {
+		ctx = context.WithValue(ctx, "extends", extends)
 		ctx = metadata.NewContext(ctx, map[string]string{
-			"Auth-Store-Region": storeRegion,
+			"Auth-Extends": extends,
 		})
 	}
 	if userId != "" {
@@ -112,10 +105,10 @@ func StoreContextByHeader(header http.Header) context.Context {
 			"Auth-Client-Id": clientId,
 		})
 	}
-	if permission != "" {
-		ctx = context.WithValue(ctx, "data_permission", permission)
+	if shopId != "" {
+		ctx = context.WithValue(ctx, "shop_id", shopId)
 		ctx = metadata.NewContext(ctx, map[string]string{
-			"Auth-DataPermission": permission,
+			"Auth-Shop-Id": shopId,
 		})
 	}
 	if application != "" {

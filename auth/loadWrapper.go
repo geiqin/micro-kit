@@ -20,40 +20,36 @@ func LoadWrapper(fn server.HandlerFunc) server.HandlerFunc {
 
 		mode := meta["Auth-Mode"]
 		userId := meta["Auth-User-Id"]
-		nickname := meta["Auth-Nickname"]
 		sessionKey := meta["Auth-Session-Key"]
 		platformId := meta["Auth-Platform-Id"]
-		storeRegion := meta["Auth-Store-Region"]
 		storeId := meta["Auth-Store-Id"]
-		storeShopId := meta["Auth-Store-Shop-Id"]
+		realstoreId := meta["Auth-Realstore-Id"]
+		shopId := meta["Auth-Shop-Id"]
 		clientId := meta["Auth-Client-Id"]
-		permission := meta["Auth-Data-Permission"]
+		extends := meta["Auth-Extends"]
 		application := meta["Application"]
 		applicationClientType := meta["Application-Client-Type"]
 
 		if mode != "" {
 			ctx = context.WithValue(ctx, "mode", mode)
 		}
-		if permission != "" {
-			ctx = context.WithValue(ctx, "data_permission", permission)
+		if extends != "" {
+			ctx = context.WithValue(ctx, "extends", extends)
 		}
 		if userId != "" {
 			ctx = context.WithValue(ctx, "user_id", userId)
 		}
-		if nickname != "" {
-			ctx = context.WithValue(ctx, "nickname", nickname)
-		}
 		if storeId != "" {
 			ctx = context.WithValue(ctx, "store_id", storeId)
 		}
-		if storeShopId != "" {
-			ctx = context.WithValue(ctx, "store_shop_id", storeShopId)
+		if realstoreId != "" {
+			ctx = context.WithValue(ctx, "realstore_id", realstoreId)
 		}
 		if platformId != "" {
 			ctx = context.WithValue(ctx, "platform_id", platformId)
 		}
-		if storeRegion != "" {
-			ctx = context.WithValue(ctx, "store_region", storeRegion)
+		if shopId != "" {
+			ctx = context.WithValue(ctx, "shop_id", shopId)
 		}
 		if sessionKey != "" {
 			ctx = context.WithValue(ctx, "session_key", sessionKey)
