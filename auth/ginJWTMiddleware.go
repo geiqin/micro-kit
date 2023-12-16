@@ -11,6 +11,7 @@ func GinJWTMiddleware(ctx *gin.Context) {
 	}
 	ctx.Keys["mode"] = user.Mode
 	ctx.Keys["user_id"] = user.UserId
+	ctx.Keys["nickname"] = user.Nickname
 	ctx.Keys["platform_id"] = user.PlatformId
 	ctx.Keys["store_id"] = user.StoreId
 	ctx.Keys["realstore_id"] = user.RealstoreId

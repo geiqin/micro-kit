@@ -45,6 +45,7 @@ func StoreContextByBroker(p broker.Event) context.Context {
 //主要提供给 WEB模式下使用
 func StoreContextByHeader(header http.Header) context.Context {
 	mode := header.Get("Auth-Mode")
+	nickname := header.Get("Auth-Nickname")
 	sessionKey := header.Get("Auth-Session-Key")
 	clientId := header.Get("Auth-Client-Id")
 	userId := header.Get("Auth-User-Id")
@@ -61,6 +62,12 @@ func StoreContextByHeader(header http.Header) context.Context {
 		ctx = context.WithValue(ctx, "mode", storeId)
 		ctx = metadata.NewContext(ctx, map[string]string{
 			"Auth-Mode": storeId,
+		})
+	}
+	if nickname != "" {
+		ctx = context.WithValue(ctx, "nickname", nickname)
+		ctx = metadata.NewContext(ctx, map[string]string{
+			"Auth-Nickname": storeId,
 		})
 	}
 	if sessionKey != "" {

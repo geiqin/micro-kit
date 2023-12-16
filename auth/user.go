@@ -19,9 +19,8 @@ type User struct {
 	RealstoreId int64             `json:"realstore_id,omitempty"` //多门店ID
 	ShopId      int64             `json:"shop_id,omitempty"`      //多商户ID
 	ClientId    string            `json:"client_id,omitempty"`    //ClientID
+	Nickname    string            `json:"nickname,omitempty"`     //用户昵称
 	Extends     map[string]string `json:"extends,omitempty"`      //附加信息
-	//DataPermission *DataPermission   `json:"data_permission"`        //数据权限
-	//Username       string            `json:"username,omitempty"`     //登录账号
 }
 
 /*
@@ -131,6 +130,7 @@ func (a *User) GetUserType() string {
 func GetUser(ctx context.Context) *User {
 	ret := &User{
 		Mode:        getMetaValue(ctx, "mode"),
+		Nickname:    getMetaValue(ctx, "nickname"),
 		UserId:      helper.StringToInt64(getMetaValue(ctx, "user_id")),
 		PlatformId:  helper.StringToInt64(getMetaValue(ctx, "platform_id")),
 		StoreId:     helper.StringToInt64(getMetaValue(ctx, "store_id")),
@@ -150,6 +150,7 @@ func GetUser(ctx context.Context) *User {
 func GetUserByHttpHeader(header http.Header) *User {
 	ret := &User{
 		Mode:        header.Get("Auth-Mode"),
+		Nickname:    header.Get("Auth-Nickname"),
 		UserId:      helper.StringToInt64(header.Get("Auth-User-Id")),
 		PlatformId:  helper.StringToInt64(header.Get("Auth-Platform-Id")),
 		StoreId:     helper.StringToInt64(header.Get("Auth-Store-Id")),
@@ -169,6 +170,7 @@ func GetUserByHttpHeader(header http.Header) *User {
 func GetUserByGinHeader(ctx *gin.Context) *User {
 	ret := &User{
 		Mode:        ctx.GetHeader("Auth-Mode"),
+		Nickname:    ctx.GetHeader("Auth-Nickname"),
 		UserId:      helper.StringToInt64(ctx.GetHeader("Auth-User-Id")),
 		PlatformId:  helper.StringToInt64(ctx.GetHeader("Auth-Platform-Id")),
 		StoreId:     helper.StringToInt64(ctx.GetHeader("Auth-Store-Id")),
@@ -190,6 +192,7 @@ func SetUser(ctx *gin.Context, user *User) {
 		ctx.Keys = make(map[string]interface{})
 	}
 	ctx.Keys["mode"] = user.Mode
+	ctx.Keys["nickname"] = user.Nickname
 	ctx.Keys["user_id"] = user.UserId
 	ctx.Keys["store_id"] = user.StoreId
 	ctx.Keys["platform_id"] = user.PlatformId
