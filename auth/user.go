@@ -184,7 +184,6 @@ func GetUserByGinHeader(ctx *gin.Context) *User {
 		helper.JsonDecode(dp, &ret.Extends)
 	}
 	return ret
-	return ret
 }
 
 func SetUser(ctx *gin.Context, user *User) {
