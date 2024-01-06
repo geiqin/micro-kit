@@ -1,7 +1,7 @@
 package pubsub
 
 import (
-	"github.com/geiqin/gotools/helper"
+	"github.com/geiqin/micro-kit/utils"
 	"github.com/micro/go-micro/v2/broker"
 	"github.com/micro/go-micro/v2/broker/nats"
 	_ "github.com/micro/go-plugins/registry/nats/v2"
@@ -42,7 +42,7 @@ func Publish(eventName EventType, storeId int64, data string, headers ...map[str
 func PublishEvent(eventName string, storeId int64, data string, headers ...map[string]string) error {
 	heads := make(map[string]string)
 	if storeId > 0 {
-		heads["store_id"] = helper.Int64ToString(storeId)
+		heads["store_id"] = utils.Int64ToString(storeId)
 	}
 	if headers != nil {
 		for k, v := range headers[0] {

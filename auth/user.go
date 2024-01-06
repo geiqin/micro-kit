@@ -3,7 +3,7 @@ package auth
 import (
 	"context"
 	"fmt"
-	"github.com/geiqin/gotools/helper"
+	"github.com/geiqin/micro-kit/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
@@ -37,7 +37,7 @@ type DataPermission struct {
 func (a *User) ExtendsToJson() string {
 	var str string
 	if a != nil && a.Extends != nil {
-		str = helper.JsonEncode(a.Extends)
+		str = utils.JsonEncode(a.Extends)
 	}
 	return str
 }
@@ -45,7 +45,7 @@ func (a *User) ExtendsToJson() string {
 func (a *User) ExtendsFromJson(strJson string) map[string]string {
 	var ret map[string]string
 	if strJson != "" {
-		helper.JsonDecode(strJson, &ret)
+		utils.JsonDecode(strJson, &ret)
 		a.Extends = ret
 	}
 	return ret
@@ -54,7 +54,7 @@ func (a *User) ExtendsFromJson(strJson string) map[string]string {
 //是否为超级管理员
 func (a *User) HasAdmin() bool {
 	list := []string{"master_admin", "store_admin"}
-	if helper.InArray(list, a.Mode) {
+	if utils.InArray(list, a.Mode) {
 		return true
 	}
 	return false
@@ -66,7 +66,7 @@ func (a *User) HasManager() bool {
 		"master_admin", "master_manager", "master_user",
 		"store_admin", "store_manager", "store_user", "store_seller",
 	}
-	if helper.InArray(list, a.Mode) {
+	if utils.InArray(list, a.Mode) {
 		return true
 	}
 	return false
@@ -75,7 +75,7 @@ func (a *User) HasManager() bool {
 //是否为客户/会员
 func (a *User) HasMember() bool {
 	list := []string{"master_member", "master_member", "store_member"}
-	if helper.InArray(list, a.Mode) {
+	if utils.InArray(list, a.Mode) {
 		return true
 	}
 	return false
@@ -84,7 +84,7 @@ func (a *User) HasMember() bool {
 //是否为网站
 func (a *User) HasWebsite() bool {
 	list := []string{"master_site", "store_site"}
-	if helper.InArray(list, a.Mode) {
+	if utils.InArray(list, a.Mode) {
 		return true
 	}
 	return false
@@ -131,17 +131,17 @@ func GetUser(ctx context.Context) *User {
 	ret := &User{
 		Mode:        getMetaValue(ctx, "mode"),
 		Nickname:    getMetaValue(ctx, "nickname"),
-		UserId:      helper.StringToInt64(getMetaValue(ctx, "user_id")),
-		PlatformId:  helper.StringToInt64(getMetaValue(ctx, "platform_id")),
-		StoreId:     helper.StringToInt64(getMetaValue(ctx, "store_id")),
-		RealstoreId: helper.StringToInt64(getMetaValue(ctx, "realstore_id")),
-		ShopId:      helper.StringToInt64(getMetaValue(ctx, "shop_id")),
+		UserId:      utils.StringToInt64(getMetaValue(ctx, "user_id")),
+		PlatformId:  utils.StringToInt64(getMetaValue(ctx, "platform_id")),
+		StoreId:     utils.StringToInt64(getMetaValue(ctx, "store_id")),
+		RealstoreId: utils.StringToInt64(getMetaValue(ctx, "realstore_id")),
+		ShopId:      utils.StringToInt64(getMetaValue(ctx, "shop_id")),
 		SessionKey:  getMetaValue(ctx, "session_id"),
 		ClientId:    getMetaValue(ctx, "client_id"),
 	}
 	dp := getMetaValue(ctx, "extends")
 	if dp != "" {
-		helper.JsonDecode(dp, &ret.Extends)
+		utils.JsonDecode(dp, &ret.Extends)
 	}
 	return ret
 }
@@ -151,17 +151,17 @@ func GetUserByHttpHeader(header http.Header) *User {
 	ret := &User{
 		Mode:        header.Get("Auth-Mode"),
 		Nickname:    header.Get("Auth-Nickname"),
-		UserId:      helper.StringToInt64(header.Get("Auth-User-Id")),
-		PlatformId:  helper.StringToInt64(header.Get("Auth-Platform-Id")),
-		StoreId:     helper.StringToInt64(header.Get("Auth-Store-Id")),
-		RealstoreId: helper.StringToInt64(header.Get("Auth-Realstore-Id")),
-		ShopId:      helper.StringToInt64(header.Get("Auth-Shop-Id")),
+		UserId:      utils.StringToInt64(header.Get("Auth-User-Id")),
+		PlatformId:  utils.StringToInt64(header.Get("Auth-Platform-Id")),
+		StoreId:     utils.StringToInt64(header.Get("Auth-Store-Id")),
+		RealstoreId: utils.StringToInt64(header.Get("Auth-Realstore-Id")),
+		ShopId:      utils.StringToInt64(header.Get("Auth-Shop-Id")),
 		SessionKey:  header.Get("Auth-Session-Key"),
 		ClientId:    header.Get("Auth-Client-Id"),
 	}
 	dp := header.Get("Auth-Extends")
 	if dp != "" {
-		helper.JsonDecode(dp, &ret.Extends)
+		utils.JsonDecode(dp, &ret.Extends)
 	}
 	return ret
 }
@@ -171,17 +171,17 @@ func GetUserByGinHeader(ctx *gin.Context) *User {
 	ret := &User{
 		Mode:        ctx.GetHeader("Auth-Mode"),
 		Nickname:    ctx.GetHeader("Auth-Nickname"),
-		UserId:      helper.StringToInt64(ctx.GetHeader("Auth-User-Id")),
-		PlatformId:  helper.StringToInt64(ctx.GetHeader("Auth-Platform-Id")),
-		StoreId:     helper.StringToInt64(ctx.GetHeader("Auth-Store-Id")),
-		RealstoreId: helper.StringToInt64(ctx.GetHeader("Auth-Realstore-Id")),
-		ShopId:      helper.StringToInt64(ctx.GetHeader("Auth-Shop-Id")),
+		UserId:      utils.StringToInt64(ctx.GetHeader("Auth-User-Id")),
+		PlatformId:  utils.StringToInt64(ctx.GetHeader("Auth-Platform-Id")),
+		StoreId:     utils.StringToInt64(ctx.GetHeader("Auth-Store-Id")),
+		RealstoreId: utils.StringToInt64(ctx.GetHeader("Auth-Realstore-Id")),
+		ShopId:      utils.StringToInt64(ctx.GetHeader("Auth-Shop-Id")),
 		SessionKey:  ctx.GetHeader("Auth-Session-Key"),
 		ClientId:    ctx.GetHeader("Auth-Client-Id"),
 	}
 	dp := ctx.GetHeader("Auth-Extends")
 	if dp != "" {
-		helper.JsonDecode(dp, &ret.Extends)
+		utils.JsonDecode(dp, &ret.Extends)
 	}
 	return ret
 }
@@ -226,7 +226,7 @@ func GetMemberId(ctx context.Context) int64 {
 func GetStoreId(ctx context.Context) int64 {
 	val := ctx.Value("store_id")
 	if val != nil {
-		v := helper.StringToInt64(helper.ToString(val))
+		v := utils.StringToInt64(utils.ToString(val))
 		return v
 	}
 	return 0
@@ -235,7 +235,7 @@ func GetStoreId(ctx context.Context) int64 {
 func getMetaValue(ctx context.Context, key string) string {
 	val := ctx.Value(key)
 	if val != nil {
-		v := helper.ToString(val)
+		v := utils.ToString(val)
 		return v
 	}
 	return ""

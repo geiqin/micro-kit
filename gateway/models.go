@@ -1,5 +1,6 @@
 package gateway
 
+/*
 import "github.com/geiqin/gotools/model"
 
 //授权频道
@@ -30,3 +31,6 @@ type GrantRoute struct {
 	Disabled       bool   `json:"disabled" gorm:"default:0"`          //禁用
 	model.Timestamps
 }
+
+
+*/

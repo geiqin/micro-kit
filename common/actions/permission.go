@@ -1,5 +1,6 @@
 package actions
 
+/*
 import (
 	"errors"
 	"github.com/geiqin/gotools/helper"
@@ -26,11 +27,7 @@ func newDataPermission(tx *gorm.DB, userId interface{}) (*auth.DataPermission, e
 
 func Permission(tableName string, p *auth.DataPermission) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
-		/*
-			if !config.ApplicationConfig.EnableDP {
-				return db
-			}
-		*/
+
 		switch p.DataScope {
 		case "2": //仅本人数据权限
 			return db.Where(tableName+".creator_id = ?", p.UserId)
@@ -61,3 +58,5 @@ func getPermissionFromContext(c *gin.Context) *auth.DataPermission {
 func GetPermissionFromContext(c *gin.Context) *auth.DataPermission {
 	return getPermissionFromContext(c)
 }
+
+*/

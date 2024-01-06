@@ -2,14 +2,14 @@ package auth
 
 import (
 	"context"
-	"github.com/geiqin/gotools/helper"
+	"github.com/geiqin/micro-kit/utils"
 	"github.com/micro/go-micro/v2/broker"
 	"github.com/micro/go-micro/v2/metadata"
 	"net/http"
 )
 
 func StoreContext(storeId int64) context.Context {
-	storeIdStr := helper.Int64ToString(storeId)
+	storeIdStr := utils.Int64ToString(storeId)
 	ctx := context.WithValue(context.Background(), "store_id", storeIdStr)
 	ctx = metadata.NewContext(ctx, map[string]string{
 		"Auth-Store-Id": storeIdStr,
@@ -29,7 +29,7 @@ func StoreContextByBroker(p broker.Event) context.Context {
 	if p != nil && p.Message().Header != nil {
 		storeId := p.Message().Header["store_id"]
 		if storeId != "" {
-			sid := helper.StringToInt64(storeId)
+			sid := utils.StringToInt64(storeId)
 			if sid > 0 {
 				ctx := context.WithValue(context.Background(), "store_id", storeId)
 				ctx = metadata.NewContext(ctx, map[string]string{

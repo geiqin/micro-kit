@@ -3,7 +3,7 @@ package session
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/geiqin/gotools/helper"
+	"github.com/geiqin/micro-kit/utils"
 	"github.com/geiqin/xconfig/model"
 	"github.com/go-redis/redis"
 	"log"
@@ -110,7 +110,7 @@ func (this *FromRedis) SessionUpdate(sid string) error {
 
 func (this *FromRedis) SessionSave(sid string, value map[string]interface{}) error {
 	var h = this.Driver
-	val := helper.JsonEncode(value)
+	val := utils.JsonEncode(value)
 	h.Set(sid, val, time.Duration(this.TTL)*time.Second)
 	return nil
 }

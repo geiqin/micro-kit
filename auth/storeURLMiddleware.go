@@ -1,14 +1,14 @@
 package auth
 
 import (
-	"github.com/geiqin/gotools/helper"
+	"github.com/geiqin/micro-kit/utils"
 	"github.com/gin-gonic/gin"
 )
 
 //处理URL带店铺参数中间件, url中带 :storeId
 func StoreURLMiddleware(ctx *gin.Context) {
 	strId := ctx.Param("storeId")
-	storeId := helper.StringToInt64(strId)
+	storeId := utils.StringToInt64(strId)
 	if ctx.Keys == nil {
 		ctx.Keys = make(map[string]interface{})
 	}

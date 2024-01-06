@@ -1,7 +1,6 @@
 package xreponse
 
 import (
-	"github.com/geiqin/gotools/ajax"
 	"github.com/geiqin/micro-kit/protobuf/common"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -37,14 +36,14 @@ func SucceedByEntity(ctx *gin.Context, entity interface{}) {
 	type AjaxEntityData struct {
 		Entity interface{} `json:"entity,omitempty"`
 	}
-	Succeed(ctx, ajax.Succeed(&AjaxEntityData{Entity: entity}))
+	Succeed(ctx, AjaxSucceed(&AjaxEntityData{Entity: entity}))
 }
 
 func SucceedByItems(ctx *gin.Context, items interface{}, pager ...interface{}) {
 	type AjaxItemData struct {
 		Items interface{} `json:"items,omitempty"`
 	}
-	Succeed(ctx, ajax.Succeed(&AjaxItemData{Items: items}))
+	Succeed(ctx, AjaxSucceed(&AjaxItemData{Items: items}))
 }
 
 // 通常成功数据处理

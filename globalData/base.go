@@ -2,7 +2,7 @@ package globalData
 
 import (
 	"context"
-	"github.com/geiqin/gotools/helper"
+	"github.com/geiqin/micro-kit/utils"
 	"strings"
 )
 
@@ -19,7 +19,7 @@ func GetApplicationClientType(ctx context.Context) string {
 func getMetaValue(ctx context.Context, key string) string {
 	val := ctx.Value(key)
 	if val != nil {
-		v := helper.ToString(val)
+		v := utils.ToString(val)
 		return v
 	}
 	return ""
@@ -73,7 +73,7 @@ func IsWeiboEnv(ctx context.Context) bool {
 func GetHttpUserAgent(ctx context.Context) string {
 	val := ctx.Value("Http-User-Agent")
 	if val != nil {
-		v := helper.ToString(val)
+		v := utils.ToString(val)
 		return v
 	}
 	return ""
