@@ -22,6 +22,7 @@ type ConstService struct {
 	CommonPlatformType                 []*ConstListInfo `json:"common_platform_type"`                   // 所属平台
 	CommonAppType                      []*ConstListInfo `json:"common_app_type"`                        // app平台
 	CommonAppminiType                  []*ConstListInfo `json:"common_appmini_type"`                    // 小程序平台
+	CommonPaymentType                  []*ConstListInfo `json:"common_payment_type"`                    // 支付类型
 	CommonDeductionInventoryRulesList  []*ConstListInfo `json:"common_deduction_inventory_rules_list"`  // 扣除库存规则
 	CommonSalesCountIncRulesList       []*ConstListInfo `json:"common_sales_count_inc_rules_list"`      // 商品增加销量规则
 	CommonIsReadList                   []*ConstListInfo `json:"common_is_read_list"`                    // 是否已读
@@ -167,6 +168,7 @@ func LoadCommonConst() *ConstService {
 			{Value: "toutiao", Text: "头条小程序"},
 			{Value: "qq", Text: "QQ小程序"},
 			{Value: "kuaishou", Text: "快手小程序"},
+			{Value: "cashier", Text: "门店收银台"},
 		},
 		CommonAppType: []*ConstListInfo{
 			{Value: "ios", Text: "苹果APP"},
@@ -180,6 +182,15 @@ func LoadCommonConst() *ConstService {
 			{Value: "toutiao", Text: "头条小程序"},
 			{Value: "qq", Text: "QQ小程序"},
 			{Value: "kuaishou", Text: "快手小程序"},
+		},
+		CommonPaymentType: []*ConstListInfo{
+			{Value: "weixin", Text: "微信支付", Icon: ""},
+			{Value: "alipay", Text: "支付宝支付", Icon: ""},
+			{Value: "wallet", Text: "钱包支付", Icon: ""},
+			{Value: "cash", Text: "现金支付", Icon: ""},
+			{Value: "underline", Text: "线下支付", Icon: ""},
+			{Value: "hanging", Text: "挂账支付", Icon: ""},
+			{Value: "digitalcny", Text: "数字人民币", Icon: ""},
 		},
 		CommonDeductionInventoryRulesList: []*ConstListInfo{
 			{Value: "0", Text: "订单确认成功"},
