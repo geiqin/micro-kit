@@ -186,11 +186,11 @@ func LoadCommonConst() *ConstService {
 		CommonPaymentType: []*ConstListInfo{
 			{Value: "weixin", Text: "微信支付", Icon: ""},
 			{Value: "alipay", Text: "支付宝支付", Icon: ""},
+			{Value: "digitalcny", Text: "数字人民币", Icon: ""},
 			{Value: "wallet", Text: "钱包支付", Icon: ""},
 			{Value: "cash", Text: "现金支付", Icon: ""},
-			{Value: "underline", Text: "线下支付", Icon: ""},
+			{Value: "underline", Text: "线下支付", Icon: "", Desc: "需要后台确认已付款"},
 			{Value: "hanging", Text: "挂账支付", Icon: ""},
-			{Value: "digitalcny", Text: "数字人民币", Icon: ""},
 		},
 		CommonDeductionInventoryRulesList: []*ConstListInfo{
 			{Value: "0", Text: "订单确认成功"},
