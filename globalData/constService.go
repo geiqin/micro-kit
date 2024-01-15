@@ -19,7 +19,7 @@ type ConstService struct {
 	CommonMapTypeList                  []*ConstListInfo `json:"common_map_type_list"`                   // 地图类型列表
 	CommonOrderPayStatus               []*ConstListInfo `json:"common_order_pay_status"`                // 支付支付状态
 	CommonOrderStatus                  []*ConstListInfo `json:"common_order_status"`                    // 订单状态
-	CommonPlatformType                 []*ConstListInfo `json:"common_platform_type"`                   // 所属平台
+	CommonClientType                   []*ConstListInfo `json:"common_client_type"`                     // 所属终端
 	CommonAppType                      []*ConstListInfo `json:"common_app_type"`                        // app平台
 	CommonAppminiType                  []*ConstListInfo `json:"common_appmini_type"`                    // 小程序平台
 	CommonPaymentType                  []*ConstListInfo `json:"common_payment_type"`                    // 支付类型
@@ -157,7 +157,7 @@ func LoadCommonConst() *ConstService {
 			{Value: "5", Text: "已取消"},
 			{Value: "6", Text: "已关闭"},
 		},
-		CommonPlatformType: []*ConstListInfo{
+		CommonClientType: []*ConstListInfo{
 			{Value: "pc", Text: "PC网站"},
 			{Value: "h5", Text: "H5手机网站"},
 			{Value: "ios", Text: "苹果APP"},
@@ -168,7 +168,7 @@ func LoadCommonConst() *ConstService {
 			{Value: "toutiao", Text: "头条小程序"},
 			{Value: "qq", Text: "QQ小程序"},
 			{Value: "kuaishou", Text: "快手小程序"},
-			{Value: "cashier", Text: "门店收银台"},
+			{Value: "cashier", Text: "门店收银"},
 		},
 		CommonAppType: []*ConstListInfo{
 			{Value: "ios", Text: "苹果APP"},
