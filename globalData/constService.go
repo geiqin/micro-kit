@@ -168,7 +168,7 @@ func LoadCommonConst() *ConstService {
 			{Value: "toutiao", Text: "头条小程序"},
 			{Value: "qq", Text: "QQ小程序"},
 			{Value: "kuaishou", Text: "快手小程序"},
-			{Value: "cashier", Text: "门店收银"},
+			{Value: "cashier", Text: "收银台"},
 		},
 		CommonAppType: []*ConstListInfo{
 			{Value: "ios", Text: "苹果APP"},
