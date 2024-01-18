@@ -184,9 +184,9 @@ func LoadCommonConst() *ConstService {
 			{Value: "kuaishou", Text: "快手小程序"},
 		},
 		CommonPaymentType: []*ConstListInfo{
-			{Value: "weixin", Text: "微信支付", Icon: ""},
-			{Value: "alipay", Text: "支付宝支付", Icon: ""},
-			{Value: "digitalcny", Text: "数字人民币", Icon: ""},
+			{Value: "weixin", Text: "微信支付", Flag: "platform", Icon: ""},
+			{Value: "alipay", Text: "支付宝支付", Flag: "platform", Icon: ""},
+			{Value: "digitalcny", Text: "数字人民币", Flag: "platform", Icon: ""},
 			{Value: "wallet", Text: "钱包支付", Icon: ""},
 			{Value: "cash", Text: "现金支付", Icon: ""},
 			{Value: "underline", Text: "线下支付", Icon: "", Desc: "需要后台确认已付款"},
@@ -366,6 +366,7 @@ type ConstListInfo struct {
 	Icon    string `json:"icon"`
 	Class   string `json:"class"`
 	Desc    string `json:"desc"`
+	Flag    string `json:"flag"`
 	Checked bool   `json:"checked"`
 }
 
