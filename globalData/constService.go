@@ -6,6 +6,8 @@ type ConstService struct {
 	CommonStoreStatusList              []*ConstListInfo `json:"common_store_status_list"`               // 店铺状态列表
 	CommonArticleMimeTypeList          []*ConstListInfo `json:"common_article_mime_type_list"`          // 文章媒体类型列表
 	CommonArticleStatusList            []*ConstListInfo `json:"common_article_status_list"`             // 文章状态列表
+	CommonNavigationRouteType          []*ConstListInfo `json:"common_navigation_route_type"`           //网站导航路由类型列表
+	CommonNavigationDataType           []*ConstListInfo `json:"common_navigation_data_type"`            //网站导航数据类型列表
 	CommonUserRegTypeList              []*ConstListInfo `json:"common_user_reg_type_list"`              // 用户注册类型列表
 	CommonLoginTypeList                []*ConstListInfo `json:"common_login_type_list"`                 // 登录方式
 	CommonGenderList                   []*ConstListInfo `json:"common_gender_list"`                     // 性别
@@ -92,6 +94,23 @@ func LoadCommonConst() *ConstService {
 			{Value: "0", Text: "未发布"},
 			{Value: "1", Text: "已发布"},
 			{Value: "2", Text: "草稿中"},
+		},
+		CommonNavigationRouteType: []*ConstListInfo{
+			{Value: "route", Text: "路由"},
+			{Value: "route_parent", Text: "嵌套路由"},
+			{Value: "route_child", Text: "子路由"},
+			{Value: "link", Text: "外部链接"},
+		},
+		CommonNavigationDataType: []*ConstListInfo{
+			{Value: "article", Text: "文章", Flag: "cms"},
+			{Value: "article_cat", Text: "文章分类", Flag: "cms"},
+			{Value: "page", Text: "页面", Flag: "pdm"},
+			{Value: "goods", Text: "商品", Flag: "pdm"},
+			{Value: "goods_cat", Text: "商品分类", Flag: "pdm"},
+			{Value: "goods_term", Text: "商品分组", Flag: "pdm"},
+			{Value: "brand", Text: "品牌", Flag: "pdm"},
+			{Value: "link", Text: "友情链接", Flag: "site"},
+			{Value: "custom", Text: "自定义", Flag: "site"},
 		},
 		CommonUserRegTypeList: []*ConstListInfo{
 			{Value: "username", Text: "账号"},
