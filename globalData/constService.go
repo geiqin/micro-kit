@@ -3,52 +3,52 @@ package globalData
 //公共常量数据
 type ConstService struct {
 	// -------------------- 公共 --------------------
-	CommonStoreStatusList              []*ConstListInfo `json:"common_store_status_list"`               // 店铺状态列表
-	CommonArticleMimeTypeList          []*ConstListInfo `json:"common_article_mime_type_list"`          // 文章媒体类型列表
-	CommonArticleStatusList            []*ConstListInfo `json:"common_article_status_list"`             // 文章状态列表
-	CommonNavigationRouteType          []*ConstListInfo `json:"common_navigation_route_type"`           //网站导航路由类型列表
-	CommonNavigationDataType           []*ConstListInfo `json:"common_navigation_data_type"`            //网站导航数据类型列表
-	CommonUserRegTypeList              []*ConstListInfo `json:"common_user_reg_type_list"`              // 用户注册类型列表
-	CommonLoginTypeList                []*ConstListInfo `json:"common_login_type_list"`                 // 登录方式
-	CommonGenderList                   []*ConstListInfo `json:"common_gender_list"`                     // 性别
-	CommonCloseOpenList                []*ConstListInfo `json:"common_close_open_list"`                 // 关闭开启状态
-	CommonIsEnableTips                 []*ConstListInfo `json:"common_is_enable_tips"`                  // 是否启用
-	CommonIsEnableList                 []*ConstListInfo `json:"common_is_enable_list"`                  // 是否启用
-	CommonIsShowList                   []*ConstListInfo `json:"common_is_show_list"`                    // 是否显示
-	CommonStateList                    []*ConstListInfo `json:"common_state_list"`                      // 状态
-	CommonExcelCharsetList             []*ConstListInfo `json:"common_excel_charset_list"`              // excel编码列表
-	CommonExcelExportTypeList          []*ConstListInfo `json:"common_excel_export_type_list"`          // excel导出类型列表
-	CommonMapTypeList                  []*ConstListInfo `json:"common_map_type_list"`                   // 地图类型列表
-	CommonOrderPayStatus               []*ConstListInfo `json:"common_order_pay_status"`                // 支付支付状态
-	CommonOrderStatus                  []*ConstListInfo `json:"common_order_status"`                    // 订单状态
-	CommonClientType                   []*ConstListInfo `json:"common_client_type"`                     // 所属终端
-	CommonAppType                      []*ConstListInfo `json:"common_app_type"`                        // app平台
-	CommonAppminiType                  []*ConstListInfo `json:"common_appmini_type"`                    // 小程序平台
-	CommonPaymentType                  []*ConstListInfo `json:"common_payment_type"`                    // 支付类型
-	CommonDeductionInventoryRulesList  []*ConstListInfo `json:"common_deduction_inventory_rules_list"`  // 扣除库存规则
-	CommonSalesCountIncRulesList       []*ConstListInfo `json:"common_sales_count_inc_rules_list"`      // 商品增加销量规则
-	CommonIsReadList                   []*ConstListInfo `json:"common_is_read_list"`                    // 是否已读
-	CommonMessageTypeList              []*ConstListInfo `json:"common_message_type_list"`               // 消息类型
-	CommonIntegralLogTypeList          []*ConstListInfo `json:"common_integral_log_type_list"`          // 用户积分 - 操作类型
-	CommonIsShelvesList                []*ConstListInfo `json:"common_is_shelves_list"`                 // 是否上架/下架
-	CommonIsTextList                   []*ConstListInfo `json:"common_is_text_list"`                    // 是否
-	CommonIncDecList                   []*ConstListInfo `json:"common_inc_dec_list"`                    // 增减
-	CommonAppEventType                 []*ConstListInfo `json:"common_app_event_type"`                  //app事件类型
-	CommonOrderAftersaleTypeList       []*ConstListInfo `json:"common_order_aftersale_type_list"`       //订单售后类型
-	CommonOrderAftersaleStatusList     []*ConstListInfo `json:"common_order_aftersale_status_list"`     // 订单售后状态
-	CommonOrderAftersaleRefundmentList []*ConstListInfo `json:"common_order_aftersale_refundment_list"` // 订单售后退款方式
-	CommonOrderLogisticsTypeList       []*ConstListInfo `json:"common_order_logistics_type_list"`       // 订单物流模式
-	CommonOrderDeliveryModeList        []*ConstListInfo `json:"common_order_delivery_mode_list"`        // 订单发货模式
-	CommonSiteTypeList                 []*ConstListInfo `json:"common_site_type_list"`                  // 站点类型
-	CommonOrderTypeList                []*ConstListInfo `json:"common_order_type_list"`                 // 订单类型
-	CommonGoodsUnitTypeList            []*ConstListInfo `json:"common_goods_unit_type_list"`            // 商品单位类型
-	CommonAdminStatusList              []*ConstListInfo `json:"common_admin_status_list"`               // 管理员状态
-	CommonMemberStatusList             []*ConstListInfo `json:"common_member_status_list"`              // 会员用户状态
-	CommonMemberTypeList               []*ConstListInfo `json:"common_member_type_list"`                // 会员用户类型
-	CommonLevelPayRuleList             []*ConstListInfo `json:"common_level_pay_rule_list"`             // 会员等级支付规则列表
-	CommonPayLogStatusList             []*ConstListInfo `json:"common_pay_log_status_list"`             // 支付日志状态
-	CommonCreateSourceList             []*ConstListInfo `json:"common_create_source_list"`              // 创建来源
-	CommonTimezoneList                 []*ConstListInfo `json:"common_timezone_list"`                   // 时区
+	CommonStoreStatusList              []*ConstListInfo `json:"common_store_status_list" name:"店铺状态"`                   // 店铺状态列表
+	CommonArticleMimeTypeList          []*ConstListInfo `json:"common_article_mime_type_list" name:"文章媒体类型"`            // 文章媒体类型列表
+	CommonArticleStatusList            []*ConstListInfo `json:"common_article_status_list" name:"文章状态"`                 // 文章状态列表
+	CommonNavigationRouteType          []*ConstListInfo `json:"common_navigation_route_type" name:"网站导航路由类型"`           //网站导航路由类型列表
+	CommonNavigationDataType           []*ConstListInfo `json:"common_navigation_data_type" name:"网站导航数据类型"`            //网站导航数据类型列表
+	CommonUserRegTypeList              []*ConstListInfo `json:"common_user_reg_type_list" name:"用户注册类型"`                // 用户注册类型列表
+	CommonLoginTypeList                []*ConstListInfo `json:"common_login_type_list" name:"登录方式"`                     // 登录方式
+	CommonGenderList                   []*ConstListInfo `json:"common_gender_list" name:"性别"`                           // 性别
+	CommonCloseOpenList                []*ConstListInfo `json:"common_close_open_list" name:"关闭开启状态"`                   // 关闭开启状态
+	CommonIsEnableTips                 []*ConstListInfo `json:"common_is_enable_tips" name:"是否启用提示"`                    // 是否启用提示
+	CommonIsEnableList                 []*ConstListInfo `json:"common_is_enable_list" name:"是否启用"`                      // 是否启用
+	CommonIsShowList                   []*ConstListInfo `json:"common_is_show_list" name:"是否显示"`                        // 是否显示
+	CommonStateList                    []*ConstListInfo `json:"common_state_list" name:"状态"`                            // 状态
+	CommonExcelCharsetList             []*ConstListInfo `json:"common_excel_charset_list" name:"Excel编码列表"`             // excel编码列表
+	CommonExcelExportTypeList          []*ConstListInfo `json:"common_excel_export_type_list" name:"Excel导出类型列表"`       // excel导出类型列表
+	CommonMapTypeList                  []*ConstListInfo `json:"common_map_type_list" name:"地图类型列表"`                     // 地图类型列表
+	CommonOrderPayStatus               []*ConstListInfo `json:"common_order_pay_status" name:"订单支付状态"`                  // 订单支付状态
+	CommonOrderStatus                  []*ConstListInfo `json:"common_order_status" name:"订单状态"`                        // 订单状态
+	CommonClientType                   []*ConstListInfo `json:"common_client_type" name:"终端类型"`                         // 终端类型
+	CommonAppType                      []*ConstListInfo `json:"common_app_type" name:"App平台"`                           // app平台
+	CommonAppminiType                  []*ConstListInfo `json:"common_appmini_type" name:"小程序平台"`                       // 小程序平台
+	CommonPaymentType                  []*ConstListInfo `json:"common_payment_type" name:"支付类型"`                        // 支付类型
+	CommonDeductionInventoryRulesList  []*ConstListInfo `json:"common_deduction_inventory_rules_list" name:"扣除库存规则"`    // 扣除库存规则
+	CommonSalesCountIncRulesList       []*ConstListInfo `json:"common_sales_count_inc_rules_list" name:"商品增加销量规则"`      // 商品增加销量规则
+	CommonIsReadList                   []*ConstListInfo `json:"common_is_read_list" name:"是否已读"`                        // 是否已读
+	CommonMessageTypeList              []*ConstListInfo `json:"common_message_type_list" name:"消息类型"`                   // 消息类型
+	CommonIntegralLogTypeList          []*ConstListInfo `json:"common_integral_log_type_list" name:"用户积分操作类型"`          // 用户积分 - 操作类型
+	CommonIsShelvesList                []*ConstListInfo `json:"common_is_shelves_list" name:"是否上架"`                     // 是否上架/下架
+	CommonIsTextList                   []*ConstListInfo `json:"common_is_text_list" name:"是否"`                          // 是否
+	CommonIncDecList                   []*ConstListInfo `json:"common_inc_dec_list" name:"增减"`                          // 增减
+	CommonAppEventType                 []*ConstListInfo `json:"common_app_event_type" name:"App事件类型"`                   //app事件类型
+	CommonOrderAftersaleTypeList       []*ConstListInfo `json:"common_order_aftersale_type_list" name:"订单售后类型"`         //订单售后类型
+	CommonOrderAftersaleStatusList     []*ConstListInfo `json:"common_order_aftersale_status_list" name:"订单售后状态"`       // 订单售后状态
+	CommonOrderAftersaleRefundmentList []*ConstListInfo `json:"common_order_aftersale_refundment_list" name:"订单售后退款方式"` // 订单售后退款方式
+	CommonOrderLogisticsTypeList       []*ConstListInfo `json:"common_order_logistics_type_list" name:"订单物流模式"`         // 订单物流模式
+	CommonOrderDeliveryModeList        []*ConstListInfo `json:"common_order_delivery_mode_list" name:"订单发货模式"`          // 订单发货模式
+	CommonSiteTypeList                 []*ConstListInfo `json:"common_site_type_list" name:"站点类型"`                      // 站点类型
+	CommonOrderTypeList                []*ConstListInfo `json:"common_order_type_list" name:"订单类型"`                     // 订单类型
+	CommonGoodsUnitTypeList            []*ConstListInfo `json:"common_goods_unit_type_list" name:"商品单位类型"`              // 商品单位类型
+	CommonAdminStatusList              []*ConstListInfo `json:"common_admin_status_list" name:"管理员状态"`                  // 管理员状态
+	CommonMemberStatusList             []*ConstListInfo `json:"common_member_status_list" name:"会员状态"`                  // 会员状态
+	CommonMemberTypeList               []*ConstListInfo `json:"common_member_type_list" name:"会员类型"`                    // 会员类型
+	CommonLevelPayRuleList             []*ConstListInfo `json:"common_level_pay_rule_list" name:"会员等级支付规则"`             // 会员等级支付规则列表
+	CommonPayLogStatusList             []*ConstListInfo `json:"common_pay_log_status_list" name:"支付日志状态"`               // 支付日志状态
+	CommonCreateSourceList             []*ConstListInfo `json:"common_create_source_list" name:"创建来源"`                  // 创建来源
+	CommonTimezoneList                 []*ConstListInfo `json:"common_timezone_list" name:"时区"`                         // 时区
 	// -------------------- 正则 --------------------
 	CommonRegexUsername        string `json:"common_regex_username"`         // 用户名
 	CommonRegexPwd             string `json:"common_regex_pwd"`              // 用户名
