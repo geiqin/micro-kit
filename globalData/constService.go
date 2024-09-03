@@ -3,6 +3,7 @@ package globalData
 //公共常量数据
 type ConstService struct {
 	// -------------------- 公共 --------------------
+	CommonUnitType                     []*ConstListInfo `json:"common_uint_type" name:"计量单位类型"`                         // 计量单位类型
 	CommonStoreStatusList              []*ConstListInfo `json:"common_store_status_list" name:"店铺状态"`                   // 店铺状态列表
 	CommonArticleMimeTypeList          []*ConstListInfo `json:"common_article_mime_type_list" name:"文章媒体类型"`            // 文章媒体类型列表
 	CommonArticleStatusList            []*ConstListInfo `json:"common_article_status_list" name:"文章状态"`                 // 文章状态列表
@@ -76,6 +77,15 @@ type ConstService struct {
 //加载公共配置信息
 func LoadCommonConst() *ConstService {
 	return &ConstService{
+		CommonUnitType: []*ConstListInfo{
+			{Value: "1", Text: "计数单位", Desc: "个、件、次、台、包、箱"},
+			{Value: "2", Text: "长度单位", Desc: "毫米、厘米、分米、米、千米、公里"},
+			{Value: "3", Text: "面积单位", Desc: "平方毫米、平方厘米、平方分米、平方米、平方千米"},
+			{Value: "4", Text: "体积单位", Desc: "立方毫米、立方厘米、立方分米、立方米"},
+			{Value: "5", Text: "容积单位", Desc: "毫升、升"},
+			{Value: "6", Text: "质量单位", Desc: "克、千克、公斤、吨"},
+			{Value: "7", Text: "时间单位", Desc: "秒、分、小时、天、周、月、季度、年"},
+		},
 		CommonStoreStatusList: []*ConstListInfo{
 			{Value: "0", Text: "已禁用"},
 			{Value: "1", Text: "运行中"},
