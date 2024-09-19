@@ -154,8 +154,8 @@ func LoadCommonConst() *ConstService {
 			{Value: "1", Text: "显示", Checked: true},
 		},
 		CommonStateList: []*ConstListInfo{
-			{Value: "0", Text: "不可用"},
-			{Value: "1", Text: "可用", Checked: true},
+			{Value: "0", Text: "禁用"},
+			{Value: "1", Text: "启用", Checked: true},
 		},
 		CommonExcelCharsetList: []*ConstListInfo{
 			{Value: "utf-8", Text: "utf-8", Checked: true},
@@ -336,8 +336,8 @@ func LoadCommonConst() *ConstService {
 			{Value: "2", Text: "已关闭"},
 		},
 		CommonCreateSourceList: []*ConstListInfo{
-			{Value: "0", Text: "系统预设"},
-			{Value: "1", Text: "商家创建"},
+			{Value: "0", Text: "商家创建"},
+			{Value: "1", Text: "系统预设"},
 		},
 		CommonTimezoneList: []*ConstListInfo{
 			{Value: "Pacific/Pago_Pago", Text: "(标准时-11:00) 中途岛、萨摩亚群岛"},
