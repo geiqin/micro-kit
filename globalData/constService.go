@@ -5,12 +5,10 @@ type ConstService struct {
 	// -------------------- 公共 --------------------
 	CommonUnitType                     []*ConstListInfo `json:"common_uint_type" name:"计量单位类型"`                         // 计量单位类型
 	CommonStoreStatusList              []*ConstListInfo `json:"common_store_status_list" name:"店铺状态"`                   // 店铺状态列表
-	CommonArticleMimeTypeList          []*ConstListInfo `json:"common_article_mime_type_list" name:"文章媒体类型"`            // 文章媒体类型列表
 	CommonArticleStatusList            []*ConstListInfo `json:"common_article_status_list" name:"文章状态"`                 // 文章状态列表
 	CommonNavigationRouteType          []*ConstListInfo `json:"common_navigation_route_type" name:"网站导航路由类型"`           //网站导航路由类型列表
-	CommonNavigationDataType           []*ConstListInfo `json:"common_navigation_data_type" name:"网站导航数据类型"`            //网站导航数据类型列表
-	CommonUserRegTypeList              []*ConstListInfo `json:"common_user_reg_type_list" name:"用户注册类型"`                // 用户注册类型列表
-	CommonLoginTypeList                []*ConstListInfo `json:"common_login_type_list" name:"登录方式"`                     // 登录方式
+	CommonUserRegType                  []*ConstListInfo `json:"common_user_reg_type" name:"用户注册类型"`                     // 用户注册类型列表
+	CommonLoginType                    []*ConstListInfo `json:"common_login_type" name:"登录方式"`                          // 登录方式
 	CommonGenderList                   []*ConstListInfo `json:"common_gender_list" name:"性别"`                           // 性别
 	CommonCloseOpenList                []*ConstListInfo `json:"common_close_open_list" name:"关闭开启状态"`                   // 关闭开启状态
 	CommonIsEnableTips                 []*ConstListInfo `json:"common_is_enable_tips" name:"是否启用提示"`                    // 是否启用提示
@@ -38,11 +36,10 @@ type ConstService struct {
 	CommonOrderAftersaleTypeList       []*ConstListInfo `json:"common_order_aftersale_type_list" name:"订单售后类型"`         //订单售后类型
 	CommonOrderAftersaleStatusList     []*ConstListInfo `json:"common_order_aftersale_status_list" name:"订单售后状态"`       // 订单售后状态
 	CommonOrderAftersaleRefundmentList []*ConstListInfo `json:"common_order_aftersale_refundment_list" name:"订单售后退款方式"` // 订单售后退款方式
-	CommonOrderLogisticsTypeList       []*ConstListInfo `json:"common_order_logistics_type_list" name:"订单物流模式"`         // 订单物流模式
-	CommonOrderDeliveryModeList        []*ConstListInfo `json:"common_order_delivery_mode_list" name:"订单发货模式"`          // 订单发货模式
-	CommonSiteTypeList                 []*ConstListInfo `json:"common_site_type_list" name:"站点类型"`                      // 站点类型
 	CommonOrderTypeList                []*ConstListInfo `json:"common_order_type_list" name:"订单类型"`                     // 订单类型
-	CommonGoodsUnitTypeList            []*ConstListInfo `json:"common_goods_unit_type_list" name:"商品单位类型"`              // 商品单位类型
+	CommonLogisticsTypeList            []*ConstListInfo `json:"common_logistics_type_list" name:"物流类型"`                 // 物流类型
+	CommonDeliveryModeList             []*ConstListInfo `json:"common_delivery_mode_list" name:"发货模式"`                  // 发货模式
+	CommonSiteTypeList                 []*ConstListInfo `json:"common_site_type_list" name:"站点类型"`                      // 站点类型
 	CommonAdminStatusList              []*ConstListInfo `json:"common_admin_status_list" name:"管理员状态"`                  // 管理员状态
 	CommonMemberStatusList             []*ConstListInfo `json:"common_member_status_list" name:"会员状态"`                  // 会员状态
 	CommonMemberTypeList               []*ConstListInfo `json:"common_member_type_list" name:"会员类型"`                    // 会员类型
@@ -79,12 +76,11 @@ func LoadCommonConst() *ConstService {
 	return &ConstService{
 		CommonUnitType: []*ConstListInfo{
 			{Value: "1", Text: "计数", Desc: "个、件、次、台、包、箱"},
-			{Value: "2", Text: "长度", Desc: "毫米、厘米、分米、米、千米、公里"},
-			{Value: "3", Text: "面积", Desc: "平方毫米、平方厘米、平方分米、平方米、平方千米"},
-			{Value: "4", Text: "体积", Desc: "立方毫米、立方厘米、立方分米、立方米"},
-			{Value: "5", Text: "容积", Desc: "毫升、升"},
-			{Value: "6", Text: "重量", Desc: "克、千克、公斤、吨"},
-			{Value: "7", Text: "时间", Desc: "秒、分、小时、天、周、月、季度、年"},
+			{Value: "2", Text: "计重", Desc: "克、千克、吨、公斤"},
+			{Value: "3", Text: "计时", Desc: "分钟、小时、天、周、月、季度、年"},
+			{Value: "4", Text: "长度", Desc: "毫米、厘米、分米、米、千米、公里"},
+			{Value: "5", Text: "面积", Desc: "平方毫米、平方厘米、平方分米、平方米、平方千米"},
+			{Value: "6", Text: "体积", Desc: "立方毫米、立方厘米、立方分米、立方米、毫升、升"},
 		},
 		CommonStoreStatusList: []*ConstListInfo{
 			{Value: "0", Text: "已禁用"},
@@ -92,13 +88,6 @@ func LoadCommonConst() *ConstService {
 			{Value: "2", Text: "已打烊"},
 			{Value: "3", Text: "维护中"},
 			{Value: "4", Text: "已过期"},
-		},
-		CommonArticleMimeTypeList: []*ConstListInfo{
-			{Value: "imgtxt", Text: "图文"},
-			{Value: "video", Text: "视频"},
-			{Value: "audio", Text: "音频"},
-			{Value: "album", Text: "相册"},
-			{Value: "link", Text: "链接"},
 		},
 		CommonArticleStatusList: []*ConstListInfo{
 			{Value: "0", Text: "未发布"},
@@ -111,23 +100,12 @@ func LoadCommonConst() *ConstService {
 			{Value: "route_child", Text: "子路由"},
 			{Value: "link", Text: "外部链接"},
 		},
-		CommonNavigationDataType: []*ConstListInfo{
-			{Value: "article", Text: "文章", Flag: "cms"},
-			{Value: "article_cat", Text: "文章分类", Flag: "cms"},
-			{Value: "page", Text: "页面", Flag: "pdm"},
-			{Value: "goods", Text: "商品", Flag: "pdm"},
-			{Value: "goods_cat", Text: "商品分类", Flag: "pdm"},
-			{Value: "goods_term", Text: "商品分组", Flag: "pdm"},
-			{Value: "brand", Text: "品牌", Flag: "pdm"},
-			{Value: "link", Text: "友情链接", Flag: "site"},
-			{Value: "custom", Text: "自定义", Flag: "site"},
-		},
-		CommonUserRegTypeList: []*ConstListInfo{
+		CommonUserRegType: []*ConstListInfo{
 			{Value: "username", Text: "账号"},
 			{Value: "sms", Text: "短信"},
 			{Value: "email", Text: "邮箱"},
 		},
-		CommonLoginTypeList: []*ConstListInfo{
+		CommonLoginType: []*ConstListInfo{
 			{Value: "username", Text: "帐号密码", Checked: true},
 			{Value: "email", Text: "邮箱验证码"},
 			{Value: "sms", Text: "手机验证码"},
@@ -278,13 +256,13 @@ func LoadCommonConst() *ConstService {
 			{Value: "1", Text: "退至钱包"},
 			{Value: "2", Text: "手动处理"},
 		},
-		CommonOrderLogisticsTypeList: []*ConstListInfo{
+		CommonLogisticsTypeList: []*ConstListInfo{
 			{Value: "1", Text: "物流快递"},
 			{Value: "2", Text: "同城配送"},
 			{Value: "3", Text: "虚拟发货"},
 			{Value: "4", Text: "用户自提"},
 		},
-		CommonOrderDeliveryModeList: []*ConstListInfo{
+		CommonDeliveryModeList: []*ConstListInfo{
 			{Value: "1", Text: "统一发货"},
 			{Value: "2", Text: "分拆发货"},
 		},
@@ -300,11 +278,6 @@ func LoadCommonConst() *ConstService {
 			{Value: "1", Text: "展示"},
 			{Value: "2", Text: "自提"},
 			{Value: "3", Text: "虚拟销售"},
-		},
-		CommonGoodsUnitTypeList: []*ConstListInfo{
-			{Value: "0", Text: "计数"},
-			{Value: "1", Text: "重量"},
-			{Value: "2", Text: "体积"},
 		},
 		CommonAdminStatusList: []*ConstListInfo{
 			{Value: "0", Text: "暂停"},
