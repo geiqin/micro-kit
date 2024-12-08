@@ -112,8 +112,8 @@ func LoadCommonConst() *ConstService {
 		},
 		CommonGenderList: []*ConstListInfo{
 			{Value: "0", Text: "保密", Checked: true},
-			{Value: "1", Text: "女"},
-			{Value: "2", Text: "男"},
+			{Value: "1", Text: "男"},
+			{Value: "2", Text: "女"},
 		},
 		CommonCloseOpenList: []*ConstListInfo{
 			{Value: "0", Text: "关闭"},
