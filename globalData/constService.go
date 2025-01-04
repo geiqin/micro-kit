@@ -78,9 +78,9 @@ func LoadCommonConst() *ConstService {
 			{Value: "1", Text: "计数", Desc: "个、件、次、台、包、箱"},
 			{Value: "2", Text: "计重", Desc: "克、千克、吨、公斤"},
 			{Value: "3", Text: "计时", Desc: "分钟、小时、天、周、月、季度、年"},
-			{Value: "4", Text: "长度", Desc: "毫米、厘米、分米、米、千米、公里"},
-			{Value: "5", Text: "面积", Desc: "平方毫米、平方厘米、平方分米、平方米、平方千米"},
-			{Value: "6", Text: "体积", Desc: "立方毫米、立方厘米、立方分米、立方米、毫升、升"},
+			//{Value: "4", Text: "长度", Desc: "毫米、厘米、分米、米、千米、公里"},
+			//{Value: "5", Text: "面积", Desc: "平方毫米、平方厘米、平方分米、平方米、平方千米"},
+			//{Value: "6", Text: "体积", Desc: "立方毫米、立方厘米、立方分米、立方米、毫升、升"},
 		},
 		CommonStoreStatusList: []*ConstListInfo{
 			{Value: "0", Text: "已禁用"},
@@ -195,8 +195,8 @@ func LoadCommonConst() *ConstService {
 			{Value: "alipay", Text: "支付宝支付", Flag: "platform", Icon: ""},
 			{Value: "digitalcny", Text: "数字人民币", Flag: "platform", Icon: ""},
 			{Value: "wallet", Text: "钱包支付", Icon: ""},
-			{Value: "cash", Text: "现金支付", Icon: ""},
-			{Value: "underline", Text: "线下支付", Icon: "", Desc: "需要后台确认已付款"},
+			{Value: "cod", Text: "货到付款", Icon: ""},
+			{Value: "offline", Text: "线下支付", Icon: "", Desc: "需要后台确认已付款"},
 			{Value: "hanging", Text: "挂账支付", Icon: ""},
 		},
 		CommonDeductionInventoryRulesList: []*ConstListInfo{
