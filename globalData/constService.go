@@ -3,6 +3,7 @@ package globalData
 //公共常量数据
 type ConstService struct {
 	// -------------------- 公共 --------------------
+	CommonSpuType                      []*ConstListInfo `json:"common_spu_type" name:"商品类型"`                            // 商品类型
 	CommonUnitType                     []*ConstListInfo `json:"common_uint_type" name:"计量单位类型"`                         // 计量单位类型
 	CommonStoreStatusList              []*ConstListInfo `json:"common_store_status_list" name:"店铺状态"`                   // 店铺状态列表
 	CommonArticleStatusList            []*ConstListInfo `json:"common_article_status_list" name:"文章状态"`                 // 文章状态列表
@@ -74,13 +75,18 @@ type ConstService struct {
 //加载公共配置信息
 func LoadCommonConst() *ConstService {
 	return &ConstService{
+		CommonSpuType: []*ConstListInfo{
+			{Value: "goods", Text: "实物商品", Flag: "common", Desc: "物流/同城/自提"},
+			{Value: "oversea", Text: "海淘商品", Flag: "common", Desc: "跨境海淘"},
+			{Value: "virtual", Text: "虚拟商品", Flag: "common", Desc: "无需物流"},
+			{Value: "knowledge", Text: "知识付费", Flag: "common", Desc: "无需物流"},
+			{Value: "coupon", Text: "付费优惠劵", Flag: "common", Desc: "无需物流"},
+			{Value: "application", Text: "应用插件", Flag: "master", Desc: "无需物流"},
+		},
 		CommonUnitType: []*ConstListInfo{
 			{Value: "1", Text: "计数", Desc: "个、件、次、台、包、箱"},
 			{Value: "2", Text: "计重", Desc: "克、千克、吨、公斤"},
 			{Value: "3", Text: "计时", Desc: "分钟、小时、天、周、月、季度、年"},
-			//{Value: "4", Text: "长度", Desc: "毫米、厘米、分米、米、千米、公里"},
-			//{Value: "5", Text: "面积", Desc: "平方毫米、平方厘米、平方分米、平方米、平方千米"},
-			//{Value: "6", Text: "体积", Desc: "立方毫米、立方厘米、立方分米、立方米、毫升、升"},
 		},
 		CommonStoreStatusList: []*ConstListInfo{
 			{Value: "0", Text: "已禁用"},
