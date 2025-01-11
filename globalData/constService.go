@@ -37,9 +37,9 @@ type ConstService struct {
 	CommonOrderAftersaleTypeList       []*ConstListInfo `json:"common_order_aftersale_type_list" name:"订单售后类型"`         //订单售后类型
 	CommonOrderAftersaleStatusList     []*ConstListInfo `json:"common_order_aftersale_status_list" name:"订单售后状态"`       // 订单售后状态
 	CommonOrderAftersaleRefundmentList []*ConstListInfo `json:"common_order_aftersale_refundment_list" name:"订单售后退款方式"` // 订单售后退款方式
-	CommonOrderTypeList                []*ConstListInfo `json:"common_order_type_list" name:"订单类型"`                     // 订单类型
-	CommonLogisticsTypeList            []*ConstListInfo `json:"common_logistics_type_list" name:"物流类型"`                 // 物流类型
-	CommonDeliveryModeList             []*ConstListInfo `json:"common_delivery_mode_list" name:"发货模式"`                  // 发货模式
+	CommonOrderType                    []*ConstListInfo `json:"common_order_type" name:"订单类型"`                          // 订单类型
+	CommonLogisticsType                []*ConstListInfo `json:"common_logistics_type" name:"物流类型"`                      // 物流类型
+	CommonDeliveryMethod               []*ConstListInfo `json:"common_delivery_method" name:"配送方式"`                     // 配送方式
 	CommonSiteTypeList                 []*ConstListInfo `json:"common_site_type_list" name:"站点类型"`                      // 站点类型
 	CommonAdminStatusList              []*ConstListInfo `json:"common_admin_status_list" name:"管理员状态"`                  // 管理员状态
 	CommonMemberStatusList             []*ConstListInfo `json:"common_member_status_list" name:"会员状态"`                  // 会员状态
@@ -262,15 +262,16 @@ func LoadCommonConst() *ConstService {
 			{Value: "1", Text: "退至钱包"},
 			{Value: "2", Text: "手动处理"},
 		},
-		CommonLogisticsTypeList: []*ConstListInfo{
-			{Value: "1", Text: "物流快递"},
+		CommonLogisticsType: []*ConstListInfo{
+			{Value: "1", Text: "快递发货"},
 			{Value: "2", Text: "同城配送"},
-			{Value: "3", Text: "虚拟发货"},
-			{Value: "4", Text: "用户自提"},
+			{Value: "3", Text: "用户自提"},
+			{Value: "4", Text: "虚拟发货"},
 		},
-		CommonDeliveryModeList: []*ConstListInfo{
-			{Value: "1", Text: "统一发货"},
-			{Value: "2", Text: "分拆发货"},
+		CommonDeliveryMethod: []*ConstListInfo{
+			{Value: "1", Text: "快递发货"},
+			{Value: "2", Text: "同城配送"},
+			{Value: "3", Text: "到店自提"},
 		},
 		CommonSiteTypeList: []*ConstListInfo{
 			{Value: "0", Text: "快递"},
@@ -279,7 +280,7 @@ func LoadCommonConst() *ConstService {
 			{Value: "3", Text: "虚拟售卖"},
 			{Value: "4", Text: "快递+自提", Checked: true}, //, "is_ext": 1
 		},
-		CommonOrderTypeList: []*ConstListInfo{
+		CommonOrderType: []*ConstListInfo{
 			{Value: "0", Text: "快递"},
 			{Value: "1", Text: "展示"},
 			{Value: "2", Text: "自提"},
