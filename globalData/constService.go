@@ -40,13 +40,13 @@ type ConstService struct {
 	CommonOrderType                    []*ConstListInfo `json:"common_order_type" name:"订单类型"`                          // 订单类型
 	CommonLogisticsType                []*ConstListInfo `json:"common_logistics_type" name:"物流类型"`                      // 物流类型
 	CommonDeliveryMethod               []*ConstListInfo `json:"common_delivery_method" name:"配送方式"`                     // 配送方式
-	CommonSiteTypeList                 []*ConstListInfo `json:"common_site_type_list" name:"站点类型"`                      // 站点类型
+	CommonSellMode                     []*ConstListInfo `json:"common_sell_mode" name:"销售模式"`                           // 销售模式
 	CommonAdminStatusList              []*ConstListInfo `json:"common_admin_status_list" name:"管理员状态"`                  // 管理员状态
 	CommonMemberStatusList             []*ConstListInfo `json:"common_member_status_list" name:"会员状态"`                  // 会员状态
 	CommonMemberTypeList               []*ConstListInfo `json:"common_member_type_list" name:"会员类型"`                    // 会员类型
 	CommonLevelPayRuleList             []*ConstListInfo `json:"common_level_pay_rule_list" name:"会员等级支付规则"`             // 会员等级支付规则列表
 	CommonPayLogStatusList             []*ConstListInfo `json:"common_pay_log_status_list" name:"支付日志状态"`               // 支付日志状态
-	CommonCreateSourceList             []*ConstListInfo `json:"common_create_source_list" name:"创建来源"`                  // 创建来源
+	CommonCgreateSourceList            []*ConstListInfo `json:"common_create_source_list" name:"创建来源"`                  // 创建来源
 	CommonTimezoneList                 []*ConstListInfo `json:"common_timezone_list" name:"时区"`                         // 时区
 	// -------------------- 正则 --------------------
 	CommonRegexUsername        string `json:"common_regex_username"`         // 用户名
@@ -226,8 +226,8 @@ func LoadCommonConst() *ConstService {
 			{Value: "1", Text: "增加"},
 		},
 		CommonIsShelvesList: []*ConstListInfo{
-			{Value: "0", Text: "下架"},
-			{Value: "1", Text: "上架", Checked: true},
+			{Value: "0", Text: "已下架"},
+			{Value: "1", Text: "已上架", Checked: true},
 		},
 		CommonIsTextList: []*ConstListInfo{
 			{Value: "0", Text: "否", Checked: true},
@@ -273,12 +273,9 @@ func LoadCommonConst() *ConstService {
 			{Value: "2", Text: "同城配送"},
 			{Value: "3", Text: "到店自提"},
 		},
-		CommonSiteTypeList: []*ConstListInfo{
-			{Value: "0", Text: "快递"},
-			{Value: "1", Text: "展示"},
-			{Value: "2", Text: "自提"},
-			{Value: "3", Text: "虚拟售卖"},
-			{Value: "4", Text: "快递+自提", Checked: true}, //, "is_ext": 1
+		CommonSellMode: []*ConstListInfo{
+			{Value: "1", Text: "现货销售"},
+			{Value: "2", Text: "预售模式"},
 		},
 		CommonOrderType: []*ConstListInfo{
 			{Value: "0", Text: "快递"},
