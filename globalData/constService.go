@@ -46,7 +46,7 @@ type ConstService struct {
 	CommonMemberTypeList               []*ConstListInfo `json:"common_member_type_list" name:"会员类型"`                    // 会员类型
 	CommonLevelPayRuleList             []*ConstListInfo `json:"common_level_pay_rule_list" name:"会员等级支付规则"`             // 会员等级支付规则列表
 	CommonPayLogStatusList             []*ConstListInfo `json:"common_pay_log_status_list" name:"支付日志状态"`               // 支付日志状态
-	CommonCgreateSourceList            []*ConstListInfo `json:"common_create_source_list" name:"创建来源"`                  // 创建来源
+	CommonCreateSourceList             []*ConstListInfo `json:"common_create_source_list" name:"创建来源"`                  // 创建来源
 	CommonTimezoneList                 []*ConstListInfo `json:"common_timezone_list" name:"时区"`                         // 时区
 	// -------------------- 正则 --------------------
 	CommonRegexUsername        string `json:"common_regex_username"`         // 用户名
