@@ -25,7 +25,7 @@ type ConstService struct {
 	CommonAppType                      []*ConstListInfo `json:"common_app_type" name:"App平台"`                           // app平台
 	CommonAppminiType                  []*ConstListInfo `json:"common_appmini_type" name:"小程序平台"`                       // 小程序平台
 	CommonPaymentType                  []*ConstListInfo `json:"common_payment_type" name:"支付类型"`                        // 支付类型
-	CommonDeductionInventoryRulesList  []*ConstListInfo `json:"common_deduction_inventory_rules_list" name:"扣除库存规则"`    // 扣除库存规则
+	CommonInventoryDeductType          []*ConstListInfo `json:"common_inventory_deduct_type" name:"扣除库存规则"`             // 扣除库存规则
 	CommonSalesCountIncRulesList       []*ConstListInfo `json:"common_sales_count_inc_rules_list" name:"商品增加销量规则"`      // 商品增加销量规则
 	CommonIsReadList                   []*ConstListInfo `json:"common_is_read_list" name:"是否已读"`                        // 是否已读
 	CommonMessageTypeList              []*ConstListInfo `json:"common_message_type_list" name:"消息类型"`                   // 消息类型
@@ -205,14 +205,15 @@ func LoadCommonConst() *ConstService {
 			{Value: "offline", Text: "线下支付", Icon: "", Desc: "需要后台确认已付款"},
 			{Value: "hanging", Text: "挂账支付", Icon: ""},
 		},
-		CommonDeductionInventoryRulesList: []*ConstListInfo{
-			{Value: "0", Text: "订单确认成功"},
-			{Value: "1", Text: "订单支付成功"},
-			{Value: "2", Text: "订单发货"},
+		CommonInventoryDeductType: []*ConstListInfo{
+			{Value: "1", Text: "下单减库存"},
+			{Value: "2", Text: "支付减库存"},
+			{Value: "3", Text: "发货减库存"},
+			{Value: "4", Text: "不减库存"},
 		},
 		CommonSalesCountIncRulesList: []*ConstListInfo{
-			{Value: "0", Text: "订单支付"},
-			{Value: "1", Text: "订单收货"},
+			{Value: "1", Text: "订单支付"},
+			{Value: "2", Text: "订单收货"},
 		},
 		CommonIsReadList: []*ConstListInfo{
 			{Value: "0", Text: "未读", Checked: true},
@@ -234,19 +235,19 @@ func LoadCommonConst() *ConstService {
 			{Value: "1", Text: "是"},
 		},
 		CommonIncDecList: []*ConstListInfo{
-			{Value: "0", Text: "减少"},
-			{Value: "1", Text: "增加"},
+			{Value: "1", Text: "减少"},
+			{Value: "2", Text: "增加"},
 		},
 		CommonAppEventType: []*ConstListInfo{
-			{Value: "0", Text: "WEB页面"},
-			{Value: "1", Text: "内部页面(小程序/APP内部地址)"},
-			{Value: "2", Text: "外部小程序(同一个主体下的小程序appid)"},
-			{Value: "3", Text: "跳转原生地图查看指定位置"},
-			{Value: "4", Text: "拨打电话"},
+			{Value: "1", Text: "WEB页面"},
+			{Value: "2", Text: "内部页面(小程序/APP内部地址)"},
+			{Value: "3", Text: "外部小程序(同一个主体下的小程序appid)"},
+			{Value: "4", Text: "跳转原生地图查看指定位置"},
+			{Value: "5", Text: "拨打电话"},
 		},
 		CommonOrderAftersaleTypeList: []*ConstListInfo{
-			{Value: "0", Text: "仅退款", Desc: "未收到货(未签收),协商同意前提下", Icon: "am-icon-random", Class: "am-fl"},
-			{Value: "1", Text: "退款退货", Desc: "已收到货,需要退换已收到的货物", Icon: "am-icon-retweet", Class: "am-fr"},
+			{Value: "1", Text: "仅退款", Desc: "未收到货(未签收),协商同意前提下", Icon: "am-icon-random", Class: "am-fl"},
+			{Value: "2", Text: "退款退货", Desc: "已收到货,需要退换已收到的货物", Icon: "am-icon-retweet", Class: "am-fr"},
 		},
 		CommonOrderAftersaleStatusList: []*ConstListInfo{
 			{Value: "0", Text: "待确认"},
