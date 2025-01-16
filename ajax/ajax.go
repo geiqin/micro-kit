@@ -14,7 +14,7 @@ func ResponseData(who interface{}, err error) string {
 		ret.Msg = e.Detail
 		ret.Message = e.Detail
 	} else {
-		ret.Code = 1
+		ret.Code = 0
 		ret.Data = who
 	}
 	return helper.JsonEncode(ret)

@@ -2,7 +2,7 @@ package ajax
 
 // 结果数据
 type ResultData struct {
-	Code    int64       `json:"code"`              //错误代码: 成功：1 ，其它数字为失败
+	Code    int64       `json:"code"`              //错误代码: 成功：0 ，其它数字为失败
 	Data    interface{} `json:"data"`              //成功数据
 	Msg     string      `json:"msg,omitempty"`     //错误消息
 	Message string      `json:"message,omitempty"` //错误消息[兼容旧版本]
@@ -20,7 +20,7 @@ func Failed(message string, errCode ...int64) *ResultData {
 	var code int64 = 400
 	if errCode != nil {
 		c := errCode[0]
-		if c > 1 {
+		if c > 0 {
 			code = c
 		}
 	}
@@ -34,7 +34,7 @@ func Failed(message string, errCode ...int64) *ResultData {
 // 输出成功json数据
 func Succeed(data interface{}) *ResultData {
 	ret := &ResultData{
-		Code: 1,
+		Code: 0,
 		Data: data,
 	}
 	return ret
