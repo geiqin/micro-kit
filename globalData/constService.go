@@ -197,13 +197,11 @@ func LoadCommonConst() *ConstService {
 			{Value: "kuaishou", Text: "快手小程序"},
 		},
 		CommonPaymentType: []*ConstListInfo{
-			{Value: "weixin", Text: "微信支付", Flag: "platform", Icon: ""},
-			{Value: "alipay", Text: "支付宝支付", Flag: "platform", Icon: ""},
-			{Value: "digitalcny", Text: "数字人民币", Flag: "platform", Icon: ""},
+			{Value: "weixin", Text: "微信支付", Flag: "1", Icon: ""},
+			{Value: "alipay", Text: "支付宝支付", Flag: "1", Icon: ""},
+			{Value: "ecny", Text: "数字人民币", Flag: "1", Icon: ""},
 			{Value: "wallet", Text: "钱包支付", Icon: ""},
-			{Value: "cod", Text: "货到付款", Icon: ""},
-			{Value: "offline", Text: "线下支付", Icon: "", Desc: "需要后台确认已付款"},
-			{Value: "hanging", Text: "挂账支付", Icon: ""},
+			{Value: "offline", Text: "线下支付", Flag: "2", Icon: "", Desc: "需要后台确认已付款"},
 		},
 		CommonInventoryDeductType: []*ConstListInfo{
 			{Value: "1", Text: "下单减库存"},
