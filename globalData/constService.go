@@ -250,8 +250,8 @@ func LoadCommonConst() *ConstService {
 		},
 		CommonOrderComplaintStatus: []*ConstListInfo{
 			{Value: "1", Text: "待审核"},
-			{Value: "2", Text: "客户退货"},
-			{Value: "3", Text: "商家收货"},
+			{Value: "2", Text: "拒绝申请"},
+			{Value: "3", Text: "待买家退货"},
 			{Value: "4", Text: "待商家收货"},
 			{Value: "5", Text: "商家拒绝收货"},
 			{Value: "6", Text: "待退款"},
