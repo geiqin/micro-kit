@@ -30,3 +30,14 @@ func ResponseMsg(msg string, errCode ...int64) string {
 	}
 	return helper.JsonEncode(ret)
 }
+
+// 返回错误信息
+func ResponseError(err error) string {
+	ret := &ResultData{}
+	if err != nil {
+		e := errors.Parse(err.Error())
+		ret.Code = int64(e.Code)
+		ret.Msg = e.Detail
+	}
+	return helper.JsonEncode(ret)
+}
