@@ -12,10 +12,21 @@ func ResponseData(who interface{}, err error) string {
 		e := errors.Parse(err.Error())
 		ret.Code = int64(e.Code)
 		ret.Msg = e.Detail
-		ret.Message = e.Detail
 	} else {
 		ret.Code = 0
 		ret.Data = who
+	}
+	return helper.JsonEncode(ret)
+}
+
+// 返回文本信息(默认为成功信息)
+func ResponseMsg(msg string, errCode ...int64) string {
+	ret := &ResultData{}
+	ret.Code = 0
+	ret.Msg = msg
+
+	if errCode != nil {
+		ret.Code = errCode[0]
 	}
 	return helper.JsonEncode(ret)
 }
