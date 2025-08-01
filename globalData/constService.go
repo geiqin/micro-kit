@@ -76,7 +76,7 @@ type ConstService struct {
 func LoadCommonConst() *ConstService {
 	return &ConstService{
 		CommonSpuType: []*ConstListInfo{
-			{Value: "common", Text: "实物商品", Flag: "store", Desc: "物流/同城/自提"},
+			{Value: "physical", Text: "实物商品", Flag: "store", Desc: "物流/同城/自提"},
 			{Value: "oversea", Text: "海淘商品", Flag: "store", Desc: "跨境海淘"},
 			{Value: "virtual", Text: "虚拟商品", Flag: "store", Desc: "无需物流"},
 			{Value: "knowledge", Text: "知识付费", Flag: "store", Desc: "无需物流"},
