@@ -21,10 +21,10 @@ type ConstService struct {
 	CommonMapTypeList                []*ConstListInfo `json:"common_map_type_list" name:"地图类型列表"`                   // 地图类型列表
 	CommonOrderPayStatus             []*ConstListInfo `json:"common_order_pay_status" name:"订单支付状态"`                // 订单支付状态
 	CommonOrderStatus                []*ConstListInfo `json:"common_order_status" name:"订单状态"`                      // 订单状态
-	CommonClientType                 []*ConstListInfo `json:"common_client_type" name:"终端类型"`                       // 终端类型
+	CommonFromType                   []*ConstListInfo `json:"common_from_type" name:"来源类型"`                         // 来源类型
 	CommonAppType                    []*ConstListInfo `json:"common_app_type" name:"App平台"`                         // app平台
-	CommonAppminiType                []*ConstListInfo `json:"common_appmini_type" name:"小程序平台"`                     // 小程序平台
-	CommonPaymentType                []*ConstListInfo `json:"common_payment_type" name:"支付类型"`                      // 支付类型
+	CommonRoutineType                []*ConstListInfo `json:"common_routine_type" name:"小程序类型"`                     // 小程序类型
+	CommonPayType                    []*ConstListInfo `json:"common_pay_type" name:"支付类型"`                          // 支付类型
 	CommonInventoryDeductType        []*ConstListInfo `json:"common_inventory_deduct_type" name:"扣除库存规则"`           // 扣除库存规则
 	CommonSalesCountIncRulesList     []*ConstListInfo `json:"common_sales_count_inc_rules_list" name:"商品增加销量规则"`    // 商品增加销量规则
 	CommonIsReadList                 []*ConstListInfo `json:"common_is_read_list" name:"是否已读"`                      // 是否已读
@@ -170,17 +170,11 @@ func LoadCommonConst() *ConstService {
 			{Value: "5", Text: "已取消"},
 			{Value: "6", Text: "已关闭"},
 		},
-		CommonClientType: []*ConstListInfo{
+		CommonFromType: []*ConstListInfo{
+			{Value: "app", Text: "APP应用"},
 			{Value: "pc", Text: "PC网站"},
-			{Value: "h5", Text: "H5手机网站"},
-			{Value: "ios", Text: "苹果APP"},
-			{Value: "android", Text: "安卓APP"},
-			{Value: "weixin", Text: "微信小程序"},
-			{Value: "alipay", Text: "支付宝小程序"},
-			{Value: "baidu", Text: "百度小程序"},
-			{Value: "toutiao", Text: "头条小程序"},
-			{Value: "qq", Text: "QQ小程序"},
-			{Value: "kuaishou", Text: "快手小程序"},
+			{Value: "h5", Text: "H5网站"},
+			{Value: "routine", Text: "小程序"},
 			{Value: "cashier", Text: "收银台"},
 		},
 		CommonAppType: []*ConstListInfo{
@@ -188,19 +182,19 @@ func LoadCommonConst() *ConstService {
 			{Value: "android", Text: "安卓APP"},
 			{Value: "harmony", Text: "鸿蒙APP"},
 		},
-		CommonAppminiType: []*ConstListInfo{
-			{Value: "weixin", Text: "微信小程序"},
-			{Value: "alipay", Text: "支付宝小程序"},
-			{Value: "baidu", Text: "百度小程序"},
-			{Value: "toutiao", Text: "头条小程序"},
-			{Value: "qq", Text: "QQ小程序"},
-			{Value: "kuaishou", Text: "快手小程序"},
+		CommonRoutineType: []*ConstListInfo{
+			{Value: "MP-WEIXIN", Text: "微信小程序"},
+			{Value: "MP-ALIPAY", Text: "支付宝小程序"},
+			{Value: "MP-BAIDU", Text: "百度小程序"},
+			{Value: "MP-TOUTIAO", Text: "头条小程序"},
+			{Value: "MP-QQ", Text: "QQ小程序"},
+			{Value: "MP-KUAISHOU", Text: "快手小程序"},
 		},
-		CommonPaymentType: []*ConstListInfo{
+		CommonPayType: []*ConstListInfo{
 			{Value: "weixin", Text: "微信支付", Flag: "1", Icon: ""},
 			{Value: "alipay", Text: "支付宝支付", Flag: "1", Icon: ""},
 			{Value: "ecny", Text: "数字人民币", Flag: "1", Icon: ""},
-			{Value: "wallet", Text: "钱包支付", Icon: ""},
+			{Value: "surplus", Text: "余额支付", Icon: ""},
 			{Value: "offline", Text: "线下支付", Flag: "2", Icon: "", Desc: "需要后台确认已付款"},
 		},
 		CommonInventoryDeductType: []*ConstListInfo{
