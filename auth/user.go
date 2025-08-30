@@ -129,17 +129,17 @@ func (a *User) GetUserType() string {
 //获得当前授权用户
 func GetUser(ctx context.Context) *User {
 	ret := &User{
-		Mode:        getMetaValue(ctx, "mode"),
-		Nickname:    getMetaValue(ctx, "nickname"),
-		UserId:      utils.StringToInt64(getMetaValue(ctx, "user_id")),
-		PlatformId:  utils.StringToInt64(getMetaValue(ctx, "platform_id")),
-		StoreId:     utils.StringToInt64(getMetaValue(ctx, "store_id")),
-		RealstoreId: utils.StringToInt64(getMetaValue(ctx, "realstore_id")),
-		ShopId:      utils.StringToInt64(getMetaValue(ctx, "shop_id")),
-		SessionKey:  getMetaValue(ctx, "session_id"),
-		ClientId:    getMetaValue(ctx, "client_id"),
+		Mode:        getMetaValue(ctx, "Auth-Mode"),
+		Nickname:    getMetaValue(ctx, "Auth-Nickname"),
+		UserId:      utils.StringToInt64(getMetaValue(ctx, "Auth-User-Id")),
+		PlatformId:  utils.StringToInt64(getMetaValue(ctx, "Auth-Platform-Id")),
+		StoreId:     utils.StringToInt64(getMetaValue(ctx, "Auth-Store-Id")),
+		RealstoreId: utils.StringToInt64(getMetaValue(ctx, "Auth-Realstore-Id")),
+		ShopId:      utils.StringToInt64(getMetaValue(ctx, "Auth-Shop-Id")),
+		SessionKey:  getMetaValue(ctx, "Auth-Session-Key"),
+		ClientId:    getMetaValue(ctx, "Auth-Client-Id"),
 	}
-	dp := getMetaValue(ctx, "extends")
+	dp := getMetaValue(ctx, "Auth-Extends")
 	if dp != "" {
 		utils.JsonDecode(dp, &ret.Extends)
 	}
@@ -190,16 +190,16 @@ func SetUser(ctx *gin.Context, user *User) {
 	if ctx.Keys == nil {
 		ctx.Keys = make(map[string]interface{})
 	}
-	ctx.Keys["mode"] = user.Mode
-	ctx.Keys["nickname"] = user.Nickname
-	ctx.Keys["user_id"] = user.UserId
-	ctx.Keys["store_id"] = user.StoreId
-	ctx.Keys["platform_id"] = user.PlatformId
-	ctx.Keys["realstore_id"] = user.RealstoreId
-	ctx.Keys["shop_id"] = user.ShopId
-	ctx.Keys["session_key"] = user.SessionKey
-	ctx.Keys["client_id"] = user.ClientId
-	ctx.Keys["extends"] = user.Extends
+	ctx.Keys["Auth-Mode"] = user.Mode
+	ctx.Keys["Auth-Nickname"] = user.Nickname
+	ctx.Keys["Auth-User-Id"] = user.UserId
+	ctx.Keys["Auth-Store-Id"] = user.StoreId
+	ctx.Keys["Auth-Platform-Id"] = user.PlatformId
+	ctx.Keys["Auth-Realstore-Id"] = user.RealstoreId
+	ctx.Keys["Auth-Shop-Id"] = user.ShopId
+	ctx.Keys["Auth-Session-Key"] = user.SessionKey
+	ctx.Keys["Auth-Client-Id"] = user.ClientId
+	ctx.Keys["Auth-Extends"] = user.Extends
 	//Pass on
 	ctx.Next()
 }
@@ -224,7 +224,7 @@ func GetMemberId(ctx context.Context) int64 {
 
 //获得当前店铺ID
 func GetStoreId(ctx context.Context) int64 {
-	val := ctx.Value("store_id")
+	val := ctx.Value(StoreIdKey)
 	if val != nil {
 		v := utils.StringToInt64(utils.ToString(val))
 		return v

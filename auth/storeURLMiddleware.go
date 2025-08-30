@@ -13,8 +13,8 @@ func StoreURLMiddleware(ctx *gin.Context) {
 		ctx.Keys = make(map[string]interface{})
 	}
 	if storeId > 0 {
-		ctx.Keys["store_id"] = strId
-		ctx.Header("Auth-Store-Id", strId)
+		ctx.Keys[StoreIdKey] = strId
+		ctx.Header(StoreIdKey, strId)
 	}
 	ctx.Next()
 }

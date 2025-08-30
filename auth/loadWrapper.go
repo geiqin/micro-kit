@@ -3,19 +3,25 @@ package auth
 import (
 	"context"
 	"errors"
+	"github.com/geiqin/gotools/helper"
 	"github.com/micro/go-micro/v2/metadata"
 	"github.com/micro/go-micro/v2/server"
 )
 
-var changeKeys = map[string]string{
-	"Auth-Mode":         "mode",
-	"Auth-User-Id":      "user_id",
-	"Auth-Store-Id":     "store_id",
-	"Auth-Realstore-Id": "realstore_id",
-	"Auth-Platform-Id":  "platform_id",
-	"Auth-Shop-Id":      "shop_id",
-	"Auth-Nickname":     "nickname",
-	"Auth-Session-Key":  "session_key",
+const StoreIdKey = "Auth-Store-Id" //授权店铺ID Key
+
+//写入上下文内容
+var inContainKeys = []string{
+	"Auth-Mode",
+	"Auth-User-Id",
+	"Auth-Store-Id",
+	"Auth-Realstore-Id",
+	"Auth-Platform-Id",
+	"Auth-Shop-Id",
+	"Auth-Nickname",
+	"Auth-Session-Key",
+	"From-Type",
+	"Routine-Type",
 }
 
 // AuthWrapper 是一个高阶函数，入参是 ”下一步“ 函数，出参是认证函数
@@ -30,66 +36,10 @@ func LoadWrapper(fn server.HandlerFunc) server.HandlerFunc {
 		}
 
 		for k, v := range meta {
-			fv, fHas := changeKeys[k]
-			if fHas {
-				ctx = context.WithValue(ctx, fv, v)
-			} else {
+			if helper.HasContainString(inContainKeys, k) {
 				ctx = context.WithValue(ctx, k, v)
 			}
 		}
-
-		/*
-			mode := meta["Auth-Mode"]
-			userId := meta["Auth-User-Id"]
-			nickname := meta["Auth-Nickname"]
-			sessionKey := meta["Auth-Session-Key"]
-			platformId := meta["Auth-Platform-Id"]
-			storeId := meta["Auth-Store-Id"]
-			realstoreId := meta["Auth-Realstore-Id"]
-			shopId := meta["Auth-Shop-Id"]
-			clientId := meta["Auth-Client-Id"]
-			extends := meta["Auth-Extends"]
-			application := meta["Application"]
-			applicationClientType := meta["Application-Client-Type"]
-
-			if mode != "" {
-				ctx = context.WithValue(ctx, "mode", mode)
-			}
-			if extends != "" {
-				ctx = context.WithValue(ctx, "extends", extends)
-			}
-			if userId != "" {
-				ctx = context.WithValue(ctx, "user_id", userId)
-			}
-			if nickname != "" {
-				ctx = context.WithValue(ctx, "nickname", nickname)
-			}
-			if storeId != "" {
-				ctx = context.WithValue(ctx, "store_id", storeId)
-			}
-			if realstoreId != "" {
-				ctx = context.WithValue(ctx, "realstore_id", realstoreId)
-			}
-			if platformId != "" {
-				ctx = context.WithValue(ctx, "platform_id", platformId)
-			}
-			if shopId != "" {
-				ctx = context.WithValue(ctx, "shop_id", shopId)
-			}
-			if sessionKey != "" {
-				ctx = context.WithValue(ctx, "session_key", sessionKey)
-			}
-			if clientId != "" {
-				ctx = context.WithValue(ctx, "client_id", clientId)
-			}
-			if application != "" {
-				ctx = context.WithValue(ctx, "application", application)
-			}
-			if applicationClientType != "" {
-				ctx = context.WithValue(ctx, "application_client_type", applicationClientType)
-			}
-
-		*/
 
 		//继续执行下一步处理
 		err := fn(ctx, req, resp)
