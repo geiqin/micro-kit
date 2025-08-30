@@ -30,7 +30,7 @@ func LoadWrapper(fn server.HandlerFunc) server.HandlerFunc {
 		for k, v := range meta {
 			fk, fHas := changeKeys[k]
 			if fHas {
-				ctx = context.WithValue(ctx, fk, v)
+				ctx = context.WithValue(ctx, changeKeys[k], v)
 			} else {
 				ctx = context.WithValue(ctx, k, v)
 			}
