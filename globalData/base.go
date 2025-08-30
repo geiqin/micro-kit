@@ -1,5 +1,6 @@
 package globalData
 
+/*
 import (
 	"context"
 	"github.com/geiqin/micro-kit/utils"
@@ -78,3 +79,5 @@ func GetHttpUserAgent(ctx context.Context) string {
 	}
 	return ""
 }
+
+*/
