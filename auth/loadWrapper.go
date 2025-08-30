@@ -8,12 +8,14 @@ import (
 )
 
 var changeKeys = map[string]string{
-	"Auth-Mode":        "mode",
-	"Auth-User-Id":     "user_id",
-	"Auth-Nickname":    "nickname",
-	"Auth-Session-Key": "session_key",
-	"Auth-Platform-Id": "platform_id",
-	"Auth-Shop-Id":     "shop_id",
+	"Auth-Mode":         "mode",
+	"Auth-User-Id":      "user_id",
+	"Auth-Store-Id":     "store_id",
+	"Auth-Realstore-Id": "realstore_id",
+	"Auth-Platform-Id":  "platform_id",
+	"Auth-Shop-Id":      "shop_id",
+	"Auth-Nickname":     "nickname",
+	"Auth-Session-Key":  "session_key",
 }
 
 // AuthWrapper 是一个高阶函数，入参是 ”下一步“ 函数，出参是认证函数
@@ -28,9 +30,9 @@ func LoadWrapper(fn server.HandlerFunc) server.HandlerFunc {
 		}
 
 		for k, v := range meta {
-			fk, fHas := changeKeys[k]
+			fv, fHas := changeKeys[k]
 			if fHas {
-				ctx = context.WithValue(ctx, changeKeys[k], v)
+				ctx = context.WithValue(ctx, fv, v)
 			} else {
 				ctx = context.WithValue(ctx, k, v)
 			}
